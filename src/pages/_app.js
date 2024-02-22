@@ -1,11 +1,7 @@
-import Nav from "@/component/navbar/Nav";
 import "../app/globals.css";
-import Footer from "@/component/footer/Footer";
-import Copyright from "@/component/Rights/Copyright";
 import { Provider } from "react-redux";
 import store from "@/redux/store";
 import { Toaster } from "react-hot-toast";
-import Navbar from "@/component/navbar/Navbar";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 function MyApp({ Component, pageProps }) {
@@ -14,8 +10,6 @@ function MyApp({ Component, pageProps }) {
       <Provider store={store}>
         <Toaster position="bottom-left" />
         <Component {...pageProps} />
-        {/* <Footer /> */}
-        <Copyright />
       </Provider>
     </GoogleOAuthProvider>
   );
