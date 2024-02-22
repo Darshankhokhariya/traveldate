@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* @font-face {
+    font-family: 'Comfortaa';
+    src: url('../assets/static/Comfortaa-Regular.ttf') ,
+  } */
+
+
+body{
+background-image: url("/images1/bg.png");
+background-repeat: no-repeat;
+height: max-content;
+width: 100%;
+background-size: cover;
+/* font-family: Comfortaa; */
+}
+
+
+/* 
+@media only screen and (max-width: 430px) {
+
+  body{
+    background-image: url("/images/mobilebg.png");
+    height:fit-content;
+    width: 100%;
+    background-repeat: repeat-y;
+    background-size: cover;
+    }
+    
+}  */
+
+
+.slider{
+  background-image: url(/images1/Main.png);
+  background-position: center;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height:max-content;
+  min-height: 100vh;
+  border-radius:30px !important;
+}
+.footer{
+  background-image: url(/images1/footer.png);
+  /* background-color: aqua; */
+  background-position: center;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 100px;
+  border-radius:30px !important;
+}
+
+.testi{
+  background-image: url(/images1/testi.png);
+  background-repeat: no-repeat;
+  height:max-content;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  border-radius:30px !important;
+  
+}
