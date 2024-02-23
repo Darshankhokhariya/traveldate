@@ -42,7 +42,7 @@ function Offer() {
             Our Recent Member
           </p>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-3 justify-items-center lg:gap-x-32 gap-y-10 m-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-3 justify-items-center lg:gap-x-10 gap-y-10 m-auto">
           {cards.map((e) => {
             return (
               <>

@@ -5,49 +5,49 @@ function Recent() {
     {
       name: "Aasta Smith",
       age: "",
-      image: "/images/model1.png",
+      image: "/images1/models/model1.png",
       location: "Rome, Italy",
     },
     {
       name: "Aasta Smith",
       age: "",
-      image: "/images/model1.png",
+      image: "/images1/models/model2.png",
       location: "Rome, Italy",
     },
     {
       name: "Aasta Smith",
       age: "",
-      image: "/images/model1.png",
+      image: "/images1/models/model3.png",
       location: "Rome, Italy",
     },
     {
       name: "Aasta Smith",
       age: "",
-      image: "/images/model1.png",
+      image: "/images1/models/model4.png",
       location: "Rome, Italy",
     },
     {
       name: "Aasta Smith",
       age: "",
-      image: "/images/model1.png",
+      image: "/images1/models/model5.png",
       location: "Rome, Italy",
     },
     {
       name: "Aasta Smith",
       age: "",
-      image: "/images/model1.png",
+      image: "/images1/models/model6.png",
       location: "Rome, Italy",
     },
     {
       name: "Aasta Smith",
       age: "",
-      image: "/images/model1.png",
+      image: "/images1/models/model7.png",
       location: "Rome, Italy",
     },
     {
       name: "Aasta Smith",
       age: "",
-      image: "/images/model1.png",
+      image: "/images1/models/model8.png",
       location: "Rome, Italy",
     },
   ];
@@ -71,7 +71,7 @@ function Recent() {
                 <div class=" bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
                   <a href="#">
                     <img
-                      src="/images1/model1.png"
+                      src={e?.image}
                       alt="Product"
                       class="md:h-[250px] w-auto lg:w-72 object-cover rounded-t-xl"
                     />
