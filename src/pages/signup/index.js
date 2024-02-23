@@ -4,8 +4,6 @@ function index() {
     return (
         <div><section class="bg-transparent">
             <div class="grid grid-cols-1 md:grid-cols-2">
-
-
                 <div class="flex items-center  px-4 py-10 bg-transparent sm:px-6 lg:px-8 sm:py-16 lg:py-12">
                     <div class=" w-full lg:w-[80%]   ">
                         <div className='lg:ml-14 mx-auto'>
