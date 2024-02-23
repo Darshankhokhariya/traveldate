@@ -3,20 +3,24 @@ import React, { useState } from "react";
 function Testi() {
   const testimonials = [
     {
-      name: "abc",
-      description: "asdfsdfdsdgasfgadfgsdfsdgsdfdfsdfsdassdf",
+      name: "Mark Smith",
+      description: "Travel Enthusiast",
+      image: "/images1/ing1.png",
     },
     {
-      name: "test23456",
-      description: "gadfgsdfsdgsdfdfsdfsdassdf",
+      name: "Mark Smith",
+      description: "Travel Enthusiast",
+      image: "/images1/ing1.png",
     },
     {
-      name: "atest",
-      description: "test",
+      name: "Mark Smith",
+      description: "Travel Enthusiast",
+      image: "/images1/ing1.png",
     },
     {
-      name: "atttest123412",
-      description: "asdfsdfdasdqwd55475675654656sdfsdassdf",
+      name: "Mark Smith",
+      description: "Travel Enthusiast",
+      image: "/images1/ing1.png",
     },
   ];
   const [activeSlide, setActiveSlide] = useState(0);
@@ -49,21 +53,17 @@ function Testi() {
             className="flex transition-transform duration-500 ease-in-out"
             style={{ transform: `translateX(-${activeSlide * 100}%)` }}
           >
-            {testimonials.map((e) => {
+            {testimonials.map((e, index) => {
               return (
-                <div className="flex-shrink-0 w-full mt-52">
+                <div key={index} className="flex-shrink-0 w-full mt-52">
                   <div className=" w-full flex flex-col justify-center items-center px-10">
                     <div className="">
-                      <img
-                        src="/images1/ing1.png"
-                        className="w-auto h-auto"
-                        alt=""
-                      />
+                      <img src={e?.image} className="w-auto h-auto" alt="" />
                     </div>
                     <div className="text-base md:text-[28px] font-semibold mt-5">
                       {" "}
-                      <span className="text-primary"> Mark Smith </span> /
-                      Travel Enthusiast
+                      <span className="text-primary"> {e?.name} </span> /
+                      {e.description}
                     </div>
                     <div className="py-2">
                       <svg
