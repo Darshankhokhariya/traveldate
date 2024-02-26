@@ -3,7 +3,7 @@ import React from "react";
 function Footer() {
   return (
     <>
-      <footer className="p-4 overflow-hidden footer">
+      <footer className="p-4 overflow-hidden footer ">
         <div className="container px-5 md:px-10 lg:px-20 py-12 mx-auto  w-full">
           <div className="relative">
             <div class="container md:px-6 py-12 mx-auto">

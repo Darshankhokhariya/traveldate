@@ -17,72 +17,83 @@ function Slider() {
             src="/images1/main.png"
           />
         </div> */}
-        <div className="slider py-10">
+        <div className="slider py-5">
           <Nav />
-          <div className="flex flex-col lg:flex-row  justify-between  w-full h-full">
+          <div className="flex flex-col lg:flex-row  justify-between  w-full h-full container mx-auto">
             <div className="w-full h-full  m-auto lg:w-[50%]  ">
               <div className="flex flex-col justify-center px-5 lg:px-20">
                 <Maintext />
               </div>
             </div>
-            <div className="lg:w-[50%] m-auto  w-full lg:block  mt-6 px-5 md:px-36 lg:px-5">
+            <div className="lg:w-[50%] m-auto  w-full lg:block  mt-6 px-2 md:px-36 lg:px-5">
               <div className=" relative w-full m-auto flex items-center">
-                {/* <div class="absolute left-0  -top-10    z-1   rounded-xl  p-2">
+                <div class="absolute top-9 md:left-20  md:top-4    z-1   rounded-xl  p-2">
                   <div>
-                    <img src="/images1/lines.png" />
+                    <img className="" src="/images1/lines.png" />
                   </div>
-                </div> */}
+                </div>
+
+                <div class="absolute top-20  right-0 lg:right-14 lg:top-16    z-20   rounded-xl  p-2">
+                  <img
+                    className="w-[80px] h-[80px] lg:h-auto lg:w-auto"
+                    src="/images1/emoji1.png"
+                  />
+                </div>
 
                 {/* card1 */}
-                <div className="w-[45%] lg:w-[50%] -rotate-12 h-max   z-10 ml-2 lg:ml-10 relative">
-                  <div class="w-full h-full ml-14 -mb-8  bg-white rounded-3xl  unded-lg shadow-lg p-2">
+                <div className="w-[45%] lg:w-[45%] -rotate-12 h-max   z-10 ml-2 lg:ml-10 relative">
+                  <div class="w-full h-full ml-6 lg:ml-14 -mb-8  bg-white rounded-3xl  unded-lg shadow-lg p-1">
                     <img
-                      class="object-cover  h-[150px] lg:h-[280px] w-full rounded-2xl"
+                      class="object-cover  h-[150px] lg:h-[280px] w-full rounded-3xl"
                       src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
                       alt="avatar"
                     />
 
-                    <div class="py-2">
-                      <a
-                        href="#"
-                        class="block sm:text-xl lg:text-4xl px-4 font-bold text-gray-800"
-                        tabindex="0"
-                        role="link"
-                      >
-                        John Doe
-                      </a>
-                      <span class="text-md px-4 text-gray-700">
-                        Rome, italy
-                      </span>
+                    <div class="flex items-start px-2 py-2">
+                      <div>
+                        <p class="text-lg font-bold truncate block capitalize">
+                          Aasta Smith
+                        </p>
+                        <div className="flex items-center gap-4 text-secondary">
+                          {/* <img src="/icons/location.svg" alt="" /> */}
+                          <p class="text-sm  cursor-auto ml-6">Rome, Italy</p>
+                        </div>
+                      </div>
+
+                      <div class="ml-auto pt-2 text-xl text-primary font-bold">
+                        24
+                      </div>
                     </div>
                   </div>
-                  <div className="absolute -bottom-[90px]  lg:bottom-12 -left-2  lg:-left-[40px] z-50">
+                  <div className="absolute -bottom-[78px]  lg:-bottom-[110px] -left-2  lg:-left-[10px] z-50">
                     <img
                       src="/images1/earth.png"
-                      className="h-[100px] w-[100px] lg:h-auto lg:w-auto"
+                      className="h-[80px] w-[80px] lg:h-auto lg:w-auto"
                     />
                   </div>
                 </div>
-                <div className="w-[45%] lg:w-[50%]   rounded-3xl h-max overflow-clip  bg-white z-10 mt-32 ml-2 lg:-ml-20 ">
-                  <div class="w-full h-full  bg-white   unded-lg shadow-lg p-2">
+                <div className="w-[45%] lg:w-[45%]   rounded-3xl h-max overflow-clip  bg-white z-10 mt-32 ml-2 lg:-ml-20 ">
+                  <div class="w-full h-full  bg-white   unded-lg shadow-lg p-1">
                     <img
-                      class="object-cover  h-[150px] lg:h-[280px] w-full rounded-2xl"
+                      class="object-cover  h-[150px] lg:h-[280px] w-full rounded-3xl"
                       src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
                       alt="avatar"
                     />
 
-                    <div class="py-2">
-                      <a
-                        href="#"
-                        class="block sm:text-xl lg:text-4xl px-4 font-bold text-gray-800"
-                        tabindex="0"
-                        role="link"
-                      >
-                        John Doe
-                      </a>
-                      <span class="text-md px-4 text-gray-700">
-                        Rome, italy
-                      </span>
+                    <div class="flex items-start px-2 py-2">
+                      <div>
+                        <p class="text-lg font-bold truncate block capitalize">
+                          Aasta Smith
+                        </p>
+                        <div className="flex items-center gap-1 text-secondary">
+                          <img src="/icons/location.svg" alt="" />
+                          <p class="text-sm  cursor-auto my-3">Rome, Italy</p>
+                        </div>
+                      </div>
+
+                      <div class="ml-auto pt-2 text-xl text-primary font-bold">
+                        24
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -1,10 +1,16 @@
+import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 
 function Secondarybutton(props) {
-  const { text } = props;
+  const { text, path } = props;
+  const router = useRouter();
   return (
     <>
-      <button className="px-[32px] py-[16px] bg-primary text-white rounded-full">
+      <button
+        onClick={() => router.push(path)}
+        className="px-[32px] py-[16px] bg-primary text-white rounded-full"
+      >
         {text}
       </button>
     </>

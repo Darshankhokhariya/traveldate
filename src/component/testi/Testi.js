@@ -41,12 +41,14 @@ function Testi() {
   return (
     <>
       <div className="py-20">
-        <div className="uppercase  text-primary font-medium text-center">
-          TESTIMONIAL
+        <div>
+          <div className="uppercase  text-primary font-medium text-center">
+            TESTIMONIAL
+          </div>
+          <p className="text-[48px] font-semibold text-black text-center">
+            Trust our clients
+          </p>
         </div>
-        <p className="text-[48px] font-semibold text-black text-center">
-          Trust our clients
-        </p>
 
         <div className="relative overflow-hidden testi">
           <div

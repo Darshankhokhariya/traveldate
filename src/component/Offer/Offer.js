@@ -35,14 +35,14 @@ function Offer() {
   ];
   return (
     <>
-      <div className="container px-5 lg:px-20 mx-auto">
+      <div className="container px-5 lg:px-24 mx-auto">
         <div className="py-20">
           <div className="uppercase  text-primary font-medium">New Member</div>
           <p className="text-[48px] font-semibold text-black">
             Our Recent Member
           </p>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-3 justify-items-center lg:gap-x-10 gap-y-10 m-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-x-10 gap-y-10 m-auto">
           {cards.map((e) => {
             return (
               <>

@@ -9,7 +9,7 @@ function Maintext() {
       <h1 className="text-[36px] lg:text-6xl font-[600] text-white text-center lg:text-start">
         Find your Perfect <br /> Travel Match with <br /> Traveldate
       </h1>
-      <p className="text-white mt-6 text-[24px] text-center lg:text-start ">
+      <p className="text-white mt-6 text-[12px] md:text-[24px] text-center lg:text-start ">
         Join over 100K travel partners seeking companionship on TravelDate and
         embark on memorable journeys together!
       </p>

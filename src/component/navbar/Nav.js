@@ -13,10 +13,9 @@ function Nav() {
   return (
     <>
       <div className="w-full bg-transparent ">
-        <div className="container  flex items-center justify-between mx-auto py-3 lg:py-10 px-5 lg:px-20 ">
+        <div className="container  flex items-center justify-between mx-auto py-3 lg:pt-3 px-5 lg:px-20 ">
           <div className="inline-flex items-center space-x-2">
             <img src="/images1/logo.png" />
-
           </div>
           <div className="hidden lg:block">
             <ul className="inline-flex space-x-20">
@@ -44,7 +43,7 @@ function Nav() {
           </div>
           <div className="hidden lg:flex items-center gap-3">
             <Primarybutton text="login" />
-            <Secondarybutton text="sign up" />
+            <Secondarybutton text="sign up" path="/signup" />
           </div>
 
           <div className="lg:hidden">
