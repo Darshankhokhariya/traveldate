@@ -10,19 +10,50 @@ function Slider() {
 
   return (
     <>
-      <div className="lg:p-2 overflow-x-hidden">
-        {/* <div>
-          <img
-            className="w-full overflow-x-hidden relative min-h-screen h-[1200px]"
-            src="/images1/main.png"
-          />
-        </div> */}
+      <div className="lg:p-2 overflow-x-hidden container mx-auto">
         <div className="slider py-5">
           <Nav />
-          <div className="flex flex-col lg:flex-row  justify-between  w-full h-full container mx-auto">
+          <div className="flex flex-col lg:flex-row  justify-between  w-full h-full container mx-auto py-20">
             <div className="w-full h-full  m-auto lg:w-[50%]  ">
               <div className="flex flex-col justify-center px-5 lg:px-20">
                 <Maintext />
+              </div>
+              <div className="w-full hidden md:grid grid-cols-3 justify-items-center  gap-4 px-20 py-10 ">
+                <div className="">
+                  <img
+                    src="/images1/icons/icon3.png"
+                    className="h-[80px] w-[80px] object-cover"
+                    alt=""
+                  />
+                  <h1 className="text-white font-bold">100k+ Members</h1>
+                  <p className="text-xs text-white">
+                    Over thousand of interested travellers are waiting for you
+                  </p>
+                </div>
+
+                <div className="">
+                  <img
+                    src="/images1/icons/icon2.png"
+                    className="h-[80px] w-[80px] object-cover"
+                    alt=""
+                  />
+                  <h1 className="text-white font-bold">100k+ Members</h1>
+                  <p className="text-xs text-white">
+                    Over thousand of interested travellers are waiting for you
+                  </p>
+                </div>
+
+                <div className="">
+                  <img
+                    className="h-[80px] w-[80px] object-cover"
+                    src="/images1/icons/icon1.png"
+                    alt=""
+                  />
+                  <h1 className="text-white font-bold">100k+ Members</h1>
+                  <p className="text-xs text-white">
+                    Over thousand of interested travellers are waiting for you
+                  </p>
+                </div>
               </div>
             </div>
             <div className="lg:w-[50%] m-auto  w-full lg:block  mt-6 px-2 md:px-36 lg:px-5">
@@ -45,7 +76,7 @@ function Slider() {
                   <div class="w-full h-full ml-6 lg:ml-14 -mb-8  bg-white rounded-3xl  unded-lg shadow-lg p-1">
                     <img
                       class="object-cover  h-[150px] lg:h-[280px] w-full rounded-3xl"
-                      src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                      src="/images1/models/model1.png"
                       alt="avatar"
                     />
 
@@ -76,7 +107,7 @@ function Slider() {
                   <div class="w-full h-full  bg-white   unded-lg shadow-lg p-1">
                     <img
                       class="object-cover  h-[150px] lg:h-[280px] w-full rounded-3xl"
-                      src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                      src="/images1/models/model2.png"
                       alt="avatar"
                     />
 
@@ -216,10 +247,10 @@ function Slider() {
                 </div>
               </div> */}
             </div>
-            <div className="mt-10 gap-4 flex justify-center py-10 lg:hidden items-center">
+            {/* <div className="mt-10 gap-4 flex justify-center py-10 lg:hidden items-center">
               <Secondarybutton text="Get Started" />
               <Primarybutton text="Watch Demo" />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
