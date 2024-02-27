@@ -1,37 +1,23 @@
-import React, { useState } from 'react'
-import Join from "../../component/Joinmodal"
+import React from 'react'
 
 function index() {
-
-
     return (
         <div><section class="bg-transparent">
             <div class="grid grid-cols-1 md:grid-cols-2">
                 <div class="flex items-center  px-4 py-10 bg-transparent sm:px-6 lg:px-8 sm:py-16 lg:py-12">
                     <div class=" w-full lg:w-[80%]   ">
                         <div className='lg:ml-14 mx-auto'>
-                            <img src="/images1/frame1.png" className='h-8 '></img>
+                            <img src="/images1/Frame1.png" className='h-8 '></img>
                             <h2 class="text-3xl font-bold leading-tight mt-10 text-black sm:text-4xl">Welcome!</h2>
 
                             <div className='block md:hidden mt-4 overflow-hidden w-full object-cover rounded-2xl'>
-                                <img src='/images1/signup2.jpg' className='w-full' />
+                                <img src='/images1/signin2.jpg' className='w-full' />
                             </div>
 
 
                             <form action="#" method="POST" class="mt-8 md:mt-5">
                                 <div class="space-y-5">
-                                    <div>
-                                        <label for="" class="  text-gray-400">Name </label>
-                                        <div class="mt-1 relative text-gray-400 focus-within:text-gray-600">
-                                            <input
-                                                type="text"
-                                                name=""
-                                                id=""
-                                                placeholder="Enter name"
-                                                class="block w-full py-2 pl-4 pr-4 text-black placeholder-gray-400 transition-all duration-200 border-2 border-gray-200 rounded-lg bg-white focus:outline-none focus:border-gray-400 focus:bg-white "
-                                            />
-                                        </div>
-                                    </div>
+
                                     <div>
                                         <label for="" class="  text-gray-400">Email </label>
                                         <div class="mt-1 relative text-gray-400 focus-within:text-gray-600">
@@ -69,6 +55,7 @@ function index() {
                                     <div className='w-full flex justify-center'>
                                         <button className='bg-[#f5435a] py-3 px-9 text-sm text-white rounded-3xl'>Log in</button>
                                     </div>
+
 
 
                                     <div class="flex w-full items-center gap-2 py-4 text-sm text-slate-600">
@@ -116,7 +103,7 @@ function index() {
                             </button>
 
                             <p class="mt-5 text-sm text-center font-medium text-gray-600">
-                                Already have an account? <a href="#" title="" class="text-red-600 transition-all duration-200 hover:underline ">Sign in</a>
+                                Don't have an account? <a href="#" title="" class="text-red-600 transition-all duration-200 hover:underline ">Sign up</a>
                             </p>
                         </div>
                     </div>
@@ -124,13 +111,11 @@ function index() {
 
                 <div class="relative hidden md:flex items-end px-4 pb-10 pt-60 sm:pb-16 md:justify-center  sm:px-6 lg:px-8">
                     <div class="absolute inset-0 ">
-                        <img class="object-cover w-full h-full" src="/images1/signup.jpg" alt="" />
+                        <img class="object-cover w-full h-full" src="/images1/signin.jpg" alt="" />
                     </div>
 
 
                 </div>
-
-
             </div >
         </section >
         </div >
