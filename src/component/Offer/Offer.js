@@ -35,7 +35,7 @@ function Offer() {
   ];
   return (
     <>
-      <div className="container px-5 lg:px-24 mx-auto">
+      <div className="container px-8 lg:px-24 mx-auto">
         <div className="py-20">
           <div className="uppercase  text-primary font-medium">New Member</div>
           <p className="text-[48px] font-semibold text-black">
@@ -47,7 +47,7 @@ function Offer() {
             return (
               <>
                 <div className=" bg-white rounded-3xl p-5 flex flex-col items-center justify-center border border-secondary1">
-                  <div className="py-10">
+                  <div className="py-4 lg:py-10">
                     <img src={e?.icon} className="" alt="" />
                   </div>
                   <div className="text-[28px] font-semibold text-center py-5">

@@ -40,7 +40,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   height: max-content;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   border-radius: 30px !important;
 }
 
@@ -66,17 +66,8 @@ body {
 }
 
 
-.testi {
-  background-image: url(/images1/testi.png);
-  background-repeat: no-repeat;
-  height: max-content;
-  min-height: 100vh;
-  background-size: cover;
-  background-position: center;
-  border-radius: 30px !important;
-}
 
-@media only screen and (max-width: 480) {
+@media only screen and (max-width: 770px) {
   .testi {
     background-image: url(/images1/testi.png);
     background-repeat: no-repeat;
