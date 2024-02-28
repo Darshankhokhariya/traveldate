@@ -57,7 +57,7 @@ function Recent() {
       <div className="container mx-auto px-3 lg:px-20">
         <div className="py-5 lg:py-10 text-center md:text-start">
           <div className="uppercase  text-primary font-medium">New Member</div>
-          <p className="text-[48px] font-semibold text-black">
+          <p className="text-[27px]  lg:text-[48px] font-semibold text-black">
             Our Recent Member
           </p>
         </div>

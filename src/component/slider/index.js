@@ -37,9 +37,9 @@ function Slider() {
                     className="h-[80px] w-[80px] object-cover"
                     alt=""
                   />
-                  <h1 className="text-white font-bold">100k+ Members</h1>
+                  <h1 className="text-white font-bold">Find Travel Partner</h1>
                   <p className="text-xs text-white">
-                    Over thousand of interested travellers are waiting for you
+                    Browse members, pick any & start chatting with them
                   </p>
                 </div>
 
@@ -49,9 +49,9 @@ function Slider() {
                     src="/images1/icons/icon1.png"
                     alt=""
                   />
-                  <h1 className="text-white font-bold">100k+ Members</h1>
+                  <h1 className="text-white font-bold">Perfect Match</h1>
                   <p className="text-xs text-white">
-                    Over thousand of interested travellers are waiting for you
+                    10k+ Daily active girls to connect with you
                   </p>
                 </div>
               </div>

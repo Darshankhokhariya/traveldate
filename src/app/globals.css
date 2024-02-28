@@ -71,10 +71,10 @@ body {
   .testi {
     background-image: url(/images1/testi.png);
     background-repeat: no-repeat;
-    height: max-content;
+    height: max-content !important;
     background-size: cover;
     background-position: center;
-    border-radius: 30px !important;
+    /* border-radius: 30px !important; */
   }
   .slider {
     background-image: url(/images1/Main.png);
@@ -83,6 +83,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     height: max-content;
+    border-radius:  0px !important;
   }
 }
 

@@ -46,7 +46,7 @@ function Nav() {
             <Secondarybutton text="sign up" path="/signup" />
           </div>
 
-          <div className="lg:hidden">
+          <div onClick={toggleMenu} className="lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -64,6 +64,93 @@ function Nav() {
               <line x1="4" y1="18" x2="20" y2="18"></line>
             </svg>
           </div>
+          {isMenuOpen && (
+            <div className="absolute inset-x-0 top-0 z-50 origin-top-right transform p-2 transition lg:hidden">
+              <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+                <div className="px-5 pb-6 pt-5">
+                  <div className="flex items-center justify-between">
+                    <div className="inline-flex items-center space-x-2">
+                      <span>
+                        <img src="/images1/logo.png" alt="" />
+                      </span>
+                    </div>
+                    <div className="-mr-2">
+                      <button
+                        type="button"
+                        onClick={toggleMenu}
+                        className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                      >
+                        <svg
+                          width="17"
+                          height="17"
+                          viewBox="0 0 17 17"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M15.3535 1.35352L1 15"
+                            stroke="black"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                          />
+                          <path
+                            d="M1.70703 1.29297L15.707 15.293"
+                            stroke="black"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div className="mt-6">
+                    <nav className=" ">
+                      <ul className="grid gap-y-4">
+                        <li>
+                          <Link
+                            href="/"
+                            className="text-sm font-semibold text-black"
+                          >
+                            Home
+                          </Link>
+                        </li>
+                        <li>
+                          <a
+                            href="#"
+                            className="text-sm font-semibold text-black"
+                          >
+                            Discover
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="#"
+                            className="text-sm font-semibold text-black"
+                          >
+                            Special Deals
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="#"
+                            className="text-sm font-semibold text-black"
+                          >
+                            Contact
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+                  {/* <button
+                    type="button"
+                    className="mt-4 w-full rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                  >
+                    Button text
+                  </button> */}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </>
