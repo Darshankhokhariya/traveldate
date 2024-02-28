@@ -67,7 +67,7 @@ body {
 
 
 
-@media only screen and (max-width: 770px) {
+@media only screen and (max-width: 600px) {
   .testi {
     background-image: url(/images1/testi.png);
     background-repeat: no-repeat;
@@ -75,6 +75,14 @@ body {
     background-size: cover;
     background-position: center;
     border-radius: 30px !important;
+  }
+  .slider {
+    background-image: url(/images1/Main.png);
+    background-position: center;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: max-content;
   }
 }
 

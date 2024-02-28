@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import React from "react";
 
 function Secondarybutton(props) {
-  const { text, icon } = props;
+  const { text, path } = props;
   const router = useRouter();
   return (
     <>

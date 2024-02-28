@@ -13,12 +13,12 @@ function Slider() {
       <div className="lg:p-2 overflow-x-hidden container mx-auto">
         <div className="slider py-5">
           <Nav />
-          <div className="flex flex-col lg:flex-row  justify-between  w-full h-full container mx-auto py-20">
+          <div className="flex flex-col lg:flex-row  justify-between  w-full h-full container mx-auto py-20 lg:px-10 xl:px-20">
             <div className="w-full h-full  m-auto lg:w-[50%]  ">
-              <div className="flex flex-col justify-center px-5 lg:px-20">
+              <div className="flex flex-col justify-center px-5 lg:px-10 xl:px-20">
                 <Maintext />
               </div>
-              <div className="w-full hidden md:grid grid-cols-3 justify-items-center  gap-4 px-20 py-10 ">
+              <div className="w-full hidden md:grid grid-cols-3 justify-items-center  gap-4 lg:px-10 xl:px-20 py-10 ">
                 <div className="">
                   <img
                     src="/images1/icons/icon3.png"
@@ -64,7 +64,7 @@ function Slider() {
                   </div>
                 </div>
 
-                <div class="absolute top-20  right-0 lg:right-14 lg:top-16    z-20   rounded-xl  p-2">
+                <div class="absolute top-20  right-0 lg:-right-10 lg:top-16    z-20   rounded-xl  p-2">
                   <img
                     className="w-[80px] h-[80px] lg:h-auto lg:w-auto"
                     src="/images1/emoji1.png"
@@ -72,7 +72,7 @@ function Slider() {
                 </div>
 
                 {/* card1 */}
-                <div className="w-[45%] lg:w-[45%] -rotate-12 h-max   z-10 ml-2 lg:ml-10 relative">
+                <div className="w-[45%] lg:w-[60%] -rotate-12 h-max   z-10 ml-2 xl:ml-10 relative">
                   <div class="w-full h-full ml-6 lg:ml-14 -mb-8  bg-white rounded-3xl  unded-lg shadow-lg p-1">
                     <img
                       class="object-cover  h-[150px] lg:h-[280px] w-full rounded-3xl"
@@ -103,7 +103,7 @@ function Slider() {
                     />
                   </div>
                 </div>
-                <div className="w-[45%] lg:w-[45%]   rounded-3xl h-max overflow-clip  bg-white z-10 mt-32 ml-2 lg:-ml-20 ">
+                <div className="w-[45%] lg:w-[60%]   rounded-3xl h-max overflow-clip  bg-white z-10 mt-32 ml-2 lg:-ml-20 ">
                   <div class="w-full h-full  bg-white   unded-lg shadow-lg p-1">
                     <img
                       class="object-cover  h-[150px] lg:h-[280px] w-full rounded-3xl"
