@@ -39,7 +39,7 @@ function Offer() {
         <div className="py-20 text-center lg:text-start">
           <div className="uppercase  text-primary font-medium">New Member</div>
           <p className="text-[27px]  lg:text-[48px] font-semibold text-black">
-            Our Recent Member
+            What We Offer You.
           </p>
         </div>
         {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-x-10 gap-y-10 m-auto">

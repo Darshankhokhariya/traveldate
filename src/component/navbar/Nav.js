@@ -17,8 +17,8 @@ function Nav() {
           <div className="inline-flex items-center space-x-2">
             <img src="/images1/logo.png" />
           </div>
-          <div className="hidden lg:block">
-            <ul className="inline-flex space-x-20">
+          <div className="hidden lg:block   gap-3">
+            <ul className="inline-flex space-x-20 items-center">
               <li>
                 <Link href="/" className="text-sm font-semibold text-white">
                   Home
@@ -26,24 +26,14 @@ function Nav() {
               </li>
               <li>
                 <a href="#" className="text-sm font-semibold text-white">
-                  Discover
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm font-semibold text-white">
-                  Special Deals
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm font-semibold text-white">
                   Contact
                 </a>
               </li>
+              <div className="hidden lg:flex items-center gap-3">
+                <Primarybutton text="login" />
+                <Secondarybutton text="sign up" path="/signup" />
+              </div>
             </ul>
-          </div>
-          <div className="hidden lg:flex items-center gap-3">
-            <Primarybutton text="login" />
-            <Secondarybutton text="sign up" path="/signup" />
           </div>
 
           <div onClick={toggleMenu} className="lg:hidden">
@@ -65,7 +55,7 @@ function Nav() {
             </svg>
           </div>
           {isMenuOpen && (
-            <div className="absolute inset-x-0 top-0 z-50 origin-top-right transform p-2 transition lg:hidden">
+            <div className="absolute inset-x-0 top-0 z-50 origin-top-right transform  transition lg:hidden">
               <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
                 <div className="px-5 pb-6 pt-5">
                   <div className="flex items-center justify-between">

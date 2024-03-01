@@ -15,10 +15,10 @@ function Slider() {
           <Nav />
           <div className="flex flex-col lg:flex-row  justify-between  w-full h-full container mx-auto py-20 lg:px-10 xl:px-20">
             <div className="w-full h-full  m-auto lg:w-[50%]  ">
-              <div className="flex flex-col justify-center px-5 lg:px-10 xl:px-20">
+              <div className="flex flex-col justify-center px-5 lg:px-10 xl:px-1">
                 <Maintext />
               </div>
-              <div className="w-full hidden md:grid grid-cols-3 justify-items-center  gap-4 lg:px-10 xl:px-20 py-10 ">
+              <div className="w-full hidden lg:grid grid-cols-3 justify-items-center  gap-4 lg:px-10 xl:px-1 py-10 ">
                 <div className="">
                   <img
                     src="/images1/icons/icon3.png"

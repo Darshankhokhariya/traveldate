@@ -67,7 +67,7 @@ body {
 
 
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 769px) {
   .testi {
     background-image: url(/images1/testi.png);
     background-repeat: no-repeat;
