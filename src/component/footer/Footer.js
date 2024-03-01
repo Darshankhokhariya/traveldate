@@ -69,32 +69,32 @@ function Footer() {
                   </div>
 
                   <div className=" md:px-20">
-                    <p class="font-semibold text-gray-800 dark:text-white">
-                      Company
-                    </p>
+                    <p class="font-bold text-gray-800 dark:text-white">Page</p>
 
-                    <div class="flex flex-col items-start mt-5 space-y-2">
-                      <p class="text-white    hover:cursor-pointer ">About</p>
-                      <p class="text-white    hover:cursor-pointer ">Career</p>
-                      <p class="text-white    hover:cursor-pointer ">Mobile</p>
+                    <div class="flex flex-col items-start mt-5 space-y-6">
+                      <p class="text-white    hover:cursor-pointer ">
+                        About Us
+                      </p>
+                      <p class="text-white    hover:cursor-pointer ">
+                        Contact Us
+                      </p>
+                      {/* <p class="text-white    hover:cursor-pointer ">Mobile</p> */}
                     </div>
                   </div>
 
                   <div>
-                    <p class="font-semibold text-white">Contact</p>
+                    <p class="font-bold text-white">Terms</p>
 
-                    <div class="flex flex-col items-start mt-5 space-y-2">
+                    <div class="flex flex-col items-start mt-5 space-y-6">
                       <p class=" transition-colors hover:underline hover:cursor-pointer text-white">
-                        Why Travlog?
+                        Privacy Policy
                       </p>
                       <p class=" transition-colors hover:underline hover:cursor-pointer text-white">
-                        Partner with us
+                        Terms & Condition
                       </p>
+
                       <p class=" transition-colors hover:underline hover:cursor-pointer text-white">
-                        FAQ’s
-                      </p>
-                      <p class=" transition-colors hover:underline hover:cursor-pointer text-white">
-                        Blog
+                        Refund
                       </p>
                     </div>
                   </div>
