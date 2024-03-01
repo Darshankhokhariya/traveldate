@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 
@@ -8,7 +7,7 @@ function Secondarybutton(props) {
   return (
     <>
       <button
-        onClick={() => router.push(path)}
+        onClick={() => { path && router.push(path) }}
         className="px-[32px] py-[16px] bg-primary text-white rounded-full"
       >
         {text}
