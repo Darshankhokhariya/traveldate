@@ -148,7 +148,7 @@ function Index() {
           <div class="relative hidden md:flex items-end px-4 pb-10 pt-60 sm:pb-16 md:justify-center  sm:px-6 lg:px-8">
             <div class="absolute inset-0 ">
               <img
-                class="object-cover w-full h-full"
+                class=" w-full h-full"
                 src="/images1/signin.jpg"
                 alt=""
               />

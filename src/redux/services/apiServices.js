@@ -26,7 +26,6 @@ export const post = (url, data, actionType, dispatch) => {
     });
 };
 
-
 export const get = (url, actionType, dispatch, headers) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -58,6 +57,30 @@ export const put = (url, data, actionType, dispatch, headers) => {
             dispatch({ type: `${actionType}_INIT` });
 
             const response = await axios.put(`${baseURL}${url}`, data);
+
+            // Dispatch the action with SUCCESS type
+            dispatch({
+                type: `${actionType}_SUCCESS`,
+                payload: response.data,
+            });
+            resolve(response.data);
+        } catch (error) {
+            // Dispatch the action with FAIL type
+            dispatch({
+                type: `${actionType}_FAIL`,
+                payload: error.response,
+            });
+        }
+    });
+};
+
+export const deleteapi = (url, data, actionType, dispatch, headers) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            // Dispatch the action with INIT type
+            dispatch({ type: `${actionType}_INIT` });
+
+            const response = await axios.delete(`${baseURL}${url}`, data);
 
             // Dispatch the action with SUCCESS type
             dispatch({

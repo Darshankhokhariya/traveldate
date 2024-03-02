@@ -12,12 +12,11 @@ function Index() {
     }))
   }
 
-
   return (
     <div>
       <section className="bg-transparent">
         <div className="grid grid-cols-1 md:grid-cols-2">
-          <div className="flex items-center  px-4 py-10 bg-transparent sm:px-6 lg:px-8 sm:py-16 lg:py-12">
+          <div className="flex items-center  px-4 py-10 bg-transparent sm:px-6 lg:px-8 sm:pt-16 lg:pt-12">
             <div className="w-full lg:w-[80%]">
               <div className="lg:ml-14 mx-auto">
                 <img src="/images1/Frame1.png" className="h-8 "></img>
@@ -79,14 +78,24 @@ function Index() {
                       <path d="M12 5.38C13.62 5.38 15.06 5.94 16.21 7.02L19.36 3.87C17.45 2.09 14.97 1 12 1C7.69999 1 3.98999 3.47 2.17999 7.07L5.83999 9.91C6.70999 7.31 9.13999 5.38 12 5.38Z" fill="#EA4335" />
                     </svg>
                   </div>
-                  <div className="px-4 py-2">Register with Google</div>
+                  <div className="px-4 py-2">Sign in with Google</div>
                 </button>
+
+                <p class="mt-16 text-sm text-center font-medium text-gray-600">
+                  Already have an account? {" "}
+                  <a
+                    href="#"
+                    title=""
+                    class="text-red-600 transition-all duration-200 hover:underline "
+                  >
+                    Sign In
+                  </a>
+                </p>
               </div>
             </div>
           </div>
-          <div className="hidden md:flex bg-cover bg-no-repeat bg-center relative bg-primary">
+          <div className="hidden md:flex bg-cover bg-no-repeat bg-center relative">
             <img src="/images1/signup.jpg" className="w-full h-full" />
-            <div className="absolute inset-0 bg-black bg-opacity-40"></div>
           </div>
         </div>
       </section >
