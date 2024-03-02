@@ -1,12 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:wght@400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
-/* @font-face {
-    font-family: 'Comfortaa';
-    src: url('../assets/static/Comfortaa-Regular.ttf') ,
-  } */
 
 
 body {
@@ -15,7 +12,7 @@ body {
   height: max-content;
   width: 100%;
   background-size: cover;
-  /* font-family: Comfortaa; */
+  font-family: "Inter", sans-serif !important; 
 }
 
 
