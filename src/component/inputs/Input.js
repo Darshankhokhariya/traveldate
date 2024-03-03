@@ -1,6 +1,8 @@
 import React from "react";
 
 function Input(props) {
+
+
   return (
     <>
       <label htmlFor="" className="text-gray-400">
@@ -11,8 +13,8 @@ function Input(props) {
           {...props}
           className="block w-full py-2 pl-4 pr-4 text-black placeholder-gray-400 transition-all duration-200 border-2 border-gray-200 rounded-lg bg-white focus:outline-none focus:border-gray-400 focus:bg-white "
         />
-        {props?.type === "password" &&
-          <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 z-30">
+        {props?.fieldType === "password" &&
+          <div onClick={props.handleTogglePassword} className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 z-30 cursor-pointer">
             <svg
               width="24"
               height="24"
