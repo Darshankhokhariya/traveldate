@@ -74,6 +74,7 @@ const Menu = [
     icon: (
       <svg
         width="24"
+        className="group-hover:text-primary"
         height="24"
         viewBox="0 0 24 24"
         fill="none"
