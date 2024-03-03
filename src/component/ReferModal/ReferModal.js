@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Modal from '../Modal/Modal'
+import Secondarybutton from '../Buttons/Secondarybutton'
 
 function ReferModal({ isOpen, onClose }) {
+
     return (
         <div>
             <Modal isOpen={isOpen} onClose={onClose}>
@@ -14,8 +16,12 @@ function ReferModal({ isOpen, onClose }) {
                             Adjust your preferences to see and be seen by those who fit them.
                         </div>
                         <div className='flex gap-10 mt-8'>
-                            <img class="relative inline-block h-32 w-32 rounded-full object-cover object-center" alt="Image placeholder" src="/images1/model1.png" />
-                            <img class="relative inline-block h-32 w-32 rounded-full object-cover object-center" alt="Image placeholder" src="/images1/model1.png" />
+                            <img class="relative inline-block h-32 w-32 rounded-full border-4 border-primary object-cover object-center" alt="Image placeholder" src="/images1/male.png" />
+                            <img class="relative inline-block h-32 w-32 rounded-full object-cover object-center" alt="Image placeholder" src="/images1/female.png" />
+                        </div>
+
+                        <div className='mt-8'>
+                            <Secondarybutton text="Save prefrences" />
                         </div>
                     </div>
                 </div>
