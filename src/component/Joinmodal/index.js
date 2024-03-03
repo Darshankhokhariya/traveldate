@@ -1,8 +1,8 @@
 import React from 'react'
 import Modal from '../Modal/Modal'
+import { useRouter } from 'next/router';
 
 function index({ isOpen, onClose }) {
-
   return (
     <div>
       <Modal isOpen={isOpen} onClose={onClose} >
@@ -47,12 +47,12 @@ function index({ isOpen, onClose }) {
             </div>
             <div class="flex w-full items-center justify-center  md:gap-8 gap-6  py-4 text-sm text-slate-600">
               <div className="flex justify-center">
-                <button className="bg-[#f5435a] py-3 px-7 md:px-9 text-xs md:text-sm font-semibold text-white rounded-3xl ">
+                <button onClick={() => router.push("/signup") } className="bg-[#f5435a] py-3 px-7 md:px-9 text-xs md:text-sm font-semibold text-white rounded-3xl ">
                   Register
                 </button>
               </div>
               <div className=" flex justify-center">
-                <button className="bg-gray-200 py-3 text-black px-7 md:px-9 font-semibold text-xs md:text-sm  rounded-3xl">
+                <button onClick={() => router.push("/login") } className="bg-gray-200 py-3 text-black px-7 md:px-9 font-semibold text-xs md:text-sm  rounded-3xl">
                   Login
                 </button>
               </div>
