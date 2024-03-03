@@ -8,7 +8,7 @@ function Secondarybutton(props) {
     <>
       <button
         onClick={() => { path && router.push(path) }}
-        className="px-[32px] py-[16px] bg-primary text-white font-semibold rounded-full"
+        className="px-[32px] py-[16px] bg-primary text-[17px] text-white font-semibold rounded-full"
       >
         {text}
       </button>
