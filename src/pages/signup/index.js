@@ -1,16 +1,35 @@
 import React, { useState } from "react";
 import Input from "@/component/inputs/Input";
 import Primary2button from "@/component/Buttons/Primary2button";
+import { useFormik } from "formik";
+import * as Yup from 'yup';
+
 
 function Index() {
   const [fields, setFields] = useState()
-  const handleChange = (e) => {
-    const { name, value } = e?.target;
-    setFields((prevState) => ({
-      ...prevState,
-      [name]: value
-    }))
-  }
+  // const handleChange = (e) => {
+  //   const { name, value } = e?.target;
+  //   setFields((prevState) => ({
+  //     ...prevState,
+  //     [name]: value
+  //   }))
+  // }
+
+  const formik = useFormik({
+    initialValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().required('email is required'),
+      password: Yup.string().required('password is required'),
+      cpassword: Yup.string().email('Confirm password required').required('Email is required'),
+    }),
+    onSubmit: values => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
 
   return (
     <div>
@@ -27,16 +46,21 @@ function Index() {
                 <div className="block md:hidden mt-4 overflow-hidden w-full object-cover rounded-2xl">
                   <img src="/images1/signup2.jpg" className="w-full" />
                 </div>
-                <form action="#" method="POST" className="mt-8 md:mt-5">
+                <form onSubmit={formik.handleSubmit} action="#" method="POST" className="mt-8 md:mt-5">
                   <div className="space-y-5">
                     <div>
                       <Input
                         placeholder="Enter Email"
                         name="email"
                         label="Email"
-                        onChange={handleChange}
-                        value={fields?.email || ""}
+                        value={formik.values.email}
+                        // onChange={handleChange}
+                        // value={fields?.email || ""}
+                        onChange={formik.handleChange}
                       />
+                      {formik.touched.email && formik.errors.email && (
+                        <div>{formik.errors.email}</div>
+                      )}
                     </div>
                     <div>
                       <Input
@@ -44,20 +68,11 @@ function Index() {
                         name="password"
                         type="password"
                         label="Password"
-                        onChange={handleChange}
-                        value={fields?.password || ""}
+                      // onChange={handleChange}
+                      // value={fields?.password || ""}
                       />
                     </div>
-                    <div>
-                      <Input
-                        placeholder="Enter Confirm Password"
-                        name="c_password"
-                        type="password"
-                        label="Confirm Password"
-                        onChange={handleChange}
-                        value={fields?.c_password || ""}
-                      />
-                    </div>
+                    
                     <div className="w-full flex justify-center">
                       <Primary2button text="Register" />
                     </div>
