@@ -72,6 +72,17 @@ body {
   border: none !important;
 }
 
+  .select-custom {
+    -webkit-appearance: none; /* Hides the default arrow */
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("../../public/icons/downarrow.png"); /* Add your SVG code here */
+    background-size: 14px; /* Adjust the size of the arrow icon */
+    background-repeat: no-repeat;
+    background-position: calc(100% - 20px) center;
+    padding-right: 35px !important; 
+  }
+
 .errorMessage{
   color: red;
   font-size: 15px;
