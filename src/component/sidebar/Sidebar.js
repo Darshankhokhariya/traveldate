@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 
 import "./sidebar.css";
 import Filter from "../Dashboard/filters/Filter";
+import Recent from "../recent/Recent";
 
 function Sidebar(props) {
   const navigate = useRouter();
@@ -18,7 +19,7 @@ function Sidebar(props) {
         <div className="bg-white fixed h-screen  z-10 animate__animated animate__fadeInLeft  top-0 text-white shadow  w-[20%]  px-4">
           <div className="space-y-3">
             <div className="flex-1">
-              <ul className="pt-2 pb-4 pl-14 space-y-1 text-sm">
+              <ul className="pt-2 pb-4 pl-20 space-y-1 text-sm">
                 <li className="rounded-sm  flex justify-center py-8">
                   <img src="/images1/logo2.png" alt="" />
                 </li>
@@ -78,7 +79,13 @@ function Sidebar(props) {
 
         <div className="w-[80%] ml-auto text-black ">
           <div className="flex justify-end">
-            <div className="flex py-10 bg-red-200 w-full"></div>
+            <div className="flex justify-end py-10 bg-transparent w-full px-20">
+              <img
+                src="/images1/models/model1.png"
+                className="w-[54px] h-[54px] rounded-xl object-cover"
+                alt=""
+              />
+            </div>
           </div>
           {props.children}
         </div>
@@ -181,8 +188,11 @@ function Sidebar(props) {
             <span class="sr-only">Profile</span>
           </a>
         </div>
-
+        <div className="flex justify-center py-10">
+          <img className=" h-[30px] md:h-[58px]" src="/images1/Frame1.png" />
+        </div>
         <Filter />
+        <Recent />
       </div>
     </>
   );

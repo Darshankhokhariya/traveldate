@@ -54,7 +54,7 @@ function Recent() {
 
   return (
     <>
-      <div className="container mx-auto px-3 lg:px-10">
+      <div className="container mx-auto ">
         <div className="py-5 lg:py-10 text-center md:text-start">
           <div className="uppercase  text-primary font-medium">New Member</div>
           <p className="text-[27px]  lg:text-[48px] font-semibold text-black">
@@ -63,7 +63,7 @@ function Recent() {
         </div>
         <section
           id="Projects"
-          class="  grid   xl:grid-cols-4 lg:grid-cols-3 grid-cols-2 justify-items-center justify-center gap-y-10 lg:gap-x-14 gap-4 mt-10 mb-5"
+          class="  grid   xl:grid-cols-4 lg:grid-cols-3 grid-cols-2 justify-items-center justify-center gap-y-10 lg:gap-x-28 gap-4 mt-10 mb-5"
         >
           {cards.map((e) => {
             return (
