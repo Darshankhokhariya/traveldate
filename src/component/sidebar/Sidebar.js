@@ -94,7 +94,7 @@ function Sidebar(props) {
       {/* mobile */}
       <div className="block lg:hidden  h-screen">
         <div class="fixed bottom-0 left-1/2 transform -translate-x-1/2 inline-flex mx-auto justify-between bg-white  w-full">
-          <a
+          <Link
             aria-current="page"
             class="inline-flex flex-col items-center text-xs font-medium py-3 px-4 text-white flex-grow"
             href="#"
@@ -113,8 +113,8 @@ function Sidebar(props) {
             </svg>
 
             <span class="sr-only">Home</span>
-          </a>
-          <a
+          </Link>
+          <Link
             class="inline-flex flex-col items-center text-xs font-medium text-blue-400 py-3 px-4 flex-grow"
             href="#"
           >
@@ -130,7 +130,7 @@ function Sidebar(props) {
                 fill="#8C8C92"
               />
             </svg>
-          </a>
+          </Link>
           <span class="sr-only">Upload</span>
           <button class="relative inline-flex flex-col items-center text-xs font-medium text-white bg-transparent py-3 px-6 flex-grow">
             <div class="absolute bottom-5 p-3 rounded-full border-[20px] border-white bg-primary">
@@ -149,7 +149,7 @@ function Sidebar(props) {
             </div>
             <span class="sr-only">Chat</span>
           </button>
-          <a
+          <Link
             class="inline-flex flex-col items-center text-xs font-medium text-blue-400 py-3 px-4 flex-grow"
             href="#"
           >
@@ -167,8 +167,8 @@ function Sidebar(props) {
             </svg>
 
             <span class="sr-only">Search</span>
-          </a>
-          <a
+          </Link>
+          <Link
             class="inline-flex flex-col items-center text-xs font-medium text-blue-400 py-3 px-4 flex-grow"
             href="#"
           >
@@ -186,7 +186,7 @@ function Sidebar(props) {
             </svg>
 
             <span class="sr-only">Profile</span>
-          </a>
+          </Link>
         </div>
         <div className="flex justify-center py-10">
           <img className=" h-[30px] md:h-[58px]" src="/images1/Frame1.png" />

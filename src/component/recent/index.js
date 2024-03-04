@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 function Recent() {
@@ -69,7 +70,7 @@ function Recent() {
             return (
               <>
                 <div class=" bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
-                  <a href="#">
+                  <Link href="#">
                     <img
                       src={e?.image}
                       alt="Product"
@@ -92,7 +93,7 @@ function Recent() {
                         </div>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </div>
               </>
             );

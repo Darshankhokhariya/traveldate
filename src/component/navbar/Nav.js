@@ -25,9 +25,9 @@ function Nav() {
                 </Link>
               </li>
               <li>
-                <a href="#" className="text-sm font-semibold text-white">
+                <Link href="#" className="text-sm font-semibold text-white">
                   Contact
-                </a>
+                </Link>
               </li>
               <div className="hidden lg:flex items-center gap-3">
                 <Primarybutton text="Log In" path="/login" />
@@ -105,28 +105,28 @@ function Nav() {
                           </Link>
                         </li>
                         <li>
-                          <a
+                          <Link
                             href="#"
                             className="text-sm font-semibold text-black"
                           >
                             Discover
-                          </a>
+                          </Link>
                         </li>
                         <li>
-                          <a
+                          <Link
                             href="#"
                             className="text-sm font-semibold text-black"
                           >
                             Special Deals
-                          </a>
+                          </Link>
                         </li>
                         <li>
-                          <a
+                          <Link
                             href="#"
                             className="text-sm font-semibold text-black"
                           >
                             Contact
-                          </a>
+                          </Link>
                         </li>
                       </ul>
                     </nav>
