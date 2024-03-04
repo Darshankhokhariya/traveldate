@@ -189,11 +189,7 @@ function Sidebar(props) {
             <span class="sr-only">Profile</span>
           </Link>
         </div>
-        <div className="flex justify-center py-10">
-          <img className=" h-[30px] md:h-[58px]" src="/images1/Frame1.png" />
-        </div>
-        <Filter />
-        <Recent />
+        {props.children}
       </div>
     </>
   );

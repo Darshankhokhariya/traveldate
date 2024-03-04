@@ -15,6 +15,7 @@ module.exports = {
         primary: "#F4425A",
         secondary: "#191825",
         secondary1: "#8c8c92", // Example primary color
+        dark: "#2A112A",
       },
     },
   },
