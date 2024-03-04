@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import "./sidebar.css";
 import Filter from "../Dashboard/filters/Filter";
 import Recent from "../recent/Recent";
+import Link from "next/link";
 
 function Sidebar(props) {
   const navigate = useRouter();

@@ -2,15 +2,15 @@ import Input from "@/component/inputs/Input";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
-import * as Yup from 'yup';
+import * as Yup from "yup";
 import { post } from "@/redux/services/apiServices";
 import { showToast } from "@/constant/toast/toastUtils";
 import { GoogleLogin } from "@react-oauth/google";
-
+import Link from "next/link";
 
 function Index() {
   const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(true);
 
   const handleSubmit = async (values, setErrors) => {
@@ -39,12 +39,12 @@ function Index() {
   };
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string().email().required('Email is required'),
-      password: Yup.string().required('Password is required'),
+      email: Yup.string().email().required("Email is required"),
+      password: Yup.string().required("Password is required"),
     }),
     onSubmit: (values, { setErrors }) => {
       formik.validateForm().then((errors) => {
@@ -54,7 +54,6 @@ function Index() {
       });
     },
   });
-
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -91,17 +90,24 @@ function Index() {
     }
   };
 
-
   return (
     <div>
       <section class="bg-transparent">
-              {loading && <div class="z-50 absolute left-[50%] right-[50%]">
-                <div class="">
-                  <div className="flex justify-center text-center mt-72 items-center w-12 h-12 rounded-full animate-spin
-        border-4 border-solid border-red-500 border-t-transparent"></div>
-                </div>
-              </div>}
-        <div class={`grid grid-cols-1 md:grid-cols-2 ${loading ? "opacity-35": ""}`}>
+        {loading && (
+          <div class="z-50 absolute left-[50%] right-[50%]">
+            <div class="">
+              <div
+                className="flex justify-center text-center mt-72 items-center w-12 h-12 rounded-full animate-spin
+        border-4 border-solid border-red-500 border-t-transparent"
+              ></div>
+            </div>
+          </div>
+        )}
+        <div
+          class={`grid grid-cols-1 md:grid-cols-2 ${
+            loading ? "opacity-35" : ""
+          }`}
+        >
           <div class="flex items-center  px-4 py-10 bg-transparent sm:px-6 lg:px-8 sm:py-16 lg:py-12">
             <div class=" w-full lg:w-[80%] relative">
               <div className="lg:ml-14 mx-auto">
@@ -125,14 +131,16 @@ function Index() {
                         onChange={formik.handleChange}
                       />
                       {formik.touched.email && formik.errors.email && (
-                        <div className="errorMessage">{formik.errors.email}</div>
+                        <div className="errorMessage">
+                          {formik.errors.email}
+                        </div>
                       )}
                     </div>
                     <div>
                       <Input
                         placeholder="Enter Password"
                         name="password"
-                        type={showPassword ? 'text' : 'password'}
+                        type={showPassword ? "text" : "password"}
                         label="Password"
                         value={formik.values.password}
                         onChange={formik.handleChange}
@@ -141,11 +149,16 @@ function Index() {
                         fieldType="password"
                       />
                       {formik.touched.password && formik.errors.password && (
-                        <div className="errorMessage">{formik.errors.password}</div>
+                        <div className="errorMessage">
+                          {formik.errors.password}
+                        </div>
                       )}
                     </div>
                     <div className="w-full flex justify-center">
-                      <button type="submit" className="bg-[#f5435a] py-3 px-9 text-sm text-white rounded-3xl">
+                      <button
+                        type="submit"
+                        className="bg-[#f5435a] py-3 px-9 text-sm text-white rounded-3xl"
+                      >
                         Log in
                       </button>
                     </div>
@@ -197,9 +210,7 @@ function Index() {
                     </svg>
                   </div>
 
-                  <span class="">
-                    Sign in with Google
-                  </span>
+                  <span class="">Sign in with Google</span>
                 </button>
                 <button class="flex w-full items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg bg-[#1091F3]">
                   <div class=" py-2">
@@ -246,13 +257,13 @@ function Index() {
 
                 <p class="mt-5 text-sm text-center font-medium text-gray-600">
                   Don&apos;t have an account?{" "}
-                  <a
+                  <Link
                     href="/signup"
                     title=""
                     class="text-red-600 transition-all duration-200 hover:underline "
                   >
                     Sign up
-                  </a>
+                  </Link>
                 </p>
               </div>
             </div>
@@ -260,11 +271,7 @@ function Index() {
 
           <div class="relative hidden md:flex items-end px-4 pb-10 pt-60 sm:pb-16 md:justify-center  sm:px-6 lg:px-8">
             <div class="absolute inset-0 ">
-              <img
-                class=" w-full h-full"
-                src="/images1/signin.jpg"
-                alt=""
-              />
+              <img class=" w-full h-full" src="/images1/signin.jpg" alt="" />
             </div>
           </div>
         </div>
@@ -274,5 +281,3 @@ function Index() {
 }
 
 export default Index;
-
-
