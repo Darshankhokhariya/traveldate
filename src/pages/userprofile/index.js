@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Iconstartbutton from "@/component/Buttons/Iconstartbutton";
 import Sidebar from "@/component/sidebar/Sidebar";
+import Upgrademodal from "@/component/Modal/Upgrademodel";
 
-function index() {
+function Index() {
   const testimonials = [
     {
       name: "Mark Smith",
@@ -25,7 +26,7 @@ function index() {
       image: "/images1/models/model4.png",
     },
   ];
-  const [ActiveSlide1, setActiveSlide1] = useState(0);
+  const [activeSlide1, setActiveSlide1] = useState(0);
 
   const handleNextSlide = () => {
     setActiveSlide1(
@@ -57,7 +58,7 @@ function index() {
                 <div className="relative  overflow-hidden ">
                   <div
                     className="flex transition-transform duration-500 ease-in-out "
-                    style={{ transform: `translateX(-${ActiveSlide1 * 100}%)` }}
+                    style={{ transform: `translateX(-${activeSlide1 * 100}%)` }}
                   >
                     {testimonials.map((e, index) => {
                       return (
@@ -76,7 +77,7 @@ function index() {
                     })}
                   </div>
                   <button
-                    disabled={ActiveSlide1 === 0}
+                    disabled={activeSlide1 === 0}
                     onClick={handlePrevSlide}
                     aria-label="Prev Button"
                     className="absolute top-1/2 left-0 md:left-0 transform -translate-y-1/2 "
@@ -95,7 +96,7 @@ function index() {
                     </svg>
                   </button>
                   <button
-                    disabled={ActiveSlide1 === testimonials.length - 1}
+                    disabled={activeSlide1 === testimonials.length - 1}
                     onClick={handleNextSlide}
                     aria-label="Next Button"
                     className="absolute top-1/2 right-4 md:right-0 transform -translate-y-1/2  "
@@ -233,6 +234,8 @@ function index() {
               </svg>
               Favorites
             </button>
+
+            {/* <Upgrademodal isOpen={open} onClose={handleClose} /> */}
           </div>
         </div>
       </Sidebar>
@@ -240,4 +243,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;

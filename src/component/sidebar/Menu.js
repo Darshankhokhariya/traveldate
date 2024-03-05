@@ -67,7 +67,7 @@ const Menu = [
         />
       </svg>
     ),
-    path: "/intigration",
+    path: "/favorite",
   },
   {
     name: "Visitors",

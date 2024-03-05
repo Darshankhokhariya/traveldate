@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const Modal = (props) => {
+const Upgrademodal = (props) => {
   const { isOpen, onClose } = props;
   // Close modal when clicking outside the modal content
   useEffect(() => {
@@ -40,4 +40,4 @@ const Modal = (props) => {
   );
 };
 
-export default Modal;
+export default Upgrademodal;

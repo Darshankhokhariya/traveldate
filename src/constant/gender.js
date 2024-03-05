@@ -1,11 +1,14 @@
-export const gender = [{
-    label: "Select Gender",
-    value: ""
-}, {
+export const gender = [
+  {
+    label: "Select",
+    value: "",
+  },
+  {
     label: "Male",
-    value: "male"
-}, {
+    value: "male",
+  },
+  {
     label: "Female",
-    value: "female"
-}
-]
+    value: "female",
+  },
+];

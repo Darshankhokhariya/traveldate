@@ -1,19 +1,15 @@
-import React from 'react'
-import Modal from '../Modal/Modal'
-import { useRouter } from 'next/router';
+import React from "react";
+import Modal from "../Modal/Modal";
+import { useRouter } from "next/router";
 
 function index({ isOpen, onClose }) {
   return (
     <div>
-      <Modal isOpen={isOpen} onClose={onClose} >
+      <Modal isOpen={isOpen} onClose={onClose}>
         <div className="w-full">
           <div className="w-full sm:w-[60%] flex flex-col items-center mx-auto">
-            <p className="text-3xl font-semibold text-[#F4425A]">
-              Join Us
-            </p>
-            <p className="text-lg font-semibold ">
-              Find a travel date today!
-            </p>
+            <p className="text-3xl font-semibold text-[#F4425A]">Join Us</p>
+            <p className="text-lg font-semibold ">Find a travel date today!</p>
 
             <button class="flex w-full items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-3xl bg-white  ">
               <div class=" py-2">
@@ -47,25 +43,30 @@ function index({ isOpen, onClose }) {
             </div>
             <div class="flex w-full items-center justify-center  md:gap-8 gap-6  py-4 text-sm text-slate-600">
               <div className="flex justify-center">
-                <button onClick={() => router.push("/signup") } className="bg-[#f5435a] py-3 px-7 md:px-9 text-xs md:text-sm font-semibold text-white rounded-3xl ">
+                <button
+                  onClick={() => router.push("/signup")}
+                  className="bg-[#f5435a] py-3 px-7 md:px-9 text-xs md:text-sm font-semibold text-white rounded-3xl "
+                >
                   Register
                 </button>
               </div>
               <div className=" flex justify-center">
-                <button onClick={() => router.push("/login") } className="bg-gray-200 py-3 text-black px-7 md:px-9 font-semibold text-xs md:text-sm  rounded-3xl">
+                <button
+                  onClick={() => router.push("/login")}
+                  className="bg-gray-200 py-3 text-black px-7 md:px-9 font-semibold text-xs md:text-sm  rounded-3xl"
+                >
                   Login
                 </button>
               </div>
             </div>
             <div class="flex text-xs  w-full items-center justify-center  gap-8 py-4 text-center md:text-sm text-gray-400">
-              Adjust your preferences to see and be seen by those who fit
-              them.
+              Adjust your preferences to see and be seen by those who fit them.
             </div>
           </div>
         </div>
       </Modal>
     </div>
-  )
+  );
 }
 
-export default index
+export default index;
