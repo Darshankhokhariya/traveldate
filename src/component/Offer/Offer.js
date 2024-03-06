@@ -72,7 +72,7 @@ function Offer() {
                 className="m-2 w-full  lg:w-[33%] hover:bg-gradient-to-bl from-[#8D56E6] to-[#F4425A] duration-300 ease-out p-0.5 rounded-3xl"
               >
                 {/** Your card content here */}
-                <div className="bg-white rounded-3xl p-5 flex flex-col items-center justify-center border border-secondary1">
+                <div className="bg-white rounded-3xl p-5 flex flex-col items-center justify-center border border-opacity-10 border-secondary1">
                   <div className="py-4 lg:py-10">
                     <img src={e?.icon} className="" alt="" />
                   </div>
@@ -96,7 +96,7 @@ function Offer() {
                 className="m-2 w-full  lg:w-[33%] hover:bg-gradient-to-bl from-[#8D56E6] to-[#F4425A] duration-300 ease-out p-0.5 rounded-3xl"
               >
                 {/** Your card content here */}
-                <div className="bg-white rounded-3xl p-5 flex flex-col items-center justify-center border border-secondary1">
+                <div className="bg-white rounded-3xl p-5 flex flex-col items-center justify-center border border-opacity-10 border-secondary1">
                   <div className="py-4 lg:py-10">
                     <img src={e?.icon} className="" alt="" />
                   </div>

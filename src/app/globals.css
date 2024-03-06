@@ -11,6 +11,7 @@ body {
   background-repeat: no-repeat;
   height: max-content;
   width: 100%;
+  background-attachment: fixed;
   background-size: cover;
   font-family: "Inter", sans-serif !important; 
 }
@@ -103,7 +104,8 @@ body {
   .testi {
     background-image: url(/images1/testi.png);
     background-repeat: no-repeat;
-    height: max-content !important;
+    min-height: 0px  !important;
+    height: max-content;
     background-size: cover;
     background-position: center;
     /* border-radius: 30px !important; */
@@ -115,8 +117,18 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     height: max-content;
-    border-radius:  0px !important;
+    border-radius:  0px 0px 30px 30px !important;
   }
+  .footer {
+    background-image: url(/images1/footer.png);
+    /* background-color: aqua; */
+    background-position: center;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 0px !important;
+  }
+  
 }
 
 .animated {

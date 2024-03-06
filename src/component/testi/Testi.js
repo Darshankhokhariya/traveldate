@@ -40,12 +40,12 @@ function Testi() {
 
   return (
     <>
-      <div className="py-20">
+      <div className="py-10 md:py-20">
         <div>
           <div className="uppercase  text-primary font-medium text-center">
             TESTIMONIAL
           </div>
-          <p className="text-[48px] font-semibold text-black text-center">
+          <p className="text-[27px]  md:text-[48px] font-semibold text-black text-center">
             Trust our clients
           </p>
         </div>
@@ -57,10 +57,17 @@ function Testi() {
           >
             {testimonials.map((e, index) => {
               return (
-                <div key={index} className="flex-shrink-0 w-full mt-52">
-                  <div className=" w-full flex flex-col justify-center items-center px-10">
+                <div
+                  key={index}
+                  className="flex-shrink-0 w-full mt-20 md:mt-52"
+                >
+                  <div className=" w-full flex flex-col justify-center items-center md:px-10">
                     <div className="">
-                      <img src={e?.image} className="w-auto h-auto" alt="" />
+                      <img
+                        src={e?.image}
+                        className="h-[100px] w-[100px] md:w-auto md:h-auto"
+                        alt=""
+                      />
                     </div>
                     <div className="text-base md:text-[28px] font-semibold mt-5">
                       {" "}

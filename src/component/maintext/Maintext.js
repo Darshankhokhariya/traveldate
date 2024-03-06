@@ -14,7 +14,9 @@ function Maintext() {
           <div className="text-[31px] text-white font-semibold">
             Never Travel Alone With
           </div>
-          <div className="text-6xl font-extrabold text-white">Traveldate</div>
+          <div className="text-5xl md:text-6xl font-extrabold text-white">
+            Traveldate
+          </div>
         </div>
         <p className="text-white font-normal mt-6 text-lg text-center lg:text-start ">
           100K+ Travel Partners are looking for company on traveldate.

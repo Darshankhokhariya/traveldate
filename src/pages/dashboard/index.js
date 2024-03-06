@@ -8,13 +8,13 @@ function dashboard() {
   return (
     <>
       <Sidebar>
-        <div className="px-5 md:px-14 hidden md:block">
+        <div className="px-5 md:px-14 pb-20 md:pb-0 hidden md:block">
           <Banner />
           <Filter />
           <Recent />
         </div>
-        <div className=" md:px-14 block md:hidden">
-          <div className="flex justify-center py-10">
+        <div className=" md:px-14  pb-20 md:pb-0 block md:hidden">
+          <div className="flex justify-center py-5">
             <img className=" h-[30px] md:h-[58px]" src="/images1/Frame1.png" />
           </div>
           <Filter />

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Iconstartbutton from "@/component/Buttons/Iconstartbutton";
 import Sidebar from "@/component/sidebar/Sidebar";
 import Upgrademodal from "@/component/Modal/Upgrademodel";
+import Mobilenav from "@/component/navbar/Mobilenav";
 
 function Index() {
   const testimonials = [
@@ -44,6 +45,7 @@ function Index() {
   return (
     <>
       <Sidebar>
+        <Mobilenav />
         <div className="px-3 md:px-16 pb-32  md:pb-2">
           <div className="flex flex-col md:flex-row md:items-start">
             <div className="flex flex-col gap-y-8 items-center justify-center ">
@@ -121,9 +123,11 @@ function Index() {
               <h1 className="text-2xl md:text-4xl font-semibold">
                 Rebecca Johansson | <span>24</span>
               </h1>
-              <p className="font-medium text-xl py-2">24 Year | Female</p>
-              <div className="flex items-center md:py-4 gap-4 text-secondary1">
-                <div className="flex items-center text-primary gap-2  text-12px">
+              <p className="font-medium text-xl py-2 hidden  md:block">
+                24 Year | Female
+              </p>
+              <div className="flex items-center md:py-4 gap-4 text-secondary1 text-[12px]">
+                <div className="flex items-center text-primary gap-2  ">
                   <svg
                     width="12"
                     height="16"
@@ -165,17 +169,19 @@ function Index() {
             </div>
           </div>
 
-          <div className=" md:py-20  flex  flex-col md:flex-row md:gap-20  ">
+          <div className=" md:py-20  flex  flex-col md:flex-row  md:gap-20  ">
             <div>
               <h1 className="py-3 text-base font-semibold">About Me</h1>
               <div className=" md:space-y-4 text-secondary1">
-                <p>My goal is to travel to every country in the world 28/197</p>
-                <p>I&apos;m literally up for anything</p>
+                <p className="text-sm">
+                  My goal is to travel to every country in the world 28/197
+                </p>
+                <p className="text-sm">I&apos;m literally up for anything</p>
                 <p>Insta: tizi_entry</p>
               </div>
             </div>
-            <div>
-              <h1 className="py-3 text-base font-semibold">Other Details</h1>
+            <div className="pt-7">
+              <h1 className="text-base font-semibold">Other Details</h1>
               <div className="flex gap-8 py-2">
                 <div className="text-secondary1 w-20">Nationality</div>
                 <div>German</div>
@@ -203,8 +209,8 @@ function Index() {
             </div>
           </div>
 
-          <div className="flex md:hidden justify-center items-center gap-3">
-            <button className="px-3 md:px-[32px]  text-[12px] py-[16px] bg-primary text-white rounded-full flex items-center gap-2">
+          <div className="flex md:hidden justify-center items-center gap-1 w-full mt-8">
+            <button className="px-3 md:px-[32px]  text-[12px] py-[16px] bg-primary text-white rounded-full flex justify-center items-center gap-2 w-full text-nowrap">
               <svg
                 width="20"
                 height="18"
@@ -219,7 +225,7 @@ function Index() {
               </svg>
               Contact Rebecca
             </button>
-            <button className=" px-4 md:px-[32px] text-[12px]  py-[16px] bg-primary  bg-opacity-[13%] text-primary rounded-full flex items-center gap-2 font-semibold">
+            <button className=" px-3 md:px-[32px] text-[12px]  py-[16px] bg-primary  bg-opacity-[13%] text-primary rounded-full flex items-center justify-center gap-2 w-full  font-semibold">
               <svg
                 width="22"
                 height="20"

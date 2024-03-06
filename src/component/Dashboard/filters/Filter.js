@@ -9,7 +9,9 @@ function Filter() {
     <>
       <div className="px-5">
         <div className="flex  flex-col md:flex-row items-center-start md:justify-between md:items-center">
-          <h1 className="text-2xl font-medium">What are you looking for?</h1>
+          <h1 className="text-xl md:text-2xl font-medium">
+            What are you looking for?
+          </h1>
 
           <div className="flex items-center  gap-5 py-8 md:py-10">
             <div class="flex items-center ">
