@@ -3,6 +3,9 @@ import Modal from "../Modal/Modal";
 import { useRouter } from "next/router";
 
 function index({ isOpen, onClose }) {
+
+  const router = useRouter();
+
   return (
     <div>
       <Modal isOpen={isOpen} onClose={onClose}>

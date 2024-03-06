@@ -7,8 +7,11 @@ import { showToast } from "@/constant/toast/toastUtils";
 import { post } from "@/redux/services/apiServices";
 import { useDispatch } from "react-redux";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 function Index() {
+  const router = useRouter();
+
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(true);
@@ -81,14 +84,13 @@ function Index() {
           </div>
         )}
         <div
-          class={`grid grid-cols-1 md:grid-cols-2 ${
-            loading ? "opacity-35" : ""
-          }`}
+          class={`grid grid-cols-1 md:grid-cols-2 ${loading ? "opacity-35" : ""
+            }`}
         >
           <div className="flex items-center  px-4 py-10 bg-transparent sm:px-6 lg:px-8 sm:pt-16 lg:pt-12">
             <div className="w-full lg:w-[80%]">
               <div className="lg:ml-14 mx-auto">
-                <img src="/images1/Frame1.png" className="h-8 "></img>
+                <img src="/images1/Frame1.png" className="h-8" style={{ cursor: "pointer" }} onClick={() => router.push("/")}></img>
                 <h2 className="text-3xl font-bold leading-tight mt-10 text-black sm:text-4xl">
                   Welcome!
                 </h2>
@@ -174,7 +176,7 @@ function Index() {
                       />
                     </svg>
                   </div>
-                  <div className="px-4 py-2">Sign in with Google</div>
+                  <div className="px-4 py-2 font-bold">Sign in with Google</div>
                 </button>
 
                 <p class="mt-16 text-sm text-center font-medium text-gray-600">

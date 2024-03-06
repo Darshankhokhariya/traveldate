@@ -1,18 +1,12 @@
-import React, { useState } from "react";
-
+import React from "react";
 import Menu from "../sidebar/Menu";
 import { useRouter } from "next/router";
-
 import "./sidebar.css";
-import Filter from "../Dashboard/filters/Filter";
-import Recent from "../recent/Recent";
 import Link from "next/link";
 
 function Sidebar(props) {
-  const navigate = useRouter();
 
-  const [isopen, setisopen] = useState(true);
-  const [drop1, setDrop1] = useState(false);
+  const router = useRouter();
 
   return (
     <>
@@ -22,7 +16,7 @@ function Sidebar(props) {
             <div className="flex-1">
               <ul className="pt-2 pb-4 pl-20 space-y-1 text-sm">
                 <li className="rounded-sm  flex justify-center py-8">
-                  <img src="/images1/logo2.png" alt="" />
+                  <img src="/images1/Frame1.png" alt="logo" style={{ cursor: "pointer" }} onClick={() => router.push("/")} />
                 </li>
                 {Menu.map((e, index) => {
                   return (
@@ -30,9 +24,7 @@ function Sidebar(props) {
                       <li
                         key={index}
                         className="rounded-sm cursor-pointer py-6 ml-2 flex justify-start group "
-                        onClick={() => {
-                          navigate.push(e.path);
-                        }}
+                        onClick={() => { router.push(e.path) }}
                       >
                         <div className="flex items-center space-x-3  hover:border-l-2  border-primary px-3">
                           <div className="text-black group-hover:text-red-500">
@@ -49,9 +41,7 @@ function Sidebar(props) {
 
                 <li
                   className="rounded-sm cursor-pointer py-6 ml-2 flex justify-start group "
-                  onClick={() => {
-                    navigate.push(e.path);
-                  }}
+                  onClick={() => { router.push(e.path) }}
                 >
                   <div className="flex items-center space-x-3 rounded-md">
                     <div className="text-black group-hover:text-red-500">

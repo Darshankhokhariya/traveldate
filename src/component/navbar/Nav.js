@@ -2,6 +2,8 @@ import Link from "next/link";
 import React from "react";
 import Primarybutton from "../Buttons/Primarybutton";
 import Secondarybutton from "../Buttons/Secondarybutton";
+import logo from "../../assets/logo.png";
+
 function Nav() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
@@ -15,7 +17,7 @@ function Nav() {
       <div className="w-full bg-transparent ">
         <div className="container  flex items-center justify-between mx-auto py-3 lg:pt-3 px-5 lg:px-20 ">
           <div className="inline-flex items-center space-x-2">
-            <img src="/images1/logo.png" />
+            <img className="h-[50px] w-auto" src={logo.src} />
           </div>
           <div className="hidden lg:block   gap-3">
             <ul className="inline-flex space-x-20 items-center">

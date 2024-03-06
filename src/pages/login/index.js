@@ -7,8 +7,11 @@ import { post } from "@/redux/services/apiServices";
 import { showToast } from "@/constant/toast/toastUtils";
 import { GoogleLogin } from "@react-oauth/google";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 function Index() {
+  const router = useRouter();
+
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(true);
@@ -59,7 +62,7 @@ function Index() {
     setShowPassword(!showPassword);
   };
 
-  const handleGoogleLogin = async (data, setLoading, dispatch, router) => {
+  const handleGoogleLogin = async (data, setLoading, dispatch) => {
     try {
       if (data) {
         setLoading(true);
@@ -104,14 +107,13 @@ function Index() {
           </div>
         )}
         <div
-          class={`grid grid-cols-1 md:grid-cols-2 ${
-            loading ? "opacity-35" : ""
-          }`}
+          class={`grid grid-cols-1 md:grid-cols-2 ${loading ? "opacity-35" : ""
+            }`}
         >
           <div class="flex items-center  px-4 py-10 bg-transparent sm:px-6 lg:px-8 sm:py-16 lg:py-12">
-            <div class=" w-full lg:w-[80%] relative">
+            <div class="w-full lg:w-[80%] relative">
               <div className="lg:ml-14 mx-auto">
-                <img src="/images1/Frame1.png" className="h-8 "></img>
+                <img src="/images1/Frame1.png" className="h-8" style={{ cursor: "pointer" }} onClick={() => router.push("/")}></img>
                 <h2 class="text-3xl font-bold leading-tight mt-10 text-black sm:text-4xl">
                   Welcome!
                 </h2>
@@ -212,7 +214,7 @@ function Index() {
 
                   <span class="">Sign in with Google</span>
                 </button>
-                <button class="flex w-full items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg bg-[#1091F3]">
+                {/* <button class="flex w-full items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg bg-[#1091F3]">
                   <div class=" py-2">
                     <svg
                       width="24"
@@ -253,7 +255,7 @@ function Index() {
                   <span class=" px-4 py-3 font-bold text-center text-white">
                     Sign in with Facebook
                   </span>
-                </button>
+                </button> */}
 
                 <p class="mt-5 text-sm text-center font-medium text-gray-600">
                   Don&apos;t have an account?{" "}
