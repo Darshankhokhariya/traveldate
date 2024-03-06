@@ -11,8 +11,8 @@ function Footer() {
               <div class="container md:px-6 py-12 mx-auto">
                 <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-4">
                   <div class="col-span-2">
-                    <div className="flex items-center gap-3">
-                      <img src={logo.src} className="h-[50px] w-auto" alt="" />
+                    <div className="flex items-center justify-between gap-3">
+                      <img src={logo.src} className="h-[40px] sm:h-[50px] w-auto " alt="" />
                       <div className="py-5 flex md:hidden gap-2">
                         <svg
                           width="32"
