@@ -131,6 +131,66 @@ body {
   
 }
 
+/* Add this CSS for responsiveness */
+@media screen and (max-width: 768px) {
+  .my-5-responsive {
+    margin-top: 3rem; /* Adjust margin top */
+    margin-bottom: 3rem; /* Adjust margin bottom */
+  }
+  
+  .w-full-responsive {
+    max-width: 80%; /* Adjust the maximum width */
+  }
+  
+  .border-responsive {
+    border-width: 2px; /* Adjust border width */
+  }
+  
+  .py-3-responsive {
+    padding-top: 1.5rem; /* Adjust top padding */
+    padding-bottom: 1.5rem; /* Adjust bottom padding */
+  }
+  
+  .text-center-responsive {
+    text-align: center; /* Center text */
+  }
+  
+  .hover-shadow-responsive {
+    transition: all 0.3s ease; /* Smooth transition */
+  }
+}
+
+/* Add these classes to GoogleLogin component */
+.google-login {
+  /* Default styling */
+}
+
+.google-login.my-5-responsive {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.google-login.w-full-responsive {
+  max-width: 80%;
+}
+
+.google-login.border-responsive {
+  border-width: 2px;
+}
+
+.google-login.py-3-responsive {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.google-login.text-center-responsive {
+  text-align: center;
+}
+
+.google-login.hover-shadow-responsive {
+  transition: all 0.3s ease;
+}
+
 .animated {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
