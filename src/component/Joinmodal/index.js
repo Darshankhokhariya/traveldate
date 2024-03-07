@@ -2,8 +2,7 @@ import React from "react";
 import Modal from "../Modal/Modal";
 import { useRouter } from "next/router";
 
-function index({ isOpen, onClose }) {
-
+function Index({ isOpen, onClose }) {
   const router = useRouter();
 
   return (
@@ -72,4 +71,4 @@ function index({ isOpen, onClose }) {
   );
 }
 
-export default index;
+export default Index;

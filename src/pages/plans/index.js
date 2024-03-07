@@ -170,9 +170,9 @@ function Index() {
                 </div>
                 <p className="text-xl text-white  py-5">What You’ll Get</p>
                 <ul className="text-white">
-                  {Advanced.map((e) => {
+                  {Advanced.map((e, index) => {
                     return (
-                      <li className="py-2 flex items-center">
+                      <li key={index} className="py-2 flex items-center">
                         <div>
                           <svg
                             width="24"
@@ -187,9 +187,7 @@ function Index() {
                             />
                           </svg>
                         </div>
-                        <span className="ml-2 text-sm ">
-                          8 hours usage of our coworking space
-                        </span>
+                        <span className="ml-2 text-sm ">{e?.text}</span>
                       </li>
                     );
                   })}
