@@ -3,6 +3,7 @@ import React from "react";
 import Primarybutton from "../Buttons/Primarybutton";
 import Secondarybutton from "../Buttons/Secondarybutton";
 import logo from "../../assets/logo.png";
+import darklogo from "../../assets/logo2.png";
 
 function Nav() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -61,38 +62,38 @@ function Nav() {
               <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 h-screen">
                 <div className="px-5 pb-6 pt-5">
                   <div className="flex items-center justify-between">
-                    <div className="inline-flex items-center space-x-2">
+                    <div className="w-full flex items-center justify-between space-x-2">
                       <span>
-                        <img src="/images1/logo.png" alt="" />
+                        <img className="h-[50px]" src={darklogo.src} alt="" />
                       </span>
-                    </div>
-                    <div className="-mr-2">
-                      <button
-                        type="button"
-                        onClick={toggleMenu}
-                        className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-                      >
-                        <svg
-                          width="17"
-                          height="17"
-                          viewBox="0 0 17 17"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
+                      <div className="-mr-2">
+                        <button
+                          type="button"
+                          onClick={toggleMenu}
+                          className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                         >
-                          <path
-                            d="M15.3535 1.35352L1 15"
-                            stroke="black"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                          />
-                          <path
-                            d="M1.70703 1.29297L15.707 15.293"
-                            stroke="black"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                          />
-                        </svg>
-                      </button>
+                          <svg
+                            width="17"
+                            height="17"
+                            viewBox="0 0 17 17"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M15.3535 1.35352L1 15"
+                              stroke="black"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                            />
+                            <path
+                              d="M1.70703 1.29297L15.707 15.293"
+                              stroke="black"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                            />
+                          </svg>
+                        </button>
+                      </div>
                     </div>
                   </div>
                   <div className="mt-6">

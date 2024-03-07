@@ -1,5 +1,6 @@
 import Banner from "@/component/Dashboard/Banner/Banner";
 import Filter from "@/component/Dashboard/filters/Filter";
+import Searchbar from "@/component/Dashboard/searchbar/Searchbar";
 import Recent from "@/component/recent/Recent";
 import Sidebar from "@/component/sidebar/Sidebar";
 import React from "react";
@@ -8,8 +9,9 @@ function dashboard() {
   return (
     <>
       <Sidebar>
-        <div className="px-5 md:px-14 pb-20 md:pb-0 hidden md:block">
+        <div className="px-5 lg:px-14 pb-20 md:pb-0 hidden md:block">
           <Banner />
+          <Searchbar />
           <Filter />
           <Recent />
         </div>

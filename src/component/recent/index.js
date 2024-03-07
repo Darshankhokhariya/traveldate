@@ -55,8 +55,8 @@ function Recent() {
 
   return (
     <>
-      <div className="container mx-auto px-3 lg:px-16">
-        <div className="pt-10 md:pt-0 lg:py-10 text-center md:text-start">
+      <div className="container mx-auto px-3 md:px-16">
+        <div className="pt-10  lg:py-10 text-center md:text-start">
           <div className="uppercase  text-primary font-medium">New Member</div>
           <p className="text-[27px]  lg:text-[48px] font-semibold text-black">
             Our Recent Member
@@ -64,7 +64,7 @@ function Recent() {
         </div>
         <section
           id="Projects"
-          class="  grid   xl:grid-cols-4 lg:grid-cols-3 grid-cols-2 justify-items-center justify-center gap-y-10 lg:gap-10 gap-4  mt-5 md:mt-10 mb-5"
+          class="  grid   xl:grid-cols-4 md:grid-cols-3 grid-cols-2 justify-items-center justify-center gap-y-10 lg:gap-10 gap-4  mt-5 md:mt-10 mb-5"
         >
           {cards.map((e) => {
             return (
@@ -77,19 +77,20 @@ function Recent() {
                       class="md:h-[250px] w-auto lg:w-72 object-cover rounded-t-xl"
                     />
                     <div class="px-4 py-3 w-auto lg:w-72">
-                      <div class="flex items-start">
-                        <div>
-                          <p class="text-sm md:text-lg font-bold truncate block capitalize">
-                            Aasta Smith
-                          </p>
+                      <div class="flex items-start w-full">
+                        <div className="w-full">
+                          <div className="flex items-center justify-between w-full">
+                            <p class="text-base md:text-lg font-bold truncate block capitalize">
+                              Aasta Smith
+                            </p>
+                            <div class="ml-auto  text-lg md:text-xl text-primary font-bold">
+                              24
+                            </div>
+                          </div>
                           <div className="flex items-center gap-1 text-secondary">
                             <img src="/icons/location.svg" alt="" />
                             <p class="text-sm  cursor-auto my-3">Rome, Italy</p>
                           </div>
-                        </div>
-
-                        <div class="ml-auto pt-2 text-lg md:text-xl text-primary font-bold">
-                          24
                         </div>
                       </div>
                     </div>

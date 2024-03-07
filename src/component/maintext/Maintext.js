@@ -23,7 +23,6 @@ function Maintext() {
         </p>
         <div className="mt-4 gap-4 hidden lg:flex items-center">
           <Iconbutton text="Join Traveldate" icon={heart} />
-          {/* <Primarybutton text="Watch Demo" /> */}
         </div>
       </div>
     </>

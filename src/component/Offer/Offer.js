@@ -35,8 +35,8 @@ function Offer() {
   ];
   return (
     <>
-      <div className="container px-8 xl:max-w-7xl mx-auto">
-        <div className="py-20 text-center lg:text-start">
+      <div className="container mx-auto px-3 md:px-16">
+        <div className="pt-10  lg:py-10 text-center md:text-start">
           <div className="uppercase  text-primary font-medium">New Member</div>
           <p className="text-[27px]  lg:text-[48px] font-semibold text-black">
             What We Offer You.

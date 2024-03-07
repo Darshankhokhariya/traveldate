@@ -4,13 +4,15 @@ import { useRouter } from "next/router";
 import Nav from "../navbar/Nav";
 import Secondarybutton from "../Buttons/Secondarybutton";
 import Primarybutton from "../Buttons/Primarybutton";
+import Iconbutton from "../Buttons/Iconbutton";
+import heart from "../../assets/Heart.png";
 
 function Slider() {
   const router = useRouter();
 
   return (
     <>
-      <div className="lg:p-2 overflow-x-hidden container mx-auto">
+      <div className="lg:p-2 overflow-x-hidden ">
         <div className="slider py-5">
           <Nav />
           <div className="flex flex-col lg:flex-row  justify-between  w-full h-full container mx-auto py-20 lg:px-10 xl:px-20">
@@ -18,6 +20,7 @@ function Slider() {
               <div className="flex flex-col justify-center px-5 lg:px-10 xl:px-1">
                 <Maintext />
               </div>
+
               <div className="w-full hidden lg:grid grid-cols-3 justify-items-center  gap-4 lg:px-10 xl:px-1 py-10 ">
                 <div className="">
                   <img
@@ -72,7 +75,7 @@ function Slider() {
                 </div>
 
                 {/* card1 */}
-                <div className="w-[45%] lg:w-[60%] -rotate-12 h-max   z-10 ml-2 xl:ml-10 relative">
+                <div className="w-[50%] lg:w-[60%] -rotate-12 h-max   z-10  xl:ml-10 relative">
                   <div class="w-full h-full ml-6 lg:ml-14 -mb-8  bg-white rounded-3xl  unded-lg shadow-lg p-1">
                     <img
                       class="object-cover  h-[150px] lg:h-[280px] w-full rounded-3xl"
@@ -82,7 +85,7 @@ function Slider() {
 
                     <div class="flex items-start px-2 py-2">
                       <div>
-                        <p class="text-lg font-bold truncate block capitalize">
+                        <p class=" text-base  md:text-lg font-bold truncate block capitalize">
                           Aasta Smith
                         </p>
                         <div className="flex items-center gap-4 text-secondary">
@@ -103,7 +106,7 @@ function Slider() {
                     />
                   </div>
                 </div>
-                <div className="w-[45%] lg:w-[60%]   rounded-3xl h-max overflow-clip  bg-white z-10 mt-32 ml-2 lg:-ml-20 ">
+                <div className="w-[50%] lg:w-[60%]   rounded-3xl h-max overflow-clip  bg-white z-10 mt-32 -ml-5 lg:-ml-20 ">
                   <div class="w-full h-full  bg-white   unded-lg shadow-lg p-1">
                     <img
                       class="object-cover  h-[150px] lg:h-[280px] w-full rounded-3xl"
@@ -113,7 +116,7 @@ function Slider() {
 
                     <div class="flex items-start px-2 py-2">
                       <div>
-                        <p class="text-lg font-bold truncate block capitalize">
+                        <p class="text-base  md:text-lg font-bold truncate block capitalize">
                           Aasta Smith
                         </p>
                         <div className="flex items-center gap-1 text-secondary">
@@ -251,6 +254,51 @@ function Slider() {
               <Secondarybutton text="Get Started" />
               <Primarybutton text="Watch Demo" />
             </div> */}
+          </div>
+
+          {/* <marquee width="100%" direction="left">
+            <div className="w-full  grid grid-cols-3 gap-40  md:hidden justify-items-center px-10  py-10 ">
+              <div className="">
+                <img
+                  src="/images1/icons/icon3.png"
+                  className="h-[80px] w-[80px] object-cover"
+                  alt=""
+                />
+                <h1 className="text-white font-bold">100k+ Members</h1>
+                <p className="text-xs text-white">
+                  Over thousand of interested travellers <br /> are waiting for
+                  you
+                </p>
+              </div>
+
+              <div className="">
+                <img
+                  src="/images1/icons/icon2.png"
+                  className="h-[80px] w-[80px] object-cover"
+                  alt=""
+                />
+                <h1 className="text-white font-bold">Find Travel Partner</h1>
+                <p className="text-xs text-white">
+                  Browse members, pick any & start <br /> chatting with them
+                </p>
+              </div>
+
+              <div className="">
+                <img
+                  className="h-[80px] w-[80px] object-cover"
+                  src="/images1/icons/icon1.png"
+                  alt=""
+                />
+                <h1 className="text-white font-bold">Perfect Match</h1>
+                <p className="text-xs text-white">
+                  10k+ Daily active girls to <br /> connect with you
+                </p>
+              </div>
+            </div>
+          </marquee> */}
+
+          <div className="mt-4 gap-4 flex lg:hidden items-center justify-center">
+            <Iconbutton text="Join Traveldate" icon={heart} />
           </div>
         </div>
       </div>

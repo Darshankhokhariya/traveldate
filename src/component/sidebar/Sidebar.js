@@ -5,18 +5,22 @@ import "./sidebar.css";
 import Link from "next/link";
 
 function Sidebar(props) {
-
   const router = useRouter();
 
   return (
     <>
       <div className="hidden lg:flex  w-full h-screen ">
-        <div className="bg-white fixed h-screen  z-10 animate__animated animate__fadeInLeft  top-0 text-white shadow  w-[20%]  px-4">
+        <div className="bg-white fixed h-screen  z-10 animate__animated animate__fadeInLeft  top-0 text-white shadow  lg:w-[20%]  px-4">
           <div className="space-y-3">
             <div className="flex-1">
-              <ul className="pt-2 pb-4 pl-20 space-y-1 text-sm">
+              <ul className="pt-2 pb-4 lg:pl-10 xl:pl-20 space-y-1 text-sm">
                 <li className="rounded-sm  flex justify-center py-8">
-                  <img src="/images1/Frame1.png" alt="logo" style={{ cursor: "pointer" }} onClick={() => router.push("/")} />
+                  <img
+                    src="/images1/Frame1.png"
+                    alt="logo"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => router.push("/")}
+                  />
                 </li>
                 {Menu.map((e, index) => {
                   return (
@@ -24,7 +28,9 @@ function Sidebar(props) {
                       <li
                         key={index}
                         className="rounded-sm cursor-pointer py-6 ml-2 flex justify-start group "
-                        onClick={() => { router.push(e.path) }}
+                        onClick={() => {
+                          router.push(e.path);
+                        }}
                       >
                         <div className="flex items-center space-x-3  hover:border-l-2  border-primary px-3">
                           <div className="text-black group-hover:text-red-500">
@@ -39,9 +45,11 @@ function Sidebar(props) {
                   );
                 })}
 
-                <li
-                  className="rounded-sm cursor-pointer py-6 ml-2 flex justify-start group "
-                  onClick={() => { router.push(e.path) }}
+                {/* <li
+                  className="rounded-sm cursor-pointer  mt-auto flex justify-start group "
+                  onClick={() => {
+                    router.push(e.path);
+                  }}
                 >
                   <div className="flex items-center space-x-3 rounded-md">
                     <div className="text-black group-hover:text-red-500">
@@ -62,7 +70,7 @@ function Sidebar(props) {
                       Logout
                     </span>
                   </div>
-                </li>
+                </li> */}
               </ul>
             </div>
           </div>
@@ -84,7 +92,7 @@ function Sidebar(props) {
 
       {/* mobile */}
       <div className="block lg:hidden  h-screen">
-        <div class="fixed bottom-0 left-1/2 transform -translate-x-1/2 inline-flex mx-auto justify-between bg-white  w-full">
+        <div class="fixed bottom-0 left-1/2 transform -translate-x-1/2 inline-flex items-center mx-auto justify-between bg-white  w-full h-[60px]">
           <Link
             aria-current="page"
             class="inline-flex flex-col items-center text-xs font-medium py-3 px-4 text-white flex-grow"
@@ -179,7 +187,9 @@ function Sidebar(props) {
             <span class="sr-only">Profile</span>
           </Link>
         </div>
-        {props.children}
+        <div style={{ height: "calc(100% - 70px)" }} className="">
+          {props.children}
+        </div>
       </div>
     </>
   );
