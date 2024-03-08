@@ -1,14 +1,9 @@
-import Secondarybutton from '@/component/Buttons/Secondarybutton'
 import PhotosUpload from '@/component/PhotosUpload/PhotosUpload'
 import UserProfile from '@/component/UserProfile/UserProfile'
-import Input from '@/component/inputs/Input'
-import Select from '@/component/inputs/Select'
-import Textarea from '@/component/inputs/Textarea'
 import Sidebar from '@/component/sidebar/Sidebar'
-import { Autocomplete, TextField } from '@mui/material'
 import React, { useState } from 'react'
 
-function index() {
+function Index() {
     const [tab, setTab] = useState("profile")
     const handleTabChange = (e) => {
         setTab(e)
@@ -18,7 +13,7 @@ function index() {
             <Sidebar>
                 <div className='lg:mx-20 mx-5 mt-10 lg:mt-0'>
                     <div >
-                        <div className='flex gap-4'>
+                        <div className='flex gap-4 w-full justify-center sm:justify-start '>
                             <div className='w-max'>
                                 <button onClick={() => handleTabChange("profile")} className={`${tab === "profile" && "text-primary"} font-semibold`}>
                                     User Profile
@@ -51,4 +46,4 @@ function index() {
     )
 }
 
-export default index
+export default Index

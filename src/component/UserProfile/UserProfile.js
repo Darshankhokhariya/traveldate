@@ -7,11 +7,20 @@ import Input from '../inputs/Input'
 
 function UserProfile() {
     return (
-        <div><div className='mt-5 flex gap-4 items-center'>
-            <div class="h-28 w-28 overflow-hidden rounded-lg ring-2 ring-gray-700 dark:ring-gray-100">
-                <img src="/images1/myProfile.jpg" alt="" />
+        <div><div className='mt-5 flex gap-8 items-center justify-center sm:justify-start'>
+            <div className='relative'>
+                <div class="h-[171px] w-[171px] overflow-hidden rounded-lg ring-2 ring-gray-700 dark:ring-gray-100">
+                    <img src="/images1/myProfile.jpg" alt="" />
+                </div>
+                <div className='absolute -bottom-4 left-1/2 -translate-x-1/2 '>
+                    <button className='rounded-full bg-primary p-1 border-2 border-white'>
+                        <svg width="18" height="18" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1.75 12.1674H2.81066L9.79593 5.18209L8.73528 4.12143L1.75 11.1067V12.1674ZM13.75 13.6674H0.25V10.4854L10.3263 0.409121C10.6192 0.116231 11.094 0.116231 11.3869 0.409121L13.5083 2.53044C13.8012 2.82333 13.8012 3.29821 13.5083 3.5911L4.93198 12.1674H13.75V13.6674ZM9.79593 3.06078L10.8566 4.12143L11.9172 3.06078L10.8566 2.00011L9.79593 3.06078Z" fill="white" />
+                        </svg>
+                    </button>
+                </div>
             </div>
-            <div>
+            <div className='hidden sm:block'>
                 <p className='text-3xl font-semibold'>
                     Rebecca Johansson
                 </p>
@@ -202,14 +211,15 @@ function UserProfile() {
                     </div>
                 </div>
             </div>
-            <div className='flex items-center gap-4 justify-center sm:justify-end pb-10'>
-                <div className='text-primary underline'>
+            <div className='flex items-center gap-4 justify-center sm:justify-end pb-28'>
+                <div className='text-primary underline text-nowrap font-semibold'>
                     Change Password?
                 </div>
                 <div className='text-primary underline'>
                     <Secondarybutton text="Save Changes" />
                 </div>
-            </div></div>
+            </div>
+        </div>
     )
 }
 
