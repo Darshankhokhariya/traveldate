@@ -16,14 +16,6 @@ function Index() {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(true);
 
-  // const handleChange = (e) => {
-  //   const { name, value } = e?.target;
-  //   setFields((prevState) => ({
-  //     ...prevState,
-  //     [name]: value
-  //   }))
-  // }
-
   const handleSubmit = async (values, setErrors) => {
     try {
       setLoading(true);

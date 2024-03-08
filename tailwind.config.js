@@ -17,6 +17,9 @@ module.exports = {
         secondary1: "#8c8c92", // Example primary color
         dark: "#2A112A",
       },
+      screens: {
+        // xs: "320px", // You can use any name for the breakpoint (e.g., 'xs')
+      },
     },
   },
   plugins: [],

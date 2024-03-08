@@ -56,7 +56,7 @@ function Recent() {
     <>
       <section
         id="Projects"
-        class="  grid   xl:grid-cols-4 lg:grid-cols-3 grid-cols-2 justify-items-center justify-center gap-y-10 lg:gap-x-6  gap-4 py-10 mb-5 px-3"
+        class="  grid   xl:grid-cols-4 md:grid-cols-3 grid-cols-2 justify-items-center justify-center gap-y-10 lg:gap-x-6  gap-4 py-10 mb-5 px-3"
       >
         {cards.map((e) => {
           return (

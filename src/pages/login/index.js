@@ -80,7 +80,7 @@ function Index() {
               localStorage.setItem("authToken", res?.data?.authToken);
               localStorage.setItem("refreshToken", res?.data?.refreshToken);
               showToast(res.message, { type: "success" });
-              // router.push(`/onboarding?id=${res?.data?._id}`);
+              router.push(`/onboarding?id=${res?.data?._id}`);
             }
           })
           .catch((err) => {
@@ -173,15 +173,15 @@ function Index() {
                   </div>
                 </form>
 
-                <div className="flex w-full items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg bg-white  ">
+                <div className="my-5 w-full flex justify-center">
                   <GoogleLogin
                     onSuccess={(res) =>
-                      handleGoogleLogin(res, setLoading, dispatch)
+                      handleGoogleLogin(res, setLoading, dispatch, router)
                     }
-                    className="px-4 py-3 font-bold text-center"
+                    className="w-full text-center py-3 my-3 border flex space-x-2 items-center justify-center bg-[#F3F1F8] border-slate-200 rounded-full text-black hover:shadow transition duration-150"
                     size="large"
                     text="signin_with"
-                    // shape="pill"
+                    shape="square"
                     width={300}
                     logo_alignment="center"
                     onError={(err) => {
@@ -190,7 +190,7 @@ function Index() {
                   />
                 </div>
 
-                <button class="flex w-full items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg bg-white  ">
+                {/* <button class="flex w-full items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg bg-white  ">
                   <div class=" py-2">
                     <svg class="w-6 h-6" viewBox="0 0 40 40">
                       <path
@@ -213,7 +213,7 @@ function Index() {
                   </div>
 
                   <span class="">Sign in with Google</span>
-                </button>
+                </button> */}
                 {/* <button class="flex w-full items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg bg-[#1091F3]">
                   <div class=" py-2">
                     <svg
@@ -255,7 +255,7 @@ function Index() {
                   <span class=" px-4 py-3 font-bold text-center text-white">
                     Sign in with Facebook
                   </span>
-                </button> */}
+                </button>  */}
 
                 <p class="mt-5 text-sm text-center font-medium text-gray-600">
                   Don&apos;t have an account?{" "}

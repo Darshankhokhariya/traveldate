@@ -1,16 +1,72 @@
 import Secondarybutton from "@/component/Buttons/Secondarybutton";
 import ErrorMessage from "@/component/ErrorMessage/ErrorMessage";
+import ImageCropping from "@/component/ImageCropping";
 import Input from "@/component/inputs/Input";
 import Select from "@/component/inputs/Select";
 import Textarea from "@/component/inputs/Textarea";
+import { FORM_HEADERS, HEADERS } from "@/constant/authorization";
 import { bodyType } from "@/constant/bodyType";
 import { gender } from "@/constant/gender";
+import { showToast } from "@/constant/toast/toastUtils";
+import { get, put } from "@/redux/services/apiServices";
 import { Autocomplete, TextField } from "@mui/material";
 import { useFormik } from "formik";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { MdClose } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 
 const Index = () => {
+  const dispatch = useDispatch();
+  const countries = useSelector((state) => state?.Auth?.countryList);
+  const cities = useSelector((state) => state?.Auth?.cityList);
+  const [city, setCity] = useState("");
+  const [open, setOpen] = useState(false);
+  const router = useRouter();
+  const { id } = router.query;
+  const [openLanguage, setOpenLanguage] = useState(false);
+  const [languageField, setLanguageField] = useState("");
+  const [files, setFiles] = useState([]);
+  const [imageCropModel, setOpenImageCropModel] = useState(false);
+  const [imgSrc, setImgSrc] = useState("");
+  const [imgFileName, setImgFileName] = useState("");
+
+  const openImageCropModel = () => setOpenImageCropModel(true);
+  const closeImageCropModel = () => setOpenImageCropModel(false);
+
+  const languageData = useSelector((state) => state?.Auth?.languageList);
+  const languageList = languageData?.map((e) => e?.name);
+  const countryList = countries?.map((e) => e?.name);
+
+  const handleOpen = () => {
+    if (city.length > 0) {
+      setOpen(true);
+    }
+  };
+
+  const handleInputChange = (event, newInputValue) => {
+    console.log("newInputValue", newInputValue);
+    setCity(newInputValue);
+    if (newInputValue.length > 0) {
+      setOpen(true);
+    } else {
+      setOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (city) {
+      // setFields((prevState) => ({
+      //     ...prevState,
+      //     city: ""
+      // }))
+      get(`/country/getCity?city=${city}`, "GET_CITY", dispatch, HEADERS);
+    }
+  }, [city]);
+
+  const optionsArray = Array.from({ length: 58 }, (_, index) => 18 + index);
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -20,7 +76,8 @@ const Index = () => {
       about: "",
       bodyType: "",
       country: "",
-      city: "",
+      city: [],
+      language: [],
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Name is required"),
@@ -32,19 +89,103 @@ const Index = () => {
       about: Yup.string().required("About is required"),
       bodyType: Yup.string().required("Body type is required"),
       country: Yup.string().required("Country is required"),
-      city: Yup.string().required("City is required"),
+      city: Yup.array()
+        .min(1, "City is required")
+        .max(5, "You can select up to 5 cities"),
+      language: Yup.array()
+        .min(1, "Language is required")
+        .max(5, "You can select up to 5 languages"),
     }),
     onSubmit: (values, { setErrors }) => {
       formik.validateForm().then((errors) => {
         if (Object.keys(errors).length === 0) {
-          //   handleSubmit(values, setErrors);
+          handleSubmit(values, setErrors);
         }
       });
     },
   });
 
+  const handleGetCountry = async () => {
+    await get("/country/getCountry", "GET_COUNTRY", dispatch, HEADERS);
+  };
+
+  useEffect(() => {
+    handleGetCountry();
+    get(`/language/getLanguage`, "GET_LANGUAGE", dispatch, HEADERS);
+  }, []);
+
+  const handleInputChangeLanguage = (event, newInputValue) => {
+    setLanguageField(newInputValue);
+    if (newInputValue.length > 0) {
+      setOpenLanguage(true);
+    } else {
+      setOpenLanguage(false);
+    }
+  };
+
+  const handleOpenLanguage = () => {
+    if (languageField.length > 0) {
+      setOpenLanguage(true);
+    }
+  };
+
+  const handleFile = (e) => {
+    console.log("e", e);
+    setImgFileName(e.target.files[0].name);
+    var reader = new FileReader();
+    console.log("reader", reader);
+    reader.addEventListener("load", () => {
+      setImgSrc(reader.result?.toString() || ""), setOpenImageCropModel(true);
+    });
+    reader.readAsDataURL(e.target.files[0]);
+  };
+
+  const handleImageCropResponse = (url, filename) => {
+    if (url && filename) {
+      let arr = url.split(","),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[arr.length - 1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+      let file = new File([u8arr], filename, { type: mime });
+      setOpenImageCropModel(false);
+      console.log("file", file);
+      setFiles([file]);
+    }
+  };
+
+  const handleSubmit = (values) => {
+    const formData = new FormData();
+    formData.append("name", values?.name);
+    formData.append("id", id);
+    formData.append("gender", values?.gender);
+    formData.append("age", values?.age);
+    formData.append("bodyType", values?.bodyType);
+    formData.append("language", values?.language);
+    formData.append("country", values?.country);
+    formData.append("aboutUser", values?.about);
+    formData.append("city", values?.city);
+    // files?.map((img) => {
+    //     formData.append("image", img)
+    // })
+
+    put("/user/userDetails", formData, "USER_UPDATE", dispatch, FORM_HEADERS)
+      .then((res) => {
+        if (res?.status === 200) {
+          showToast(res.message, { type: "success" });
+          router.push("/");
+        }
+      })
+      .catch((error) => {
+        showToast(error.message, { type: "error" });
+      });
+  };
+
   return (
-    <div class="md:pt-5 mx-auto m-auto mb-9">
+    <div className="md:pt-5 mx-auto m-auto mb-9">
       <div className="md:border md:border-white  md:rounded-3xl md:w-8/12 m-auto h-100">
         <form onSubmit={formik.handleSubmit}>
           <div className="flex items-center flex-col justify-center p-10">
@@ -64,12 +205,12 @@ const Index = () => {
                   )}
                 </div>
                 <div className="pt-5">
-                  <Input
-                    label="Age"
-                    placeholder="Enter Age"
-                    name="age"
-                    value={formik.values.age}
+                  <Select
                     onChange={formik.handleChange}
+                    value={formik.values.age}
+                    name="age"
+                    data={optionsArray}
+                    label="Age"
                   />
                   {formik.touched.age && formik.errors.age && (
                     <ErrorMessage error={formik.errors.age} />
@@ -100,81 +241,38 @@ const Index = () => {
                   )}
                 </div>
                 <div className="pt-5">
-                  <Select data={gender} label="Spoken Languages" />
-                  <div class="flex flex-wrap items-center gap-2 w-full mt-4">
-                    <div class="inline-flex items-center justify-between space-x-1  bg-primary text-white px-2 py-0.5 rounded-md text-sm">
-                      <svg
-                        onclick="this.parentElement.remove()"
-                        class="cursor-pointer h-4 w-4 text-white"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                      <div class="select-none">English</div>
-                    </div>
-                    <div class="inline-flex items-center justify-between space-x-1  bg-primary text-white px-2 py-0.5 rounded-md text-sm">
-                      <svg
-                        onclick="this.parentElement.remove()"
-                        class="cursor-pointer h-4 w-4 text-white"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                      <div class="select-none">Hindi</div>
-                    </div>
-                    <div class="inline-flex items-center justify-between space-x-1  bg-primary text-white px-2 py-0.5 rounded-md text-sm">
-                      <svg
-                        onclick="this.parentElement.remove()"
-                        class="cursor-pointer h-4 w-4 text-white"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                      <div class="select-none">Gujarati</div>
-                    </div>
-                    <div class="inline-flex items-center justify-between space-x-1  bg-primary text-white px-2 py-0.5 rounded-md text-sm">
-                      <svg
-                        onclick="this.parentElement.remove()"
-                        class="cursor-pointer h-4 w-4 text-white"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                      <div class="select-none">Gujarati</div>
-                    </div>
-                  </div>
+                  <div className="text-gray-400">Select Language</div>
+                  <Autocomplete
+                    size="small"
+                    name="language"
+                    multiple
+                    open={openLanguage}
+                    onOpen={handleOpenLanguage}
+                    onChange={(event, value) =>
+                      formik.setFieldValue("language", value ? value : null)
+                    }
+                    value={formik.values.language}
+                    disablePortal
+                    onInputChange={handleInputChangeLanguage}
+                    className="block w-full bg-[#F3F1F8]  border border-[#e6e6e6] rounded-xl"
+                    options={languageList}
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: "0",
+                      },
+                      "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+                        {
+                          borderRadius: "10px",
+                          border: "1px solid #e6e6e6",
+                        },
+                    }}
+                    renderInput={(params) => (
+                      <TextField {...params} label="Select Language" />
+                    )}
+                  />
+                  {formik.touched.language && formik.errors.language && (
+                    <ErrorMessage error={formik.errors.language} />
+                  )}
                 </div>
                 <div className="pt-5">
                   <Textarea
@@ -210,19 +308,12 @@ const Index = () => {
                     size="small"
                     name="country"
                     onChange={(event, value) =>
-                      formik.setFieldValue(
-                        "country",
-                        value ? value.value : null
-                      )
+                      formik.setFieldValue("country", value ? value : null)
                     }
                     value={formik.values.country}
                     disablePortal
                     className="block w-full bg-[#F3F1F8]  border border-[#e6e6e6] rounded-xl"
-                    options={gender}
-                    // onChange={
-                    //     handleCountry
-                    // }
-                    // value={fields.country}
+                    options={countryList}
                     sx={{
                       "& .MuiOutlinedInput-root": {
                         borderRadius: "0",
@@ -238,33 +329,30 @@ const Index = () => {
                       <TextField {...params} label="Select Country" />
                     )}
                   />
-
                   {formik.touched.country && formik.errors.country && (
                     <ErrorMessage error={formik.errors.country} />
                   )}
-                  {/* <Select data={gender} label="Country" /> */}
                 </div>
                 <div className="pt-5">
                   <div className="text-gray-400">Wants to Visit</div>
-                  {/* <Select data={gender} label="Wants to Visit" /> */}
                   <Autocomplete
                     size="small"
                     disablePortal
+                    multiple
+                    open={open}
+                    onOpen={handleOpen}
                     onChange={(event, value) =>
-                      formik.setFieldValue("city", value ? value.value : null)
+                      formik.setFieldValue("city", value ? value : null)
                     }
                     value={formik.values.city}
                     className="block w-full bg-[#F3F1F8]  border border-[#e6e6e6] rounded-xl"
-                    options={gender}
+                    options={cities}
                     name="city"
-                    // onChange={
-                    //     handleCountry
-                    // }
-                    // value={fields.country}
+                    onInputChange={handleInputChange}
+                    onClose={() => setOpen(false)}
                     sx={{
                       "& .MuiOutlinedInput-root": {
                         borderRadius: "0",
-                        // height: "40px",
                       },
                       "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
                       {
@@ -285,33 +373,69 @@ const Index = () => {
           </div>
           <div className="px-10 pb-10">
             <p className="text-lg font-semibold">Photo Gallery</p>
-
-            <div class="flex  gap-3 mt-4">
-              <div class="h-24 w-24 overflow-hidden rounded-lg flex ">
-                <img src="/images1/inputImage.png" />
-              </div>
-              <div class="h-24 w-24 overflow-hidden rounded-lg flex items-center justify-center bg-[#FFEBED]">
-                <svg
-                  width="33"
-                  height="33"
-                  viewBox="0 0 33 33"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+            <div className="flex  gap-3 mt-4">
+              {files[0] && (
+                <>
+                  <div className="h-24 w-24 overflow-hidden rounded-lg flex">
+                    <img src={URL.createObjectURL(files[0])} />
+                  </div>
+                  <MdClose
+                    onClick={() => setFiles([])}
+                    className="text-black text-1xl cursor-pointer absolute right-1 top-1 bg-white rounded-full"
+                  />
+                </>
+              )}
+              {/* <div className="h-24 w-24 overflow-hidden rounded-lg flex items-center justify-center bg-[#FFEBED]">
+                                <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M16.5 2L16.5 31" stroke="#F4425A" strokeWidth="3" strokeLinecap="round" />
+                                    <path d="M31 16.6631L2 16.6631" stroke="#F4425A" strokeWidth="3" strokeLinecap="round" />
+                                </svg>
+                            </div> */}
+              <label htmlFor="fileInput">
+                <div
+                  className="h-24 w-24 overflow-hidden rounded-lg flex items-center justify-center bg-[#FFEBED]"
+                  id="fileInputWrapper"
                 >
-                  <path
-                    d="M16.5 2L16.5 31"
-                    stroke="#F4425A"
-                    stroke-width="3"
-                    stroke-linecap="round"
-                  />
-                  <path
-                    d="M31 16.6631L2 16.6631"
-                    stroke="#F4425A"
-                    stroke-width="3"
-                    stroke-linecap="round"
-                  />
-                </svg>
-              </div>
+                  <svg
+                    width="33"
+                    height="33"
+                    viewBox="0 0 33 33"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M16.5 2L16.5 31"
+                      stroke="#F4425A"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M31 16.6631L2 16.6631"
+                      stroke="#F4425A"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </div>
+                <input
+                  type="file"
+                  id="fileInput"
+                  style={{ display: "none" }}
+                  onChange={handleFile}
+                  accept="image/*,capture=camera"
+                />
+              </label>
+              {/* {files && files?.map((file, index) => (
+                                <div key={index} className="h-[149px] mt-5 rounded-xl w-[149px] bg-[#E6E6E6] relative">
+                                    <img key={index} src={URL.createObjectURL(file)} style={{ objectFit: "fill", height: "149px", width: "100%" }} className="rounded-xl" />
+                                    <MdClose
+                                        onClick={() => handleDeleteImages(index)}
+                                        className='text-black text-1xl cursor-pointer absolute right-1 top-1 bg-white rounded-full'
+                                    // onClick={handleClose}
+                                    />
+                                </div>
+                            ))
+                            } */}
             </div>
             <div className="w-full flex justify-center md:justify-end mt-16 md:mt-3">
               <Secondarybutton text="Continue" />
@@ -319,6 +443,13 @@ const Index = () => {
           </div>
         </form>
       </div>
+      <ImageCropping
+        open={imageCropModel}
+        imgSrc={imgSrc}
+        handleOpen={openImageCropModel}
+        handleClose={closeImageCropModel}
+        callBack={handleImageCropResponse}
+      />
     </div>
   );
 };
