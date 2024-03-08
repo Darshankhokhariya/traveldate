@@ -10,7 +10,7 @@ const Textarea = (props) => {
         name={name}
         value={value}
         onChange={onChange}
-        className="block w-full py-2 pl-4 pr-4 text-black placeholder-gray-400 transition-all duration-200 border-2 border-gray-200 rounded-lg bg-white focus:outline-none focus:border-gray-400 focus:bg-white "
+        className="block w-full py-2 pl-4 pr-4 text-black placeholder-gray-400 transition-all duration-200 border-2 border-gray-200 rounded-lg bg-white focus:outline-none focus:border-gray-400 focus:bg-white resize-none"
         rows={4}
         cols={50}
       />
