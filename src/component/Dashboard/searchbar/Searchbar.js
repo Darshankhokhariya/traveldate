@@ -7,10 +7,10 @@ function Searchbar() {
     <>
       {" "}
       <div className=" py-4 rounded-2xl">
-        <div class="relative mt-1 w-full  bg-secondary1 bg-opacity-[7%] flex items-center justify-between px-4 py-2 rounded-xl">
-          <div className="flex items-center gap-3">
+        <div class="relative mt-1 w-full  md:bg-secondary1 md:bg-opacity-[7%] flex items-center justify-between px-4 py-2 rounded-xl">
+          <div className="flex items-center w-full md:w-auto gap-3">
             <div className="flex w-full justify-center ">
-              <div class="relative flex items-center w-full md:w-max  rounded-lg focus-within:shadow-lg bg-transparent  overflow-hidden border-2  ">
+              <div class="relative flex items-center w-full md:w-max  rounded-lg  bg-transparent  overflow-hidden">
                 <div class="grid place-items-center h-full w-12 text-gray-300 bg-secondary1  bg-opacity-[7%]  py-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +36,7 @@ function Searchbar() {
                 />
               </div>
             </div>
-            <div>
+            <div className="hidden md:block">
               <button className="flex items-center py-2 rounded-xl px-4 gap-2 text-secondary bg-secondary1 bg-opacity-[7%]">
                 <svg
                   width="12"
@@ -55,7 +55,7 @@ function Searchbar() {
             </div>
           </div>
           <div>
-            <div className="flex items-center gap-4">
+            <div className="hidden md:flex items-center gap-4">
               <span className="text-[12px]">Sort by</span>
               <SelectTwo data={gender} />
             </div>

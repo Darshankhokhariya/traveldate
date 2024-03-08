@@ -92,11 +92,11 @@ function Sidebar(props) {
 
       {/* mobile */}
       <div className="block lg:hidden  h-screen">
-        <div class="fixed bottom-0 left-1/2 transform -translate-x-1/2 inline-flex items-center mx-auto justify-between bg-white  w-full h-[60px]">
+        <div class="fixed bottom-0 left-1/2 transform -translate-x-1/2 inline-flex items-center mx-auto justify-between bg-white  w-full h-[60px] z-30">
           <Link
             aria-current="page"
             class="inline-flex flex-col items-center text-xs font-medium py-3 px-4 text-white flex-grow"
-            href="#"
+            href="/dashboard"
           >
             <svg
               width="21"
@@ -132,7 +132,7 @@ function Sidebar(props) {
           </Link>
           <span class="sr-only">Upload</span>
           <button class="relative inline-flex flex-col items-center text-xs font-medium text-white bg-transparent py-3 px-6 flex-grow">
-            <div class="absolute bottom-5 p-3 rounded-full border-[20px] border-white bg-primary">
+            <div class="absolute bottom-0 p-3 rounded-full border-[20px] border-white bg-primary">
               <svg
                 width="24"
                 height="24"

@@ -19,6 +19,7 @@ function dashboard() {
           <div className="flex justify-center py-10">
             <img className=" h-[30px] md:h-[58px]" src="/images1/Frame1.png" />
           </div>
+          <Searchbar />
           <Filter />
           <Recent />
         </div>

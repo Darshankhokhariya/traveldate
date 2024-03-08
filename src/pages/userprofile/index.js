@@ -46,17 +46,17 @@ function Index() {
     <>
       <Sidebar>
         <Mobilenav />
-        <div className="px-3 md:px-16 pb-32  md:pb-2">
+        <div className="px-4 lg:px-4 xl:px-14 ">
           <div className="flex flex-col md:flex-row md:items-start">
             <div className="flex flex-col gap-y-8 items-center justify-center ">
-              <div>
+              <div className="w-full h-full">
                 <img
                   src="/images1/model1.png"
-                  className="h-[300px] w-[300px] rounded-3xl"
+                  className="w-full h-full   md:h-[300px]  rounded-3xl"
                   alt=""
                 />
               </div>
-              <div className="w-[80%]">
+              <div className="w-full ">
                 <div className="relative  overflow-hidden ">
                   <div
                     className="flex transition-transform duration-500 ease-in-out "
@@ -126,7 +126,7 @@ function Index() {
               <p className="font-medium text-xl py-2 hidden  md:block">
                 24 Year | Female
               </p>
-              <div className="flex items-center md:py-4 gap-4 text-secondary1 text-[12px]">
+              <div className="flex items-center py-2 md:py-4 gap-4 text-secondary1 text-[12px]">
                 <div className="flex items-center text-primary gap-2  ">
                   <svg
                     width="12"
@@ -184,27 +184,27 @@ function Index() {
               <h1 className="text-base font-semibold">Other Details</h1>
               <div className="flex gap-8 py-2">
                 <div className="text-secondary1 w-20">Nationality</div>
-                <div>German</div>
+                <div className="font-medium">German</div>
               </div>
               <div className="flex gap-8 py-2">
                 <div className="text-secondary1 w-20">Languages</div>
-                <div>English,German</div>
+                <div className="font-medium">English,German</div>
               </div>
               <div className="flex gap-8 py-2">
                 <div className="text-secondary1 w-20">Height</div>
-                <div>191cm(6&apos;3&apos;&apos;)</div>
+                <div className="font-medium">191cm(6&apos;3&apos;&apos;)</div>
               </div>
               <div className="flex gap-8 py-2">
                 <div className="text-secondary1 w-20">Body type</div>
-                <div>slim</div>
+                <div className="font-medium">slim</div>
               </div>
               <div className="flex gap-8 py-2">
                 <div className="text-secondary1 w-20">Eyes</div>
-                <div>Hazel</div>
+                <div className="font-medium">Hazel</div>
               </div>
               <div className="flex gap-8 py-2">
                 <div className="text-secondary1 w-20">Hair</div>
-                <div>Brown</div>
+                <div className="font-medium">Brown</div>
               </div>
             </div>
           </div>
