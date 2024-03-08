@@ -229,10 +229,10 @@ const Index = () => {
                         // height: "40px",
                       },
                       "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                        {
-                          borderRadius: "10px",
-                          border: "1px solid #e6e6e6",
-                        },
+                      {
+                        borderRadius: "10px",
+                        border: "1px solid #e6e6e6",
+                      },
                     }}
                     renderInput={(params) => (
                       <TextField {...params} label="Select Country" />
@@ -267,10 +267,10 @@ const Index = () => {
                         // height: "40px",
                       },
                       "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                        {
-                          borderRadius: "10px",
-                          border: "1px solid #e6e6e6",
-                        },
+                      {
+                        borderRadius: "10px",
+                        border: "1px solid #e6e6e6",
+                      },
                     }}
                     renderInput={(params) => (
                       <TextField {...params} label="Select Visit" />
