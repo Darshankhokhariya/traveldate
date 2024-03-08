@@ -2,7 +2,6 @@ import React from "react";
 
 function Input(props) {
 
-
   return (
     <>
       <label htmlFor="" className="text-gray-400">

@@ -28,7 +28,7 @@ function UserProfile() {
                     <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M0.255859 19.375H22.7559V21.625H0.255859V19.375ZM0.255859 3.625L5.88086 7.5625L11.5059 0.25L17.1309 7.5625L22.7559 3.625V17.125H0.255859V3.625ZM2.50586 7.94647V14.875H20.5059V7.94647L16.6589 10.6393L11.5059 3.94027L6.35276 10.6393L2.50586 7.94647Z" fill="#F4425A" />
                     </svg>
-                    <span>Membership</span>
+                    <span className='font-semibold'>Membership</span>
                 </div>
             </div>
         </div>
@@ -153,10 +153,31 @@ function UserProfile() {
                             More details
                         </span>
                         <div className="pt-5">
-                            <Select
+                            {/* <Select
                                 name="bodyType"
                                 data={[]}
                                 label="Body type"
+                            /> */}
+                            <div className="text-gray-400">Body type</div>
+                            <Autocomplete
+                                size="small"
+                                name="country"
+                                disablePortal
+                                className="block w-full bg-[#ffffff] hover:border-[#e6e6e6] border border-[#e6e6e6] rounded-lg"
+                                options={[]}
+                                sx={{
+                                    "& .MuiOutlinedInput-root": {
+                                        borderRadius: "0",
+                                    },
+                                    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+                                    {
+                                        borderRadius: "7px",
+                                        border: "1px solid #e6e6e6",
+                                    },
+                                }}
+                                renderInput={(params) => (
+                                    <TextField {...params} placeholder="Body type" />
+                                )}
                             />
                         </div>
                         <div className="pt-5">
@@ -178,7 +199,7 @@ function UserProfile() {
                                     },
                                 }}
                                 renderInput={(params) => (
-                                    <TextField {...params} label="Select Country" />
+                                    <TextField {...params} placeholder="Country" />
                                 )}
                             />
 
@@ -204,7 +225,7 @@ function UserProfile() {
                                     },
                                 }}
                                 renderInput={(params) => (
-                                    <TextField {...params} label="Select Visit" />
+                                    <TextField {...params} placeholder="Wants to Visit" />
                                 )}
                             />
                         </div>
