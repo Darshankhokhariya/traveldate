@@ -8,6 +8,7 @@ import { showToast } from "@/constant/toast/toastUtils";
 import { GoogleLogin } from "@react-oauth/google";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Loader from "@/component/Loader/Loader";
 
 function Index() {
   const router = useRouter();
@@ -32,12 +33,14 @@ function Index() {
         setLoading(false);
         showToast(response.message, { type: "success" });
         setOpen(true);
-        setErrors({}); // Clear form errors
+        formik.resetForm()
+        router.push("/")
+        setErrors({});
       }
     } catch (error) {
       showToast(error?.response?.data?.message, { type: "error" });
       setLoading(false);
-      setErrors({}); // Clear form errors
+      setErrors({});
     }
   };
   const formik = useFormik({
@@ -97,17 +100,10 @@ function Index() {
     <div>
       <section class="bg-transparent">
         {loading && (
-          <div class="z-50 absolute left-[50%] right-[50%]">
-            <div class="">
-              <div
-                className="flex justify-center text-center mt-72 items-center w-12 h-12 rounded-full animate-spin
-        border-4 border-solid border-red-500 border-t-transparent"
-              ></div>
-            </div>
-          </div>
+          <Loader />
         )}
         <div
-          class={`grid grid-cols-1 md:grid-cols-2 ${loading ? "opacity-35" : ""
+          class={`grid grid-cols-1 md:grid-cols-2 ${loading ? "opacity-35 pointer-events-none" : ""
             }`}
         >
           <div class="flex items-center  px-4 py-10 bg-transparent sm:px-6 lg:px-8 sm:py-16 lg:py-12">
@@ -273,7 +269,7 @@ function Index() {
 
           <div class="relative hidden md:flex items-end px-4 pb-10 pt-60 sm:pb-16 md:justify-center  sm:px-6 lg:px-8">
             <div class="absolute inset-0 ">
-              <img class=" w-full h-full" src="/images1/signin.jpg" alt="" />
+              <img class=" w-full sm:h-screen md:h-[100vh]" src="/images1/signin.jpg" alt="" />
             </div>
           </div>
         </div>

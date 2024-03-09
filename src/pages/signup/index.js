@@ -32,6 +32,8 @@ function Index() {
         setLoading(false);
         showToast(response.message, { type: "success" });
         setOpen(true);
+        formik.resetForm()
+        router.push("/")
         setErrors({}); // Clear form errors
       }
     } catch (error) {
