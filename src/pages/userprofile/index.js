@@ -3,6 +3,7 @@ import Iconstartbutton from "@/component/Buttons/Iconstartbutton";
 import Sidebar from "@/component/sidebar/Sidebar";
 import Upgrademodal from "@/component/Modal/Upgrademodel";
 import Mobilenav from "@/component/navbar/Mobilenav";
+import { Carousel } from "react-responsive-carousel";
 
 function Index() {
   const testimonials = [
@@ -49,14 +50,26 @@ function Index() {
         <div className="px-4 lg:px-4 xl:px-14 ">
           <div className="flex flex-col md:flex-row md:items-start">
             <div className="flex flex-col gap-y-8 items-center justify-center ">
-              <div className="w-full h-full">
+              {/* <div className="w-full h-full">
                 <img
                   src="/images1/model1.png"
                   className="w-full h-full   md:h-[300px]  rounded-3xl"
                   alt=""
                 />
-              </div>
-              <div className="w-full ">
+              </div> */}
+
+              <Carousel showStatus={false} showThumbs={false}>
+                <div>
+                  <img src="/images1/model1.png" />
+                </div>
+                <div>
+                  <img src="/images1/model1.png" />
+                </div>
+                <div>
+                  <img src="/images1/model1.png" />
+                </div>
+              </Carousel>
+              {/* <div className="w-full ">
                 <div className="relative  overflow-hidden ">
                   <div
                     className="flex transition-transform duration-500 ease-in-out "
@@ -117,7 +130,7 @@ function Index() {
                     </svg>
                   </button>
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="text-dark md:px-8 py-4 md:mt-14">
               <h1 className="text-2xl md:text-4xl font-semibold">
