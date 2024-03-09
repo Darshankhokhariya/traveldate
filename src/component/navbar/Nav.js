@@ -4,6 +4,7 @@ import Primarybutton from "../Buttons/Primarybutton";
 import Secondarybutton from "../Buttons/Secondarybutton";
 import logo from "../../assets/logo.png";
 import darklogo from "../../assets/logo2.png";
+import { FaHeart } from "react-icons/fa";
 
 function Nav() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -21,15 +22,23 @@ function Nav() {
             <img className="h-[50px] w-auto" src={logo.src} />
           </div>
           <div className="hidden lg:block   gap-3">
-            <ul className="inline-flex space-x-20 items-center">
-              <li>
-                <Link href="/" className="text-sm font-semibold text-white">
-                  Home
+            <ul className="inline-flex space-x-10 items-center">
+              <li className="group h-4">
+                <Link
+                  href="/"
+                  className="text-sm font-semibold text-white group-hover:text-primary flex flex-col items-center duration-300"
+                >
+                  <span>Home</span>
+                  <FaHeart className="group-hover:block hidden duration-100" />
                 </Link>
               </li>
-              <li>
-                <Link href="#" className="text-sm font-semibold text-white">
-                  Contact
+              <li className="group h-4">
+                <Link
+                  href="/"
+                  className="text-sm font-semibold text-white group-hover:text-primary flex flex-col items-center duration-300"
+                >
+                  <span>Contact</span>
+                  <FaHeart className="group-hover:block hidden duration-100" />
                 </Link>
               </li>
               <div className="hidden lg:flex items-center gap-3">

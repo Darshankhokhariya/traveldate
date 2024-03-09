@@ -69,7 +69,7 @@ function Offer() {
             {cards.slice(0, 3).map((e, index) => (
               <div
                 key={index}
-                className="m-2 w-full  lg:w-[33%] hover:bg-gradient-to-bl from-[#8D56E6] to-[#F4425A] duration-300 ease-out p-0.5 rounded-3xl"
+                className=" w-full  lg:w-[33%] hover:bg-gradient-to-bl from-[#8D56E6] to-[#F4425A] duration-300 ease-out p-0.5 rounded-3xl"
               >
                 {/** Your card content here */}
                 <div className="bg-white rounded-3xl p-5 flex flex-col items-center justify-center border border-opacity-10 border-secondary1">
@@ -93,7 +93,7 @@ function Offer() {
             {cards.slice(3).map((e, index) => (
               <div
                 key={index}
-                className="m-2 w-full  lg:w-[33%] hover:bg-gradient-to-bl from-[#8D56E6] to-[#F4425A] duration-300 ease-out p-0.5 rounded-3xl"
+                className="w-full  lg:w-[33%] hover:bg-gradient-to-bl from-[#8D56E6] to-[#F4425A] duration-300 ease-out p-0.5 rounded-3xl"
               >
                 {/** Your card content here */}
                 <div className="bg-white rounded-3xl p-5 flex flex-col items-center justify-center border border-opacity-10 border-secondary1">
