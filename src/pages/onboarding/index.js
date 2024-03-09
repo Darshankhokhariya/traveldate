@@ -1,25 +1,9 @@
-// import Secondarybutton from "@/component/Buttons/Secondarybutton";
-// import ErrorMessage from "@/component/ErrorMessage/ErrorMessage";
-// import ImageCropping from "@/component/ImageCropping";
-// import Input from "@/component/inputs/Input";
-// import Select from "@/component/inputs/Select";
-// import Textarea from "@/component/inputs/Textarea";
-// import { FORM_HEADERS, HEADERS } from "@/constant/authorization";
-// import { bodyType } from "@/constant/bodyType";
-// import { gender } from "@/constant/gender";
-// import { showToast } from "@/constant/toast/toastUtils";
-// import { get, put } from "@/redux/services/apiServices";
-// import { Autocomplete, TextField } from "@mui/material";
-// import { useFormik } from "formik";
-// import { useRouter } from "next/router";
-// import React, { useEffect, useState } from "react";
-// import { MdClose } from "react-icons/md";
-
 import Secondarybutton from '@/component/Buttons/Secondarybutton'
 import ErrorMessage from '@/component/ErrorMessage/ErrorMessage'
 import ImageCropping from '@/component/ImageCropping'
 import getCroppedImg from '@/component/ImageCropping/cropImage'
 import Modal from '@/component/Modal/Modal'
+import ImageUploading from "react-images-uploading";
 import Input from '@/component/inputs/Input'
 import Select from '@/component/inputs/Select'
 import Textarea from '@/component/inputs/Textarea'
@@ -28,7 +12,7 @@ import { bodyType } from '@/constant/bodyType'
 import { gender } from '@/constant/gender'
 import { showToast } from '@/constant/toast/toastUtils'
 import { get, put } from '@/redux/services/apiServices'
-import { Autocomplete, Box, Button, TextField } from '@mui/material'
+import { Autocomplete, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Slide, Slider, TextField, Typography } from '@mui/material'
 import { useFormik } from 'formik'
 import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -36,24 +20,173 @@ import Cropper from 'react-easy-crop'
 import { MdClose } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 import * as Yup from "yup";
+import { cropImage } from "../../constant/cropUtils";
+import Loader from '@/component/Loader/Loader'
+
+const ImageCropper = ({
+    open,
+    image,
+    onComplete,
+    containerStyle,
+    ...props
+}) => {
+    const [crop, setCrop] = useState({ x: 0, y: 0 });
+    const [zoom, setZoom] = useState(1);
+    const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+
+    return (
+        <Dialog open={open} maxWidth="sm" fullWidth>
+            <DialogTitle>Crop Image</DialogTitle>
+
+            <DialogContent>
+                <div style={containerStyle}>
+                    <Cropper
+                        image={image}
+                        crop={crop}
+                        zoom={zoom}
+                        aspect={1}
+                        onCropChange={setCrop}
+                        onCropComplete={(_, croppedAreaPixels) => {
+                            setCroppedAreaPixels(croppedAreaPixels);
+                        }}
+                        onZoomChange={setZoom}
+                        {...props}
+                    />
+                </div>
+            </DialogContent>
+
+            <DialogActions>
+                <Button
+                    color="primary"
+                    onClick={() =>
+                        onComplete(cropImage(image, croppedAreaPixels, console.log))
+                    }
+                >
+                    Finish
+                </Button>
+            </DialogActions>
+        </Dialog>
+    );
+};
 
 const Index = () => {
     const dispatch = useDispatch();
-    const countries = useSelector((state) => state?.Auth?.countryList);
-    const cities = useSelector((state) => state?.Auth?.cityList);
-    const [city, setCity] = useState("");
-    const [open, setOpen] = useState(false);
     const router = useRouter();
     const { id } = router.query;
     const [openLanguage, setOpenLanguage] = useState(false);
+    const [city, setCity] = useState("");
+    const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [languageField, setLanguageField] = useState("");
-    const [files, setFiles] = useState([]);
-    const [imageCropModel, setOpenImageCropModel] = useState(false);
-    const [imgSrc, setImgSrc] = useState("");
-    const [imgFileName, setImgFileName] = useState("");
+    const [image, setImage] = useState([]);
+    const [croppedImage, setCroppedImage] = useState(null);
+    const [dialogOpen, setDialogOpen] = useState(false);
+    const [isSubmit, setIsSubmit] = useState(false)
+    const countries = useSelector((state) => state?.Auth?.countryList);
+    const cities = useSelector((state) => state?.Auth?.cityList);
 
-    const openImageCropModel = () => setOpenImageCropModel(true);
-    const closeImageCropModel = () => setOpenImageCropModel(false);
+    const ImageUploadingButton = ({ value, onChange, ...props }) => {
+        return (
+            <ImageUploading value={value} onChange={onChange}>
+                {({ onImageUpload, onImageUpdate }) => (
+                    <>
+                        <label htmlFor="fileInput" onClick={value ? onImageUpload : () => onImageUpdate(0)} {...props}>
+                            <div
+                                className="h-24 w-24 overflow-hidden rounded-lg flex items-center justify-center bg-[#FFEBED]"
+                                id="fileInputWrapper"
+                            >
+                                <svg
+                                    width="33"
+                                    height="33"
+                                    viewBox="0 0 33 33"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M16.5 2L16.5 31"
+                                        stroke="#F4425A"
+                                        strokeWidth="3"
+                                        strokeLinecap="round"
+                                    />
+                                    <path
+                                        d="M31 16.6631L2 16.6631"
+                                        stroke="#F4425A"
+                                        strokeWidth="3"
+                                        strokeLinecap="round"
+                                    />
+                                </svg>
+                            </div>
+                        </label>
+                    </>
+                )}
+            </ImageUploading>
+        );
+    };
+
+
+    const ImageCropper = ({
+        open,
+        image,
+        onComplete,
+        containerStyle,
+        ...props
+    }) => {
+        const [crop, setCrop] = useState({ x: 0, y: 0 });
+        const [zoom, setZoom] = useState(1);
+        const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+
+        return (
+            <Dialog open={open} maxWidth="sm" fullWidth >
+                <DialogTitle>Crop Image</DialogTitle>
+
+                <DialogContent>
+                    <div style={containerStyle}>
+                        <Cropper
+                            image={image}
+                            crop={crop}
+                            zoom={zoom}
+                            aspect={1}
+                            onCropChange={setCrop}
+                            onCropComplete={(_, croppedAreaPixels) => {
+                                setCroppedAreaPixels(croppedAreaPixels);
+                            }}
+                            onZoomChange={setZoom}
+                            {...props}
+                        />
+
+                    </div>
+
+                </DialogContent>
+
+                <DialogActions className='mx-5 flex items-center'>
+                    <Typography
+                        variant="overline"
+                        className='mr-2'
+                    >
+                        Zoom
+                    </Typography>
+                    <Slider
+                        value={zoom}
+                        min={1}
+                        max={3}
+                        step={0.1}
+                        aria-labelledby="Zoom"
+                        onChange={(e, zoom) => setZoom(zoom)}
+                    />
+                </DialogActions>
+                <DialogActions>
+                    <Button
+                        color="primary"
+                        onClick={() =>
+                            onComplete(cropImage(image, croppedAreaPixels, console.log))
+                        }
+                    >
+                        Finish
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        );
+    };
 
     const languageData = useSelector((state) => state?.Auth?.languageList);
     const languageList = languageData?.map((e) => e?.name);
@@ -61,7 +194,6 @@ const Index = () => {
 
 
     const handleInputChange = (event, newInputValue) => {
-        console.log("newInputValue", newInputValue);
         setCity(newInputValue);
         if (newInputValue.length > 0) {
             setOpen(true);
@@ -69,23 +201,6 @@ const Index = () => {
             setOpen(false);
         }
     };
-    const onCropComplete = (croppedArea, croppedAreaPixels) => {
-        console.log(croppedArea, croppedAreaPixels)
-    }
-
-    const handleFile = (e) => {
-        var reader = new FileReader();
-        reader.addEventListener("load", () => {
-            setImgSrc(reader.result?.toString() || ""),
-                setOpenImage(true)
-        })
-        reader.readAsDataURL(e.target.files[0]);
-    }
-
-    const handleCloseImage = () => {
-        setOpenImage(false)
-    }
-
 
     const handleOpen = () => {
         if (city.length > 0) {
@@ -95,10 +210,6 @@ const Index = () => {
 
     useEffect(() => {
         if (city) {
-            // setFields((prevState) => ({
-            //     ...prevState,
-            //     city: ""
-            // }))
             get(`/country/getCity?city=${city}`, "GET_CITY", dispatch, HEADERS);
         }
     }, [city]);
@@ -136,16 +247,19 @@ const Index = () => {
         }),
         onSubmit: (values, { setErrors }) => {
             formik.validateForm().then((errors) => {
-                if (Object.keys(errors).length === 0) {
+                if (Object.keys(errors).length === 0 && croppedImage !== null) {
                     handleSubmit(values, setErrors);
                 }
             });
         },
     });
 
+
     const handleGetCountry = async () => {
         await get("/country/getCountry", "GET_COUNTRY", dispatch, HEADERS);
     };
+
+
 
     useEffect(() => {
         handleGetCountry();
@@ -179,26 +293,33 @@ const Index = () => {
         formData.append("country", values?.country);
         formData.append("aboutUser", values?.about);
         formData.append("city", values?.city);
-        // files?.map((img) => {
-        //     formData.append("image", img)
-        // })
+        formData.append("image", croppedImage)
 
+        setLoading(true);
         put("/user/userDetails", formData, "USER_UPDATE", dispatch, FORM_HEADERS)
             .then((res) => {
                 if (res?.status === 200) {
+                    setLoading(false);
                     showToast(res.message, { type: "success" });
+                    formik.resetForm();
+                    setIsSubmit(false)
                     router.push("/");
                 }
             })
             .catch((error) => {
+                setLoading(false);
                 showToast(error.message, { type: "error" });
             });
     };
 
+
     return (
         <div className="md:pt-5 mx-auto m-auto mb-9">
-            <div className="md:border md:border-white  md:rounded-3xl md:w-8/12 m-auto h-100">
-                <form onSubmit={formik.handleSubmit}>
+            {loading && (
+                <Loader />
+            )}
+            <div className={`md:border md:border-white md:rounded-3xl md:w-8/12 m-auto h-100 ${loading ? "opacity-35 pointer-events-none" : ""} `}>
+                <form onSubmit={(e) => { formik.handleSubmit(e); setIsSubmit(true) }}>
                     <div className="flex items-center flex-col justify-center p-10">
                         <img className="h-[58px]" src="/images1/Frame1.png" />
                         <div className="md:flex w-full items-start gap-10 mt-14 md:mt-">
@@ -372,7 +493,7 @@ const Index = () => {
                                             },
                                         }}
                                         renderInput={(params) => (
-                                            <TextField {...params}  />
+                                            <TextField {...params} />
                                         )}
                                     />
                                     {formik.touched.city && formik.errors.city && (
@@ -385,68 +506,47 @@ const Index = () => {
                     <div className="px-10 pb-10">
                         <p className="text-lg font-semibold">Photo Gallery</p>
                         <div className="flex  gap-3 mt-4">
-                            {files[0] && (
+                            {croppedImage && (
                                 <>
-                                    <div className="h-24 w-24 overflow-hidden rounded-lg flex">
-                                        <img src={URL.createObjectURL(files[0])} />
+                                    <div className="h-24 w-24 overflow-hidden rounded-lg flex relative">
+                                        <img src={URL.createObjectURL(croppedImage)} />
+                                        <MdClose
+                                            onClick={() => setCroppedImage(null)}
+                                            className="text-black text-1xl cursor-pointer absolute right-1 top-1 bg-white rounded-full"
+                                        />
                                     </div>
-                                    <MdClose
-                                        onClick={() => setFiles([])}
-                                        className="text-black text-1xl cursor-pointer absolute right-1 top-1 bg-white rounded-full"
-                                    />
                                 </>
                             )}
-                            {/* <div className="h-24 w-24 overflow-hidden rounded-lg flex items-center justify-center bg-[#FFEBED]">
-                                <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M16.5 2L16.5 31" stroke="#F4425A" strokeWidth="3" strokeLinecap="round" />
-                                    <path d="M31 16.6631L2 16.6631" stroke="#F4425A" strokeWidth="3" strokeLinecap="round" />
-                                </svg>
-                            </div> */}
-                            <label htmlFor="fileInput">
-                                <div
-                                    className="h-24 w-24 overflow-hidden rounded-lg flex items-center justify-center bg-[#FFEBED]"
-                                    id="fileInputWrapper"
-                                >
-                                    <svg
-                                        width="33"
-                                        height="33"
-                                        viewBox="0 0 33 33"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            d="M16.5 2L16.5 31"
-                                            stroke="#F4425A"
-                                            strokeWidth="3"
-                                            strokeLinecap="round"
-                                        />
-                                        <path
-                                            d="M31 16.6631L2 16.6631"
-                                            stroke="#F4425A"
-                                            strokeWidth="3"
-                                            strokeLinecap="round"
-                                        />
-                                    </svg>
-                                </div>
-                                <input
-                                    type="file"
-                                    id="fileInput"
-                                    style={{ display: "none" }}
-                                    onChange={handleFile}
-                                    accept="image/*,capture=camera"
+                            {
+                                croppedImage === null &&
+                                <ImageUploadingButton
+                                    value={image}
+                                    onChange={(newImage) => {
+                                        setDialogOpen(true);
+                                        setImage(newImage);
+                                    }}
                                 />
-                            </label>
-                            {/* {files && files?.map((file, index) => (
-                                <div key={index} className="h-[149px] mt-5 rounded-xl w-[149px] bg-[#E6E6E6] relative">
-                                    <img key={index} src={URL.createObjectURL(file)} style={{ objectFit: "fill", height: "149px", width: "100%" }} className="rounded-xl" />
-                                    <MdClose
-                                        onClick={() => handleDeleteImages(index)}
-                                        className='text-black text-1xl cursor-pointer absolute right-1 top-1 bg-white rounded-full'
-                                    // onClick={handleClose}
-                                    />
-                                </div>
-                            ))
-                            } */}
+                            }
+                            <ImageCropper
+                                open={dialogOpen}
+                                image={image.length > 0 && image[0].dataURL}
+                                onComplete={(imagePromisse) => {
+                                    console.log('imagePromisse', imagePromisse)
+                                    imagePromisse.then((image) => {
+                                        setCroppedImage(image);
+                                        setDialogOpen(false);
+                                    });
+                                }}
+                                containerStyle={{
+                                    position: "relative",
+                                    width: "100%",
+                                    height: 300,
+                                    background: "#333"
+                                }}
+                            />
+                        </div>
+                        <div>
+                            {isSubmit && croppedImage === null && <ErrorMessage error={"Photo is Requried!"} />}
                         </div>
                         <div className="w-full flex justify-center md:justify-end mt-16 md:mt-3">
                             <Secondarybutton text="Continue" />
@@ -455,7 +555,7 @@ const Index = () => {
                 </form>
             </div>
 
-        </div>
+        </div >
     );
 };
 
