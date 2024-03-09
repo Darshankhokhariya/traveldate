@@ -3,6 +3,7 @@ import Menu from "../sidebar/Menu";
 import { useRouter } from "next/router";
 import "./sidebar.css";
 import Link from "next/link";
+import Mobilenav from "../navbar/Mobilenav";
 
 function Sidebar(props) {
   const router = useRouter();
@@ -23,20 +24,29 @@ function Sidebar(props) {
                   />
                 </li>
                 {Menu.map((e, index) => {
+                  const isActive = router.pathname === e.path;
                   return (
                     <>
                       <li
                         key={index}
-                        className="rounded-sm cursor-pointer py-6 ml-2 flex justify-start group "
+                        className={`rounded-sm cursor-pointer py-6 ml-2 flex justify-start group ${
+                          isActive
+                            ? "text-primary font-semibold"
+                            : "text-secondary1 font-medium"
+                        }`}
                         onClick={() => {
                           router.push(e.path);
                         }}
                       >
-                        <div className="flex items-center space-x-3  hover:border-l-2  border-primary px-3">
-                          <div className="text-black group-hover:text-red-500">
-                            {e.icon}
+                        <div
+                          className={`flex items-center space-x-3  hover:border-l-2  border-primary px-3  ${
+                            isActive ? "border-l-2  border-primary" : ""
+                          }`}
+                        >
+                          <div className=" group-hover:text-red-500">
+                            {e.icon(isActive)}
                           </div>
-                          <span className="text-[14px] text-black group-hover:text-red-500  group-hover:font-semibold">
+                          <span className="text-[14px]  group-hover:text-red-500  group-hover:font-semibold">
                             {e.name}
                           </span>
                         </div>
@@ -115,7 +125,7 @@ function Sidebar(props) {
           </Link>
           <Link
             class="inline-flex flex-col items-center text-xs font-medium text-blue-400 py-3 px-4 flex-grow"
-            href="#"
+            href="/favorite"
           >
             <svg
               width="24"
@@ -150,7 +160,7 @@ function Sidebar(props) {
           </button>
           <Link
             class="inline-flex flex-col items-center text-xs font-medium text-blue-400 py-3 px-4 flex-grow"
-            href="#"
+            href="/visitors"
           >
             <svg
               width="23"
@@ -169,7 +179,7 @@ function Sidebar(props) {
           </Link>
           <Link
             class="inline-flex flex-col items-center text-xs font-medium text-blue-400 py-3 px-4 flex-grow"
-            href="#"
+            href="/myprofile"
           >
             <svg
               width="18"
@@ -187,6 +197,7 @@ function Sidebar(props) {
             <span class="sr-only">Profile</span>
           </Link>
         </div>
+        <Mobilenav />
         <div style={{ height: "calc(100% - 70px)" }} className="">
           {props.children}
         </div>

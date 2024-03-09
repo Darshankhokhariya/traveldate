@@ -7,8 +7,10 @@ function Secondarybutton(props) {
   return (
     <>
       <button
-        onClick={() => { path && router.push(path) }}
-        className="px-[32px] py-[16px] bg-primary text-[17px] text-nowrap text-white font-semibold rounded-full"
+        onClick={() => {
+          path && router.push(path);
+        }}
+        className="py-3 px-4 md:px-[32px] md:py-[16px] bg-primary text-sm md:text-[17px] text-nowrap text-white font-semibold rounded-full"
       >
         {text}
       </button>

@@ -6,7 +6,7 @@ function Searchbar() {
   return (
     <>
       {" "}
-      <div className=" py-4 rounded-2xl">
+      <div className=" md:py-4 rounded-2xl">
         <div class="relative mt-1 w-full  md:bg-secondary1 md:bg-opacity-[7%] flex items-center justify-between px-4 py-2 rounded-xl">
           <div className="flex items-center w-full md:w-auto gap-3">
             <div className="flex w-full justify-center ">

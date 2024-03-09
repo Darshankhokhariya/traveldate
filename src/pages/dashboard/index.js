@@ -1,7 +1,8 @@
 import Banner from "@/component/Dashboard/Banner/Banner";
 import Filter from "@/component/Dashboard/filters/Filter";
 import Searchbar from "@/component/Dashboard/searchbar/Searchbar";
-import Recent from "@/component/recent/Recent";
+import Recent1 from "@/component/recent/Recent1";
+import Recent from "@/component/recent/Recent1";
 import Sidebar from "@/component/sidebar/Sidebar";
 import React from "react";
 
@@ -13,7 +14,7 @@ function dashboard() {
           <Banner />
           <Searchbar />
           <Filter />
-          <Recent />
+          <Recent1 />
         </div>
         <div className=" md:px-14  pb-20 md:pb-0 block md:hidden">
           <div className="flex justify-center py-5">
@@ -21,7 +22,7 @@ function dashboard() {
           </div>
           <Searchbar />
           <Filter />
-          <Recent />
+          <Recent1 />
         </div>
       </Sidebar>
     </>

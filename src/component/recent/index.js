@@ -64,7 +64,7 @@ function Recent() {
         </div>
         <section
           id="Projects"
-          class="  grid   xl:grid-cols-4 md:grid-cols-3 grid-cols-2 justify-items-center justify-center gap-y-10 lg:gap-10 gap-4  mt-5 md:mt-10 mb-5"
+          class="  grid   xl:grid-cols-4 md:grid-cols-3 grid-cols-2 justify-items-center justify-center gap-y-10 lg:gap-x-4 lg:gap-y-8 gap-4  mt-5 md:mt-10 mb-5"
         >
           {cards.map((e) => {
             return (
