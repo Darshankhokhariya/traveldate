@@ -5,7 +5,8 @@ const initialState = {
   loading: false,
   countryList: [],
   languageList: [],
-  cityList: []
+  cityList: [],
+  userProfile: {}
 };
 
 const store = (state = initialState, action) => {
@@ -39,6 +40,11 @@ const store = (state = initialState, action) => {
       return {
         ...state,
         languageList: action?.payload?.data
+      };
+    case actionTypes.GET_SINGLE_PROFILE_SUCCESS:
+      return {
+        ...state,
+        userProfile: action?.payload?.data
       };
     default:
       return state;

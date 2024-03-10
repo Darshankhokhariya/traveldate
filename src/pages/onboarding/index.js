@@ -23,51 +23,6 @@ import * as Yup from "yup";
 import { cropImage } from "../../constant/cropUtils";
 import Loader from '@/component/Loader/Loader'
 
-const ImageCropper = ({
-    open,
-    image,
-    onComplete,
-    containerStyle,
-    ...props
-}) => {
-    const [crop, setCrop] = useState({ x: 0, y: 0 });
-    const [zoom, setZoom] = useState(1);
-    const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
-
-    return (
-        <Dialog open={open} maxWidth="sm" fullWidth>
-            <DialogTitle>Crop Image</DialogTitle>
-
-            <DialogContent>
-                <div style={containerStyle}>
-                    <Cropper
-                        image={image}
-                        crop={crop}
-                        zoom={zoom}
-                        aspect={1}
-                        onCropChange={setCrop}
-                        onCropComplete={(_, croppedAreaPixels) => {
-                            setCroppedAreaPixels(croppedAreaPixels);
-                        }}
-                        onZoomChange={setZoom}
-                        {...props}
-                    />
-                </div>
-            </DialogContent>
-
-            <DialogActions>
-                <Button
-                    color="primary"
-                    onClick={() =>
-                        onComplete(cropImage(image, croppedAreaPixels, console.log))
-                    }
-                >
-                    Finish
-                </Button>
-            </DialogActions>
-        </Dialog>
-    );
-};
 
 const Index = () => {
     const dispatch = useDispatch();
@@ -123,6 +78,10 @@ const Index = () => {
         );
     };
 
+    const handleCloseImage = () => {
+        setDialogOpen(false)
+    }
+
 
     const ImageCropper = ({
         open,
@@ -136,8 +95,11 @@ const Index = () => {
         const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
         return (
-            <Dialog open={open} maxWidth="sm" fullWidth >
+            <Dialog open={open} maxWidth="sm" fullWidth onClose={handleCloseImage} >
+                <div className='flex justify-between items-center'>
                 <DialogTitle>Crop Image</DialogTitle>
+                <DialogTitle className='cursor-pointer' onClick={() => handleCloseImage()} ><MdClose/></DialogTitle>
+                </div>
 
                 <DialogContent>
                     <div style={containerStyle}>
@@ -220,7 +182,6 @@ const Index = () => {
         initialValues: {
             name: "",
             age: "",
-            email: "",
             gender: "",
             about: "",
             bodyType: "",
@@ -229,11 +190,10 @@ const Index = () => {
             language: [],
         },
         validationSchema: Yup.object({
-            name: Yup.string().required("Name is required"),
+            name: Yup.string().required("Name is required").matches(/^[a-zA-Z]+$/, "Invalid name format. Only letters are allowed.").max(10),
             age: Yup.number()
                 .required("Age is required")
                 .typeError("Age must be a number"),
-            email: Yup.string().email().required("Email is required"),
             gender: Yup.string().required("Gender is required"),
             about: Yup.string().required("About is required"),
             bodyType: Yup.string().required("Body type is required"),
@@ -303,7 +263,7 @@ const Index = () => {
                     showToast(res.message, { type: "success" });
                     formik.resetForm();
                     setIsSubmit(false)
-                    router.push("/");
+                    router.push("/dashboard");
                 }
             })
             .catch((error) => {
@@ -346,18 +306,6 @@ const Index = () => {
                                     />
                                     {formik.touched.age && formik.errors.age && (
                                         <ErrorMessage error={formik.errors.age} />
-                                    )}
-                                </div>
-                                <div className="pt-5">
-                                    <Input
-                                        label="Email"
-                                        placeholder="Enter Email"
-                                        name="email"
-                                        value={formik.values.email}
-                                        onChange={formik.handleChange}
-                                    />
-                                    {formik.touched.email && formik.errors.email && (
-                                        <ErrorMessage error={formik.errors.email} />
                                     )}
                                 </div>
                                 <div className="pt-5">
@@ -531,7 +479,6 @@ const Index = () => {
                                 open={dialogOpen}
                                 image={image.length > 0 && image[0].dataURL}
                                 onComplete={(imagePromisse) => {
-                                    console.log('imagePromisse', imagePromisse)
                                     imagePromisse.then((image) => {
                                         setCroppedImage(image);
                                         setDialogOpen(false);

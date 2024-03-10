@@ -27,12 +27,15 @@ export const post = (url, data, actionType, dispatch) => {
 };
 
 export const get = (url, actionType, dispatch, headers) => {
+    console.log('headers', headers)
     return new Promise(async (resolve, reject) => {
         try {
             // Dispatch the action with INIT type
             dispatch({ type: `${actionType}_INIT` });
 
-            const response = await axios.get(`${baseURL}${url}`);
+            const response = await axios.get(`${baseURL}${url}`, { headers });
+
+            console.log('response', response)
 
             // Dispatch the action with SUCCESS type
             dispatch({

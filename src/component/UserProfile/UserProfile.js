@@ -1,15 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Secondarybutton from '../Buttons/Secondarybutton'
 import { Autocomplete, TextField } from '@mui/material'
 import Select from '../inputs/Select'
 import Textarea from '../inputs/Textarea'
 import Input from '../inputs/Input'
+import { get } from '@/redux/services/apiServices'
+import { useDispatch, useSelector } from 'react-redux'
+import { HEADERS } from '@/constant/authorization'
 
 function UserProfile() {
+    
+
     return (
         <div><div className='mt-5 flex gap-8 items-center justify-center sm:justify-start'>
             <div className='relative'>
-                <div class="h-[171px] w-[171px] overflow-hidden rounded-lg ring-2 ring-gray-700 dark:ring-gray-100">
+                <div className="h-[171px] w-[171px] overflow-hidden rounded-lg ring-2 ring-gray-700 dark:ring-gray-100">
                     <img src="/images1/myProfile.jpg" alt="" />
                 </div>
                 <div className='absolute -bottom-4 left-1/2 -translate-x-1/2 '>
@@ -66,11 +71,11 @@ function UserProfile() {
                         </div>
                         <div className="pt-5">
                             <Select data={[]} label="Spoken Languages" />
-                            <div class="flex flex-wrap items-center gap-2 w-full mt-4">
-                                <div class="inline-flex items-center justify-between space-x-1  bg-primary text-white px-2 py-0.5 rounded-md text-sm">
+                            <div className="flex flex-wrap items-center gap-2 w-full mt-4">
+                                <div className="inline-flex items-center justify-between space-x-1  bg-primary text-white px-2 py-0.5 rounded-md text-sm">
                                     <svg
                                         onclick="this.parentElement.remove()"
-                                        class="cursor-pointer h-4 w-4 text-white"
+                                        className="cursor-pointer h-4 w-4 text-white"
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
                                         viewBox="0 0 24 24"
@@ -83,12 +88,12 @@ function UserProfile() {
                                             d="M6 18L18 6M6 6l12 12"
                                         />
                                     </svg>
-                                    <div class="select-none">English</div>
+                                    <div className="select-none">English</div>
                                 </div>
-                                <div class="inline-flex items-center justify-between space-x-1  bg-primary text-white px-2 py-0.5 rounded-md text-sm">
+                                <div className="inline-flex items-center justify-between space-x-1  bg-primary text-white px-2 py-0.5 rounded-md text-sm">
                                     <svg
                                         onclick="this.parentElement.remove()"
-                                        class="cursor-pointer h-4 w-4 text-white"
+                                        className="cursor-pointer h-4 w-4 text-white"
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
                                         viewBox="0 0 24 24"
@@ -101,12 +106,12 @@ function UserProfile() {
                                             d="M6 18L18 6M6 6l12 12"
                                         />
                                     </svg>
-                                    <div class="select-none">Hindi</div>
+                                    <div className="select-none">Hindi</div>
                                 </div>
-                                <div class="inline-flex items-center justify-between space-x-1  bg-primary text-white px-2 py-0.5 rounded-md text-sm">
+                                <div className="inline-flex items-center justify-between space-x-1  bg-primary text-white px-2 py-0.5 rounded-md text-sm">
                                     <svg
                                         onclick="this.parentElement.remove()"
-                                        class="cursor-pointer h-4 w-4 text-white"
+                                        className="cursor-pointer h-4 w-4 text-white"
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
                                         viewBox="0 0 24 24"
@@ -119,12 +124,12 @@ function UserProfile() {
                                             d="M6 18L18 6M6 6l12 12"
                                         />
                                     </svg>
-                                    <div class="select-none">Gujarati</div>
+                                    <div className="select-none">Gujarati</div>
                                 </div>
-                                <div class="inline-flex items-center justify-between space-x-1  bg-primary text-white px-2 py-0.5 rounded-md text-sm">
+                                <div className="inline-flex items-center justify-between space-x-1  bg-primary text-white px-2 py-0.5 rounded-md text-sm">
                                     <svg
                                         onclick="this.parentElement.remove()"
-                                        class="cursor-pointer h-4 w-4 text-white"
+                                        className="cursor-pointer h-4 w-4 text-white"
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
                                         viewBox="0 0 24 24"
@@ -137,7 +142,7 @@ function UserProfile() {
                                             d="M6 18L18 6M6 6l12 12"
                                         />
                                     </svg>
-                                    <div class="select-none">Gujarati</div>
+                                    <div className="select-none">Gujarati</div>
                                 </div>
                             </div>
                         </div>

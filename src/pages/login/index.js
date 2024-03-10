@@ -29,10 +29,10 @@ function Index() {
         "USER_LOGIN",
         dispatch
       );
+      console.log('response', response)
       if (response?.status === 200) {
         setLoading(false);
         showToast(response.message, { type: "success" });
-        setOpen(true);
         formik.resetForm()
         router.push("/")
         setErrors({});
@@ -50,7 +50,7 @@ function Index() {
     },
     validationSchema: Yup.object({
       email: Yup.string().email().required("Email is required"),
-      password: Yup.string().required("Password is required"),
+      password: Yup.string().min(4).max(20).required("Password is required"),
     }),
     onSubmit: (values, { setErrors }) => {
       formik.validateForm().then((errors) => {
@@ -177,7 +177,7 @@ function Index() {
                     className="w-full text-center py-3 my-3 border flex space-x-2 items-center justify-center bg-[#F3F1F8] border-slate-200 rounded-full text-black hover:shadow transition duration-150"
                     size="large"
                     text="signin_with"
-                    shape="square"
+                    shape="pill"
                     width={300}
                     logo_alignment="center"
                     onError={(err) => {

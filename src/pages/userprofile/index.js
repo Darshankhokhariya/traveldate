@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Iconstartbutton from "@/component/Buttons/Iconstartbutton";
 import Sidebar from "@/component/sidebar/Sidebar";
 import Upgrademodal from "@/component/Modal/Upgrademodel";
 import Mobilenav from "@/component/navbar/Mobilenav";
+import { get } from "@/redux/services/apiServices";
+import { useDispatch, useSelector } from "react-redux";
+import { HEADERS } from "@/constant/authorization";
 
 function Index() {
   const testimonials = [
@@ -27,8 +30,11 @@ function Index() {
       image: "/images1/models/model4.png",
     },
   ];
+  
   const [activeSlide1, setActiveSlide1] = useState(0);
-
+  const dispatch = useDispatch();
+  const userData = useSelector((state) => state?.Auth)
+  console.log('userData', userData)
   const handleNextSlide = () => {
     setActiveSlide1(
       (prevActiveSlide1) => (prevActiveSlide1 + 1) % testimonials.length
@@ -41,6 +47,11 @@ function Index() {
         (prevActiveSlide1 + testimonials.length - 1) % testimonials.length
     );
   };
+
+  useEffect(() => {
+    get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
+  }, [])
+  
 
   return (
     <>
