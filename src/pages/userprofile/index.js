@@ -5,7 +5,8 @@ import Upgrademodal from "@/component/Modal/Upgrademodel";
 import Mobilenav from "@/component/navbar/Mobilenav";
 import { get } from "@/redux/services/apiServices";
 import { useDispatch, useSelector } from "react-redux";
-import { HEADERS } from "@/constant/authorization";
+import { HEADERS, getHeaders } from "@/constant/authorization";
+import axios from "axios";
 
 function Index() {
   const testimonials = [
@@ -33,8 +34,7 @@ function Index() {
 
   const [activeSlide1, setActiveSlide1] = useState(0);
   const dispatch = useDispatch();
-  const userData = useSelector((state) => state?.Auth)
-
+  const userData = useSelector((state) => state?.Auth?.userProfile)
   const handleNextSlide = () => {
     setActiveSlide1(
       (prevActiveSlide1) => (prevActiveSlide1 + 1) % testimonials.length
@@ -52,6 +52,8 @@ function Index() {
     get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
   }, [])
 
+
+
   return (
     <>
       <Sidebar>
@@ -60,8 +62,8 @@ function Index() {
             <div className="flex flex-col gap-y-8 items-center justify-center ">
               <div className="w-full h-full">
                 <img
-                  src="/images1/model1.png"
-                  className="w-full h-full   md:h-[300px]  rounded-3xl object-cover"
+                  src={userData?.image?.[0]?.filename}
+                  className="w-full h-full   md:h-[300px]  rounded-3xl"
                   alt=""
                 />
               </div>
@@ -71,13 +73,13 @@ function Index() {
                     className="flex transition-transform duration-500 ease-in-out "
                     style={{ transform: `translateX(-${activeSlide1 * 100}%)` }}
                   >
-                    {testimonials.map((e, index) => {
+                    {userData?.image?.map((e, index) => {
                       return (
                         <div key={index} className="flex-shrink-0">
                           <div className=" w-full flex flex-col justify-center items-center px-2">
                             <div className="">
                               <img
-                                src={e?.image}
+                                src={e?.filename}
                                 className="w-[75px] h-[75px] rounded-md"
                                 alt=""
                               />
@@ -129,11 +131,11 @@ function Index() {
               </div>
             </div>
             <div className="text-dark md:px-8 py-4 md:mt-14">
-              <h1 className="text-2xl md:text-4xl font-semibold">
-                Rebecca Johansson | <span>24</span>
+              <h1 className="text-2xl md:text-4xl font-semibold capitalize">
+                {userData?.name} | <span>{userData?.age}</span>
               </h1>
-              <p className="font-medium text-xl py-2 hidden  md:block">
-                24 Year | Female
+              <p className="font-medium text-xl py-2 hidden  md:block capitalize">
+                {userData?.age} Year | {userData?.gender}
               </p>
               <div className="flex items-center py-2 md:py-4 gap-4 text-secondary1 text-[12px]">
                 <div className="flex items-center text-primary gap-2  ">
@@ -149,7 +151,7 @@ function Index() {
                       fill="#F4425A"
                     />
                   </svg>
-                  Munich, Germany
+                  {userData?.country}
                 </div>
                 Active about 3 hours ago
               </div>
@@ -157,7 +159,7 @@ function Index() {
               <div className="hidden md:flex items-center gap-3">
                 <Iconstartbutton text="Chat With Rebecca" />
                 <button
-                  onClick={() => handleOpen()}
+                  // onClick={() => handleOpen()}
                   className="px-[32px] py-[16px] bg-primary  bg-opacity-[13%] text-primary rounded-full flex items-center gap-2 font-semibold"
                 >
                   <svg
@@ -183,29 +185,27 @@ function Index() {
               <h1 className="py-3 text-base font-semibold">About Me</h1>
               <div className=" md:space-y-4 text-secondary1">
                 <p className="text-sm">
-                  My goal is to travel to every country in the world 28/197
+                  {userData?.aboutUser}
                 </p>
-                <p className="text-sm">I&apos;m literally up for anything</p>
-                <p>Insta: tizi_entry</p>
+                <p className="text-sm">{userData?.aboutUser}</p>
               </div>
             </div>
             <div className="pt-7">
               <h1 className="text-base font-semibold">Other Details</h1>
               <div className="flex gap-8 py-2">
                 <div className="text-secondary1 w-20">Nationality</div>
-                <div className="font-medium">German</div>
+                <div className="font-medium">{userData?.country}</div>
               </div>
               <div className="flex gap-8 py-2">
                 <div className="text-secondary1 w-20">Languages</div>
-                <div className="font-medium">English,German</div>
+                <div className="font-medium">{userData?.language?.join(", ")}</div>
               </div>
               <div className="flex gap-8 py-2">
                 <div className="text-secondary1 w-20">Height</div>
-                <div className="font-medium">191cm(6&apos;3&apos;&apos;)</div>
               </div>
               <div className="flex gap-8 py-2">
                 <div className="text-secondary1 w-20">Body type</div>
-                <div className="font-medium">slim</div>
+                <div className="font-medium">{userData?.bodyType}</div>
               </div>
               <div className="flex gap-8 py-2">
                 <div className="text-secondary1 w-20">Eyes</div>

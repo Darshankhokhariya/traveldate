@@ -7,6 +7,7 @@ import Mobilenav from "../navbar/Mobilenav";
 
 function Sidebar(props) {
   const router = useRouter();
+  const { userData } = props
 
   return (
     <>
@@ -17,7 +18,7 @@ function Sidebar(props) {
               <ul className="pt-2 pb-4 lg:pl-10 xl:pl-20 space-y-1 text-sm">
                 <li className="rounded-sm  flex justify-center py-8">
                   <img
-                    src="/images1/Frame1.png"
+                    src={"/images1/Frame1.png"}
                     alt="logo"
                     style={{ cursor: "pointer" }}
                     onClick={() => router.push("/")}
@@ -29,19 +30,17 @@ function Sidebar(props) {
                     <>
                       <li
                         key={index}
-                        className={`rounded-sm cursor-pointer py-6 ml-2 flex justify-start group ${
-                          isActive
-                            ? "text-primary font-semibold"
-                            : "text-secondary1 font-medium"
-                        }`}
+                        className={`rounded-sm cursor-pointer py-6 ml-2 flex justify-start group ${isActive
+                          ? "text-primary font-semibold"
+                          : "text-secondary1 font-medium"
+                          }`}
                         onClick={() => {
                           router.push(e.path);
                         }}
                       >
                         <div
-                          className={`flex items-center space-x-3  hover:border-l-2  border-primary px-3  ${
-                            isActive ? "border-l-2  border-primary" : ""
-                          }`}
+                          className={`flex items-center space-x-3  hover:border-l-2  border-primary px-3  ${isActive ? "border-l-2  border-primary" : ""
+                            }`}
                         >
                           <div className=" group-hover:text-red-500">
                             {e.icon(isActive)}
@@ -90,7 +89,7 @@ function Sidebar(props) {
           <div className="flex justify-end">
             <div className="flex justify-end py-10 bg-transparent w-full px-20">
               <img
-                src="/images1/models/model1.png"
+                src={userData?.image?.[0]?.filename}
                 className="w-[54px] h-[54px] rounded-xl object-cover"
                 alt=""
               />
