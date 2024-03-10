@@ -42,8 +42,12 @@ function Nav() {
                 </Link>
               </li>
               <div className="hidden lg:flex items-center gap-3">
-                <Primarybutton text="Log In" path="/login" />
-                <Secondarybutton text="Sign Up" path="/signup" />
+                <div>
+                  <Primarybutton text="Log In" path="/login" />
+                </div>
+                <div>
+                  <Secondarybutton text="Sign Up" path="/signup" />
+                </div>
               </div>
             </ul>
           </div>
