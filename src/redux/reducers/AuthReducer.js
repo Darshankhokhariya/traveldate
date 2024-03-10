@@ -6,7 +6,8 @@ const initialState = {
   countryList: [],
   languageList: [],
   cityList: [],
-  userProfile: {}
+  userProfile: {},
+  recentLandingPageUser: []
 };
 
 const store = (state = initialState, action) => {
@@ -45,6 +46,11 @@ const store = (state = initialState, action) => {
       return {
         ...state,
         userProfile: action?.payload?.data
+      };
+    case actionTypes.GET_LANDING_PAGE_USER_SUCCESS:
+      return {
+        ...state,
+        recentLandingPageUser: action?.payload?.data
       };
     default:
       return state;

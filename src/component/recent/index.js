@@ -1,7 +1,12 @@
+import { get } from "@/redux/services/apiServices";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 function Recent() {
+  const getRecentUser = useSelector((state) => state?.Auth?.recentLandingPageUser)
+  const dispatch = useDispatch();
+  console.log('getRecentUser :>> ', getRecentUser);
   const cards = [
     {
       name: "Aasta Smith",
@@ -53,6 +58,10 @@ function Recent() {
     },
   ];
 
+  useEffect(() => {
+    get(`/user/getLandingPageUser`, "GET_LANDING_PAGE_USER", dispatch);
+  }, [])
+
   return (
     <>
       <div className="container mx-auto px-3 md:px-16">
@@ -66,13 +75,13 @@ function Recent() {
           id="Projects"
           class="  grid   xl:grid-cols-4 md:grid-cols-3 grid-cols-2 justify-items-center justify-center gap-y-10 lg:gap-x-4 lg:gap-y-8 gap-4  mt-5 md:mt-10 mb-5"
         >
-          {cards.map((e) => {
+          {getRecentUser && getRecentUser.length > 0 && getRecentUser.map((e) => {
             return (
               <>
                 <div class=" bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
                   <Link href="#">
                     <img
-                      src={e?.image}
+                      src={e?.image?.[0]?.filename || "/images1/models/model1.png"}
                       alt="Product"
                       class="md:h-[250px] w-auto lg:w-72 object-cover rounded-t-xl"
                     />
@@ -81,15 +90,15 @@ function Recent() {
                         <div className="w-full">
                           <div className="flex items-center justify-between w-full">
                             <p class="text-base md:text-lg font-bold truncate block capitalize">
-                              Aasta Smith
+                              {e?.name || "Astha"}
                             </p>
                             <div class="ml-auto  text-lg md:text-xl text-primary font-bold">
-                              24
+                              {e?.age || 20}
                             </div>
                           </div>
                           <div className="flex items-center gap-1 text-secondary">
                             <img src="/icons/location.svg" alt="" />
-                            <p class="text-sm  cursor-auto my-3">Rome, Italy</p>
+                            <p class="text-sm  cursor-auto my-3">{e?.country || "India"}</p>
                           </div>
                         </div>
                       </div>
