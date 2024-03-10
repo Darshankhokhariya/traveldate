@@ -121,23 +121,23 @@ function Nav() {
                             href="#"
                             className="text-sm font-semibold text-black"
                           >
-                            Discover
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            href="#"
-                            className="text-sm font-semibold text-black"
-                          >
-                            Special Deals
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            href="#"
-                            className="text-sm font-semibold text-black"
-                          >
                             Contact
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            href="#"
+                            className="text-sm font-semibold text-black"
+                          >
+                            Login
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            href="#"
+                            className="text-sm font-semibold text-black"
+                          >
+                            Signup
                           </Link>
                         </li>
                       </ul>

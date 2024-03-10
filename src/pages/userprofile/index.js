@@ -55,14 +55,13 @@ function Index() {
   return (
     <>
       <Sidebar>
-        <Mobilenav />
         <div className="px-4 lg:px-4 xl:px-14 ">
           <div className="flex flex-col md:flex-row md:items-start">
             <div className="flex flex-col gap-y-8 items-center justify-center ">
               <div className="w-full h-full">
                 <img
                   src="/images1/model1.png"
-                  className="w-full h-full   md:h-[300px]  rounded-3xl"
+                  className="w-full h-full   md:h-[300px]  rounded-3xl object-cover"
                   alt=""
                 />
               </div>
@@ -179,7 +178,7 @@ function Index() {
             </div>
           </div>
 
-          <div className=" md:py-20  flex  flex-col md:flex-row  md:gap-20  ">
+          <div className=" md:py-10  flex  flex-col md:flex-row  md:gap-20  ">
             <div>
               <h1 className="py-3 text-base font-semibold">About Me</h1>
               <div className=" md:space-y-4 text-secondary1">

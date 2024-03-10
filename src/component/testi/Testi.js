@@ -104,7 +104,7 @@ function Testi() {
                         />
                       </svg>
                     </div>
-                    <p className="text-center text-secondary font-thin">
+                    <p className="text-center text-secondary font-thin text-sm md:text-base">
                       Contrary to popular belief, Lorem Ipsum is not simply
                       random text. It has roots <br /> in a piece of classical
                       Latin literature from 45 BC
