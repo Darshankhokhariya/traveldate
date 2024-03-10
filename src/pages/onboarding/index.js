@@ -14,20 +14,18 @@ import { showToast } from "@/constant/toast/toastUtils";
 import { get, put } from "@/redux/services/apiServices";
 import {
   Autocomplete,
-  Box,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  Slide,
   Slider,
   TextField,
   Typography,
 } from "@mui/material";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Cropper from "react-easy-crop";
 import { MdClose } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
@@ -36,9 +34,14 @@ import { cropImage } from "../../constant/cropUtils";
 import Loader from "@/component/Loader/Loader";
 
 const Index = () => {
+  const countries = useSelector((state) => state?.Auth?.countryList);
+  const cities = useSelector((state) => state?.Auth?.cityList);
+
   const dispatch = useDispatch();
   const router = useRouter();
+
   const { id } = router.query;
+
   const [openLanguage, setOpenLanguage] = useState(false);
   const [city, setCity] = useState("");
   const [open, setOpen] = useState(false);
@@ -48,8 +51,6 @@ const Index = () => {
   const [croppedImage, setCroppedImage] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
-  const countries = useSelector((state) => state?.Auth?.countryList);
-  const cities = useSelector((state) => state?.Auth?.cityList);
 
   const ImageUploadingButton = ({ value, onChange, ...props }) => {
     return (
@@ -291,9 +292,8 @@ const Index = () => {
     <div className="md:pt-5 mx-auto m-auto mb-9">
       {loading && <Loader />}
       <div
-        className={`md:border md:border-white md:rounded-3xl md:w-8/12 m-auto h-100 ${
-          loading ? "opacity-35 pointer-events-none" : ""
-        } `}
+        className={`md:border md:border-white md:rounded-3xl md:w-8/12 m-auto h-100 ${loading ? "opacity-35 pointer-events-none" : ""
+          } `}
       >
         <form
           onSubmit={(e) => {
@@ -302,7 +302,7 @@ const Index = () => {
           }}
         >
           <div className="flex items-center flex-col justify-center p-10">
-            <img className="h-[58px]" src="/images1/Frame1.png" />
+            <img className="h-[58px]" src="/images1/Frame1.png" style={{ cursor: "pointer" }} onClick={() => router.push("/")} />
             <div className="md:flex w-full items-start gap-10 mt-14 md:mt-">
               <div className=" w-full md:w-[50%] mx-auto">
                 <div>
@@ -362,10 +362,10 @@ const Index = () => {
                         borderRadius: "0",
                       },
                       "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                        {
-                          borderRadius: "10px",
-                          border: "1px solid #e6e6e6",
-                        },
+                      {
+                        borderRadius: "10px",
+                        border: "1px solid #e6e6e6",
+                      },
                     }}
                     renderInput={(params) => <TextField {...params} />}
                   />
@@ -419,10 +419,10 @@ const Index = () => {
                         // height: "40px",
                       },
                       "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                        {
-                          borderRadius: "10px",
-                          border: "1px solid #e6e6e6",
-                        },
+                      {
+                        borderRadius: "10px",
+                        border: "1px solid #e6e6e6",
+                      },
                     }}
                     renderInput={(params) => <TextField {...params} />}
                   />
@@ -452,10 +452,10 @@ const Index = () => {
                         borderRadius: "0",
                       },
                       "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                        {
-                          borderRadius: "10px",
-                          border: "1px solid #e6e6e6",
-                        },
+                      {
+                        borderRadius: "10px",
+                        border: "1px solid #e6e6e6",
+                      },
                     }}
                     renderInput={(params) => <TextField {...params} />}
                   />
