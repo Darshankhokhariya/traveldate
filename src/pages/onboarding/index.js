@@ -47,7 +47,7 @@ const Index = () => {
                     <>
                         <label htmlFor="fileInput" onClick={value ? onImageUpload : () => onImageUpdate(0)} {...props}>
                             <div
-                                className="h-24 w-24 overflow-hidden rounded-lg flex items-center justify-center bg-[#FFEBED]"
+                                className="h-24 w-24 overflow-hidden cursor-pointer rounded-lg flex items-center justify-center bg-[#FFEBED]"
                                 id="fileInputWrapper"
                             >
                                 <svg
@@ -97,8 +97,8 @@ const Index = () => {
         return (
             <Dialog open={open} maxWidth="sm" fullWidth onClose={handleCloseImage} >
                 <div className='flex justify-between items-center'>
-                <DialogTitle>Crop Image</DialogTitle>
-                <DialogTitle className='cursor-pointer' onClick={() => handleCloseImage()} ><MdClose/></DialogTitle>
+                    <DialogTitle>Crop Image</DialogTitle>
+                    <DialogTitle className='cursor-pointer' onClick={() => handleCloseImage()} ><MdClose /></DialogTitle>
                 </div>
 
                 <DialogContent>
@@ -456,7 +456,7 @@ const Index = () => {
                         <div className="flex  gap-3 mt-4">
                             {croppedImage && (
                                 <>
-                                    <div className="h-24 w-24 overflow-hidden rounded-lg flex relative">
+                                    <div className="h-24 w-24 overflow-hidden rounded-lg flex relative ">
                                         <img src={URL.createObjectURL(croppedImage)} />
                                         <MdClose
                                             onClick={() => setCroppedImage(null)}

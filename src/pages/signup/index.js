@@ -32,7 +32,6 @@ function Index() {
       if (response?.status === 200) {
         setLoading(false);
         showToast(response.message, { type: "success" });
-        setOpen(true);
         formik.resetForm()
         router.push("/")
         setErrors({}); // Clear form errors
@@ -169,8 +168,8 @@ function Index() {
                     </div>
 
                     <div className="flex w-ful justify-center items-center gap-2 py-4 text-sm text-slate-600">
-                      <div className="h-px w-[100px] bg-slate-300"></div>
-                      or
+                      <div className="h-px w-[100px] bg-slate-300 "></div>
+                      <span className="font-semibold">or</span>
                       <div className="h-px w-[100px] bg-slate-300"></div>
                     </div>
                   </div>

@@ -30,11 +30,11 @@ function Index() {
       image: "/images1/models/model4.png",
     },
   ];
-  
+
   const [activeSlide1, setActiveSlide1] = useState(0);
   const dispatch = useDispatch();
   const userData = useSelector((state) => state?.Auth)
-  console.log('userData', userData)
+
   const handleNextSlide = () => {
     setActiveSlide1(
       (prevActiveSlide1) => (prevActiveSlide1 + 1) % testimonials.length
@@ -51,7 +51,6 @@ function Index() {
   useEffect(() => {
     get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
   }, [])
-  
 
   return (
     <>

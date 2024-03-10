@@ -29,10 +29,11 @@ function Index() {
         "USER_LOGIN",
         dispatch
       );
-      console.log('response', response)
       if (response?.status === 200) {
         setLoading(false);
         showToast(response.message, { type: "success" });
+        localStorage.setItem("authToken", response.data.authToken)
+        localStorage.setItem("refreshToken", response.data.refreshToken)
         formik.resetForm()
         router.push("/")
         setErrors({});
@@ -157,7 +158,7 @@ function Index() {
                         type="submit"
                         className="bg-[#f5435a] py-3 px-9 text-sm text-white rounded-3xl"
                       >
-                        Log in
+                        Log In
                       </button>
                     </div>
 
