@@ -150,8 +150,8 @@ function Slider() {
                 delay: 1200,
                 disableOnInteraction: false,
               }}
-              onSlideChange={() => console.log("slide change")}
-              onSwiper={(swiper) => console.log(swiper)}
+              // onSlideChange={() => console.log("slide change")}
+              // onSwiper={(swiper) => console.log(swiper)}
               breakpoints={{
                 0: {
                   slidesPerView: 1,

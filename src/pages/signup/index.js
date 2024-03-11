@@ -15,7 +15,7 @@ function Index() {
 
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const [showPassword, setShowPassword] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (values, setErrors) => {
     try {
@@ -32,17 +32,17 @@ function Index() {
       if (response?.status === 200) {
         setLoading(false);
         showToast(response.message, { type: "success" });
-        setOpen(true);
         formik.resetForm();
         router.push("/");
-        setErrors({}); // Clear form errors
+        setErrors({});
       }
     } catch (error) {
       showToast(error?.response?.data?.message, { type: "error" });
       setLoading(false);
-      setErrors({}); // Clear form errors
+      setErrors({});
     }
   };
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -110,9 +110,8 @@ function Index() {
           </div>
         )}
         <div
-          class={`grid grid-cols-1 md:grid-cols-2 ${
-            loading ? "opacity-35" : ""
-          }`}
+          class={`grid grid-cols-1 md:grid-cols-2 ${loading ? "opacity-35" : ""
+            }`}
         >
           <div className="flex items-center  px-4 py-10 bg-transparent sm:px-6 lg:px-8 sm:pt-16 lg:pt-12">
             <div className="w-full lg:w-[80%]">
@@ -158,6 +157,11 @@ function Index() {
                         type={showPassword ? "text" : "password"}
                         label="Password"
                         value={formik.values.password}
+                        // onKeyDown={(event) => {
+                        //   if (event.target.value.length >= 21) {
+                        //     event.preventDefault()
+                        //   }
+                        // }}
                         onChange={formik.handleChange}
                         handleTogglePassword={handleTogglePassword}
                         showPassword={showPassword}

@@ -3,9 +3,12 @@ import { useRouter } from "next/router";
 import Join from "../../component/Joinmodal"
 
 function Iconbutton(props) {
-  const { text, icon } = props;
+  const { text } = props;
+
   const router = useRouter();
+
   const [open, setOpen] = useState(false)
+
   const handleClose = () => {
     setOpen(false)
   }

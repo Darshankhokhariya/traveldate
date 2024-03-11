@@ -2,7 +2,8 @@ import SelectTwo from "@/component/inputs/SelectTwo";
 import { gender } from "@/constant/gender";
 import React from "react";
 
-function Searchbar() {
+function Searchbar(props) {
+
   return (
     <>
       {" "}
@@ -37,7 +38,7 @@ function Searchbar() {
               </div>
             </div>
             <div className="hidden md:block">
-              <button className="flex items-center py-2 rounded-xl px-4 gap-2 text-secondary bg-secondary1 bg-opacity-[7%]">
+              <button className="flex items-center py-2 rounded-xl px-4 gap-2 text-secondary bg-secondary1 bg-opacity-[7%]" onClick={() => { props?.SetMoreLessFilter(!props?.moreLessFilter) }}>
                 <svg
                   width="12"
                   height="10"
@@ -50,7 +51,7 @@ function Searchbar() {
                     fill="#191825"
                   />
                 </svg>
-                More
+                {props?.moreLessFilter ? "Less" : "More"}
               </button>
             </div>
           </div>
