@@ -17,7 +17,6 @@ function Index() {
     }
     const userData = useSelector((state) => state?.Auth?.userProfile)
 
-
     const formik = useFormik({
         initialValues: {
             name: "",
@@ -53,8 +52,6 @@ function Index() {
             });
         },
     });
-
-   
 
     useEffect(() => {
         get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);

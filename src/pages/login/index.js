@@ -35,10 +35,9 @@ function Index() {
         localStorage.setItem("authToken", response.data.authToken);
         localStorage.setItem("refreshToken", response.data.refreshToken);
         formik.resetForm();
-        router.push("/");
+        router.push("/dashboard");
         setOpen(true);
         formik.resetForm();
-        router.push("/");
         setErrors({});
       }
     } catch (error) {

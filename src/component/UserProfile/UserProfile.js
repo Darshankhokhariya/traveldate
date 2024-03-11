@@ -10,16 +10,12 @@ import { HEADERS } from '@/constant/authorization'
 import { useFormik } from 'formik'
 import * as Yup from "yup";
 
-
 function UserProfile({ userData }) {
+    const genderData = ["male", "female"]
+    const bodyTypes = ["slim", "average", "heavy"]
     const dispatch = useDispatch()
-
-
-    useEffect(() => {
-        get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
-    }, [])
-
-
+    const countries = useSelector((state) => state?.Auth?.countryList);
+    const cityList = useSelector((state) => state?.Auth?.cityList)
     const formik = useFormik({
         initialValues: {
             name: "",
@@ -56,11 +52,8 @@ function UserProfile({ userData }) {
         },
     });
 
-    console.log('userData', userData)
-
     useEffect(() => {
         if (userData) {
-            // Set initial values using setValues
             formik.setValues({
                 name: userData?.name,
                 age: userData?.age,
@@ -72,6 +65,17 @@ function UserProfile({ userData }) {
         }
     }, [userData]);
 
+
+
+    useEffect(() => {
+        if (formik.values.city) {
+            get(`/country/getCity?city=${formik.values.city || ""}`, "GET_CITY", dispatch, HEADERS);
+        }
+    }, [formik.values.city]);
+
+    useEffect(() => {
+        get("/country/getCountry", "GET_COUNTRY", dispatch, HEADERS);
+    }, [])
 
 
     return (
@@ -126,86 +130,14 @@ function UserProfile({ userData }) {
                             <div className="pt-5">
                                 <Select
                                     name="gender"
-                                    data={[]}
+                                    value={formik.values?.gender}
+                                    data={genderData}
+                                    onChange={formik.handleChange}
                                     label="Gender"
                                 />
                             </div>
                             <div className="pt-5">
-                                <Select data={[]} label="Spoken Languages" />
-                                <div className="flex flex-wrap items-center gap-2 w-full mt-4">
-                                    <div className="inline-flex items-center justify-between space-x-1  bg-primary text-white px-2 py-0.5 rounded-md text-sm">
-                                        <svg
-                                            onclick="this.parentElement.remove()"
-                                            className="cursor-pointer h-4 w-4 text-white"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                        >
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M6 18L18 6M6 6l12 12"
-                                            />
-                                        </svg>
-                                        <div className="select-none">English</div>
-                                    </div>
-                                    <div className="inline-flex items-center justify-between space-x-1  bg-primary text-white px-2 py-0.5 rounded-md text-sm">
-                                        <svg
-                                            onclick="this.parentElement.remove()"
-                                            className="cursor-pointer h-4 w-4 text-white"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                        >
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M6 18L18 6M6 6l12 12"
-                                            />
-                                        </svg>
-                                        <div className="select-none">Hindi</div>
-                                    </div>
-                                    <div className="inline-flex items-center justify-between space-x-1  bg-primary text-white px-2 py-0.5 rounded-md text-sm">
-                                        <svg
-                                            onclick="this.parentElement.remove()"
-                                            className="cursor-pointer h-4 w-4 text-white"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                        >
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M6 18L18 6M6 6l12 12"
-                                            />
-                                        </svg>
-                                        <div className="select-none">Gujarati</div>
-                                    </div>
-                                    <div className="inline-flex items-center justify-between space-x-1  bg-primary text-white px-2 py-0.5 rounded-md text-sm">
-                                        <svg
-                                            onclick="this.parentElement.remove()"
-                                            className="cursor-pointer h-4 w-4 text-white"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                        >
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M6 18L18 6M6 6l12 12"
-                                            />
-                                        </svg>
-                                        <div className="select-none">Gujarati</div>
-                                    </div>
-                                </div>
+                                {/* <Select data={[]} label="Spoken Languages" /> */}
                             </div>
                             <div className="pt-5">
                                 <Textarea
@@ -229,10 +161,12 @@ function UserProfile({ userData }) {
                                 <div className="text-gray-400">Body type</div>
                                 <Autocomplete
                                     size="small"
-                                    name="country"
+                                    name="bodyType"
                                     disablePortal
                                     className="block w-full bg-[#ffffff] hover:border-[#e6e6e6] border border-[#e6e6e6] rounded-lg"
-                                    options={[]}
+                                    options={bodyTypes}
+                                    onChange={formik.handleChange}
+                                    value={formik.values.bodyType}
                                     sx={{
                                         "& .MuiOutlinedInput-root": {
                                             borderRadius: "0",
@@ -255,7 +189,7 @@ function UserProfile({ userData }) {
                                     name="country"
                                     disablePortal
                                     className="block w-full bg-[#ffffff] hover:border-[#e6e6e6] border border-[#e6e6e6] rounded-lg"
-                                    options={[]}
+                                    options={countries}
                                     sx={{
                                         "& .MuiOutlinedInput-root": {
                                             borderRadius: "0",
@@ -277,9 +211,12 @@ function UserProfile({ userData }) {
                                 <div className="text-gray-400">Wants to Visit</div>
                                 {/* <Select data={gender} label="Wants to Visit" /> */}
                                 <Autocomplete
-                                    options={[]}
+                                    options={cityList}
+                                    value={formik.values.city}
                                     size="small"
                                     disablePortal
+                                    onChange={(event, value) => formik.setFieldValue('city', value)}
+                                    onInputChange={(event, value) => formik.setFieldValue('city', value)}
                                     className="block w-full bg-[#ffffff] hover:border-[#e6e6e6] border border-[#e6e6e6] rounded-lg"
                                     name="city"
                                     sx={{
