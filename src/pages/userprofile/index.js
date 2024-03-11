@@ -7,6 +7,7 @@ import { get } from "@/redux/services/apiServices";
 import { useDispatch, useSelector } from "react-redux";
 import { HEADERS, getHeaders } from "@/constant/authorization";
 import axios from "axios";
+import { Carousel } from "react-responsive-carousel";
 
 function Index() {
   const testimonials = [

@@ -5,7 +5,7 @@ import Recent1 from "@/component/recent/Recent1";
 import Sidebar from "@/component/sidebar/Sidebar";
 import React, { useState } from "react";
 
-function dashboard() {
+function Dashboard() {
 
   const [moreLessFilter, SetMoreLessFilter] = useState(false)
 
@@ -31,4 +31,4 @@ function dashboard() {
   );
 }
 
-export default dashboard;
+export default Dashboard;
