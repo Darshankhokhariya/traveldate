@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import Primarybutton from "../Buttons/Primarybutton";
 import Secondarybutton from "../Buttons/Secondarybutton";
 import logo from "../../assets/logo.png";
@@ -7,7 +7,7 @@ import darklogo from "../../assets/logo2.png";
 import { FaHeart } from "react-icons/fa";
 
 function Nav() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -116,6 +116,7 @@ function Nav() {
                           <Link
                             href="/"
                             className="text-sm font-semibold text-black"
+                            onClick={() => setIsMenuOpen(false)}
                           >
                             Home
                           </Link>
@@ -124,22 +125,25 @@ function Nav() {
                           <Link
                             href="#"
                             className="text-sm font-semibold text-black"
+                            onClick={() => setIsMenuOpen(false)}
                           >
                             Contact
                           </Link>
                         </li>
                         <li>
                           <Link
-                            href="#"
+                            href="/login"
                             className="text-sm font-semibold text-black"
+                            onClick={() => setIsMenuOpen(false)}
                           >
                             Login
                           </Link>
                         </li>
                         <li>
                           <Link
-                            href="#"
+                            href="/signup"
                             className="text-sm font-semibold text-black"
+                            onClick={() => setIsMenuOpen(false)}
                           >
                             Signup
                           </Link>

@@ -13,7 +13,7 @@ function Recent1() {
           {cards.map((e) => {
             return (
               <>
-                <div class="shadow-md rounded-xl duration-500 bg-white">
+                <div class="shadow-md rounded-xl duration-500 bg-white hover:scale-105 hover:shadow-xl">
                   <Link href="#">
                     <img
                       src={e?.image}

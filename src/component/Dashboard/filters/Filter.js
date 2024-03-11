@@ -1,10 +1,11 @@
 import Input from "@/component/inputs/Input";
 import Select from "@/component/inputs/Select";
 import SelectTwo from "@/component/inputs/SelectTwo";
-import { gender } from "@/constant/gender";
+import { filterJson } from "@/constant/gender";
 import React from "react";
 
 function Filter() {
+
   return (
     <>
       <div className="px-5">
@@ -29,7 +30,7 @@ function Filter() {
                 for="country-option-1"
                 class="text-sm font-medium text-secondary1 ml-2 block"
               >
-                Girl
+                Male
               </label>
             </div>
             <div class="flex items-center">
@@ -46,7 +47,7 @@ function Filter() {
                 for="country-option-2"
                 class="text-sm font-medium text-secondary1 ml-2 block"
               >
-                Male
+                Female
               </label>
             </div>
           </div>
@@ -56,30 +57,19 @@ function Filter() {
           </div>
         </div>
         <div className="grid grid-cols-2  md:grid-cols-3 lg:grid-cols-4  gap-4 lg:gap-y-6 md:gap-x-14">
-          <SelectTwo data={gender} />
-          <SelectTwo data={gender} />
-
-          <SelectTwo data={gender} />
-
-          <SelectTwo data={gender} />
-
-          <SelectTwo data={gender} />
-
-          <SelectTwo data={gender} />
-
-          <SelectTwo data={gender} />
-
-          <SelectTwo data={gender} />
-
-          <SelectTwo data={gender} />
-
-          <SelectTwo data={gender} />
-
-          <SelectTwo data={gender} />
-
-          <SelectTwo data={gender} />
-
-          <SelectTwo data={gender} />
+          <SelectTwo data={filterJson} />
+          <SelectTwo data={filterJson} />
+          <SelectTwo data={filterJson} />
+          <SelectTwo data={filterJson} />
+          <SelectTwo data={filterJson} />
+          <SelectTwo data={filterJson} />
+          <SelectTwo data={filterJson} />
+          <SelectTwo data={filterJson} />
+          <SelectTwo data={filterJson} />
+          <SelectTwo data={filterJson} />
+          <SelectTwo data={filterJson} />
+          <SelectTwo data={filterJson} />
+          <SelectTwo data={filterJson} />
         </div>
       </div>
     </>

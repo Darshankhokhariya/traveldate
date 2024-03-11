@@ -6,8 +6,9 @@ import Link from "next/link";
 import Mobilenav from "../navbar/Mobilenav";
 
 function Sidebar(props) {
+
   const router = useRouter();
-  const { userData } = props
+  const { userData } = props;
 
   return (
     <>
@@ -24,7 +25,7 @@ function Sidebar(props) {
                     onClick={() => router.push("/")}
                   />
                 </li>
-                {Menu.map((e, index) => {
+                {Menu && Menu.map((e, index) => {
                   const isActive = router.pathname === e.path;
                   return (
                     <>

@@ -36,7 +36,6 @@ function Index() {
         localStorage.setItem("refreshToken", response.data.refreshToken);
         formik.resetForm();
         router.push("/dashboard");
-        setOpen(true);
         formik.resetForm();
         setErrors({});
       }

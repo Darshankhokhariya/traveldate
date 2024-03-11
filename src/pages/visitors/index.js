@@ -1,11 +1,13 @@
 import Banner from "@/component/Dashboard/Banner/Banner";
+import Filter from "@/component/Dashboard/filters/Filter";
 import Searchbar from "@/component/Dashboard/searchbar/Searchbar";
 import Sidebar from "@/component/sidebar/Sidebar";
 import cards from "@/constant/Model";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 
 function Index() {
+  const [moreLessFilter, SetMoreLessFilter] = useState(false)
   return (
     <>
       <Sidebar>
@@ -13,8 +15,9 @@ function Index() {
           <div className="hidden md:block">
             <Banner />
           </div>
-          <Searchbar />
-          <div className="container mx-auto md:px-3 ">
+          <Searchbar SetMoreLessFilter={SetMoreLessFilter} moreLessFilter={moreLessFilter} />
+          {moreLessFilter && <Filter />}
+          <div className="container mx-auto md:px-3">
             <section
               id="Projects"
               class="  grid   xl:grid-cols-4 md:grid-cols-3 grid-cols-2 justify-items-center justify-center gap-x-5 md:gap-y-10  gap-4  mt-5 md:mt-10 mb-5"
@@ -22,7 +25,7 @@ function Index() {
               {cards.map((e) => {
                 return (
                   <>
-                    <div class="shadow-md rounded-xl duration-500 bg-whites relative">
+                    <div class="shadow-md rounded-xl duration-500 bg-whites relative hover:scale-105 hover:shadow-xl">
                       <Link href="#">
                         <img
                           src={e?.image}
