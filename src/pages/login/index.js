@@ -32,9 +32,13 @@ function Index() {
       if (response?.status === 200) {
         setLoading(false);
         showToast(response.message, { type: "success" });
+        localStorage.setItem("authToken", response.data.authToken);
+        localStorage.setItem("refreshToken", response.data.refreshToken);
+        formik.resetForm();
+        router.push("/");
         setOpen(true);
-        formik.resetForm()
-        router.push("/")
+        formik.resetForm();
+        router.push("/");
         setErrors({});
       }
     } catch (error) {
@@ -50,7 +54,7 @@ function Index() {
     },
     validationSchema: Yup.object({
       email: Yup.string().email().required("Email is required"),
-      password: Yup.string().required("Password is required"),
+      password: Yup.string().min(4).max(20).required("Password is required"),
     }),
     onSubmit: (values, { setErrors }) => {
       formik.validateForm().then((errors) => {
@@ -99,19 +103,22 @@ function Index() {
   return (
     <div>
       <section class="bg-transparent">
-        {loading && (
-          <Loader />
-        )}
+        {loading && <Loader />}
         <div
-          class={`grid grid-cols-1 md:grid-cols-2 ${loading ? "opacity-35 pointer-events-none" : ""
+          class={`grid grid-cols-1 md:grid-cols-2 h-screen ${loading ? "opacity-35 pointer-events-none" : ""
             }`}
         >
           <div class="flex items-center  px-4 py-10 bg-transparent sm:px-6 lg:px-8 sm:py-16 lg:py-12">
             <div class="w-full lg:w-[80%] relative">
               <div className="lg:ml-14 mx-auto">
-                <img src="/images1/Frame1.png" className="h-8" style={{ cursor: "pointer" }} onClick={() => router.push("/")}></img>
+                <img
+                  src="/images1/Frame1.png"
+                  className="h-16"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => router.push("/")}
+                ></img>
                 <h2 class="text-3xl font-bold leading-tight mt-10 text-black sm:text-4xl">
-                  Welcome!
+                  Welcome Back!
                 </h2>
 
                 <div className="block md:hidden mt-4 overflow-hidden w-full object-cover rounded-2xl">
@@ -157,7 +164,7 @@ function Index() {
                         type="submit"
                         className="bg-[#f5435a] py-3 px-9 text-sm text-white rounded-3xl"
                       >
-                        Log in
+                        Log In
                       </button>
                     </div>
 
@@ -177,7 +184,7 @@ function Index() {
                     className="w-full text-center py-3 my-3 border flex space-x-2 items-center justify-center bg-[#F3F1F8] border-slate-200 rounded-full text-black hover:shadow transition duration-150"
                     size="large"
                     text="signin_with"
-                    shape="square"
+                    shape="pill"
                     width={300}
                     logo_alignment="center"
                     onError={(err) => {
@@ -269,7 +276,11 @@ function Index() {
 
           <div class="relative hidden md:flex items-end px-4 pb-10 pt-60 sm:pb-16 md:justify-center  sm:px-6 lg:px-8">
             <div class="absolute inset-0 ">
-              <img class=" w-full sm:h-screen md:h-[100vh]" src="/images1/signin.jpg" alt="" />
+              <img
+                class=" w-full sm:h-screen md:h-[100vh]"
+                src="/images1/signin.jpg"
+                alt=""
+              />
             </div>
           </div>
         </div>

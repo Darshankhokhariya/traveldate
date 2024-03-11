@@ -42,8 +42,12 @@ function Nav() {
                 </Link>
               </li>
               <div className="hidden lg:flex items-center gap-3">
-                <Primarybutton text="Log In" path="/login" />
-                <Secondarybutton text="Sign Up" path="/signup" />
+                <div>
+                  <Primarybutton text="Log In" path="/login" />
+                </div>
+                <div>
+                  <Secondarybutton text="Sign Up" path="/signup" />
+                </div>
               </div>
             </ul>
           </div>
@@ -121,23 +125,23 @@ function Nav() {
                             href="#"
                             className="text-sm font-semibold text-black"
                           >
-                            Discover
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            href="#"
-                            className="text-sm font-semibold text-black"
-                          >
-                            Special Deals
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            href="#"
-                            className="text-sm font-semibold text-black"
-                          >
                             Contact
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            href="#"
+                            className="text-sm font-semibold text-black"
+                          >
+                            Login
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            href="#"
+                            className="text-sm font-semibold text-black"
+                          >
+                            Signup
                           </Link>
                         </li>
                       </ul>

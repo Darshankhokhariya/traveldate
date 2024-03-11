@@ -1,9 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 import Modal from "../Modal/Modal";
 import { useRouter } from "next/router";
+import { GoogleLogin } from "@react-oauth/google";
+import { showToast } from "@/constant/toast/toastUtils";
+import { post } from "@/redux/services/apiServices";
+import { useDispatch } from "react-redux";
 
 function Index({ isOpen, onClose }) {
   const router = useRouter();
+  const dispatch = useDispatch()
+  const [loading, setLoading] = useState(false)
+
+
+  const handleGoogleLogin = async (data, setLoading, dispatch) => {
+    try {
+      if (data) {
+        setLoading(true);
+        post(
+          "/user/googleAuthenticate",
+          {
+            accessToken: data?.credential,
+          },
+          "USER_GOOGLE_LOGIN",
+          dispatch
+        )
+          .then((res) => {
+            if (res?.status === 200) {
+              setLoading(false);
+              localStorage.setItem("authToken", res?.data?.authToken);
+              localStorage.setItem("refreshToken", res?.data?.refreshToken);
+              showToast(res.message, { type: "success" });
+              router.push(`/onboarding?id=${res?.data?._id}`);
+            }
+          })
+          .catch((err) => {
+            showToast(err?.response?.data?.message, { type: "error" });
+            setLoading(false);
+          });
+      }
+    } catch (error) {
+      return error;
+    }
+  };
+
 
   return (
     <div>
@@ -13,7 +52,7 @@ function Index({ isOpen, onClose }) {
             <p className="text-3xl font-semibold text-[#F4425A]">Join Us</p>
             <p className="text-lg font-semibold ">Find a travel date today!</p>
 
-            <button class="flex w-full items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-3xl bg-white  ">
+            {/* <button class="flex w-full items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-3xl bg-white  ">
               <div class=" py-2">
                 <svg class="w-6 h-6" viewBox="0 0 40 40">
                   <path
@@ -38,7 +77,24 @@ function Index({ isOpen, onClose }) {
               <span class=" px-4 py-3 font-bold text-center text-xs md:text-sm">
                 Sign in with Google
               </span>
-            </button>
+            </button> */}
+
+            <div className="my-5 w-full flex justify-center">
+              <GoogleLogin
+                onSuccess={(res) =>
+                  handleGoogleLogin(res, setLoading, dispatch, router)
+                }
+                className="w-full text-center py-3 my-3 border flex space-x-2 items-center justify-center bg-[#F3F1F8] border-slate-200 rounded-full text-black hover:shadow transition duration-150"
+                size="large"
+                text="signin_with"
+                shape="pill"
+                width={300}
+                logo_alignment="center"
+                onError={(err) => {
+                  showToast(err.message, { type: "error" });
+                }}
+              />
+            </div>
 
             <div class="flex w-full font-semibold items-center justify-center gap-2 py-4 text-sm text-slate-600">
               or

@@ -1,13 +1,65 @@
 import PhotosUpload from '@/component/PhotosUpload/PhotosUpload'
 import UserProfile from '@/component/UserProfile/UserProfile'
 import Sidebar from '@/component/sidebar/Sidebar'
-import React, { useState } from 'react'
+import { HEADERS } from '@/constant/authorization'
+import { get } from '@/redux/services/apiServices'
+import { useFormik } from 'formik'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import * as Yup from "yup";
+
 
 function Index() {
+    const dispatch = useDispatch()
     const [tab, setTab] = useState("profile")
     const handleTabChange = (e) => {
         setTab(e)
     }
+    const userData = useSelector((state) => state?.Auth?.userProfile)
+
+
+    const formik = useFormik({
+        initialValues: {
+            name: "",
+            age: "",
+            gender: "",
+            about: "",
+            bodyType: "",
+            country: "",
+            city: [],
+            language: [],
+        },
+        validationSchema: Yup.object({
+            name: Yup.string().required("Name is required").matches(/^[a-zA-Z]+$/, "Invalid name format. Only letters are allowed.").max(10),
+            age: Yup.number()
+                .required("Age is required")
+                .typeError("Age must be a number"),
+            gender: Yup.string().required("Gender is required"),
+            about: Yup.string().required("About is required"),
+            bodyType: Yup.string().required("Body type is required"),
+            country: Yup.string().required("Country is required"),
+            city: Yup.array()
+                .min(1, "City is required")
+                .max(5, "You can select up to 5 cities"),
+            language: Yup.array()
+                .min(1, "Language is required")
+                .max(5, "You can select up to 5 languages"),
+        }),
+        onSubmit: (values, { setErrors }) => {
+            formik.validateForm().then((errors) => {
+                if (Object.keys(errors).length === 0) {
+                    // handleSubmit(values, setErrors);
+                }
+            });
+        },
+    });
+
+   
+
+    useEffect(() => {
+        get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
+    }, [])
+
     return (
         <div>
             <Sidebar>
@@ -35,7 +87,7 @@ function Index() {
                     </div>
                     {
                         tab === "profile" ?
-                            <UserProfile />
+                            <UserProfile userData={userData} />
                             :
                             <PhotosUpload />
                     }

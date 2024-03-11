@@ -8,6 +8,7 @@ import { post } from "@/redux/services/apiServices";
 import { useDispatch } from "react-redux";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { GoogleLogin } from "@react-oauth/google";
 
 function Index() {
   const router = useRouter();
@@ -32,8 +33,8 @@ function Index() {
         setLoading(false);
         showToast(response.message, { type: "success" });
         setOpen(true);
-        formik.resetForm()
-        router.push("/")
+        formik.resetForm();
+        router.push("/");
         setErrors({}); // Clear form errors
       }
     } catch (error) {
@@ -49,7 +50,7 @@ function Index() {
     },
     validationSchema: Yup.object({
       email: Yup.string().email().required("Email is required"),
-      password: Yup.string().required("Password is required"),
+      password: Yup.string().min(4).max(20).required("Password is required"),
     }),
     onSubmit: (values, { setErrors }) => {
       formik.validateForm().then((errors) => {
@@ -62,6 +63,37 @@ function Index() {
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleGoogleLogin = async (data, setLoading, dispatch) => {
+    try {
+      if (data) {
+        setLoading(true);
+        post(
+          "/user/googleAuthenticate",
+          {
+            accessToken: data?.credential,
+          },
+          "USER_GOOGLE_LOGIN",
+          dispatch
+        )
+          .then((res) => {
+            if (res?.status === 200) {
+              setLoading(false);
+              localStorage.setItem("authToken", res?.data?.authToken);
+              localStorage.setItem("refreshToken", res?.data?.refreshToken);
+              showToast(res.message, { type: "success" });
+              router.push(`/onboarding?id=${res?.data?._id}`);
+            }
+          })
+          .catch((err) => {
+            showToast(err?.response?.data?.message, { type: "error" });
+            setLoading(false);
+          });
+      }
+    } catch (error) {
+      return error;
+    }
   };
 
   return (
@@ -78,13 +110,19 @@ function Index() {
           </div>
         )}
         <div
-          class={`grid grid-cols-1 md:grid-cols-2 ${loading ? "opacity-35" : ""
-            }`}
+          class={`grid grid-cols-1 md:grid-cols-2 ${
+            loading ? "opacity-35" : ""
+          }`}
         >
           <div className="flex items-center  px-4 py-10 bg-transparent sm:px-6 lg:px-8 sm:pt-16 lg:pt-12">
             <div className="w-full lg:w-[80%]">
               <div className="lg:ml-14 mx-auto">
-                <img src="/images1/Frame1.png" className="h-8" style={{ cursor: "pointer" }} onClick={() => router.push("/")}></img>
+                <img
+                  src="/images1/Frame1.png"
+                  className="h-16"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => router.push("/")}
+                ></img>
                 <h2 className="text-3xl font-bold leading-tight mt-10 text-black sm:text-4xl">
                   Welcome!
                 </h2>
@@ -137,13 +175,13 @@ function Index() {
                     </div>
 
                     <div className="flex w-ful justify-center items-center gap-2 py-4 text-sm text-slate-600">
-                      <div className="h-px w-[100px] bg-slate-300"></div>
-                      or
+                      <div className="h-px w-[100px] bg-slate-300 "></div>
+                      <span className="font-semibold">or</span>
                       <div className="h-px w-[100px] bg-slate-300"></div>
                     </div>
                   </div>
                 </form>
-                <button className="flex w-full items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg bg-white  ">
+                {/* <button className="flex w-full items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg bg-white  ">
                   <div className="py-2">
                     <svg
                       width="24"
@@ -171,8 +209,23 @@ function Index() {
                     </svg>
                   </div>
                   <div className="px-4 py-2 font-bold">Sign in with Google</div>
-                </button>
-
+                </button> */}
+                <div className="my-5 w-full flex justify-center">
+                  <GoogleLogin
+                    onSuccess={(res) =>
+                      handleGoogleLogin(res, setLoading, dispatch, router)
+                    }
+                    className="w-full text-center py-3 my-3 border flex space-x-2 items-center justify-center bg-[#F3F1F8] border-slate-200 rounded-full text-black hover:shadow transition duration-150"
+                    size="large"
+                    text="signin_with"
+                    shape="pill"
+                    width={300}
+                    logo_alignment="center"
+                    onError={(err) => {
+                      showToast(err.message, { type: "error" });
+                    }}
+                  />
+                </div>
                 <p class="mt-16 text-sm text-center font-medium text-gray-600">
                   Already have an account?{" "}
                   <Link

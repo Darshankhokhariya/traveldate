@@ -6,6 +6,10 @@ import Secondarybutton from "../Buttons/Secondarybutton";
 import Primarybutton from "../Buttons/Primarybutton";
 import Iconbutton from "../Buttons/Iconbutton";
 import heart from "../../assets/Heart.png";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/autoplay";
 
 function Slider() {
   const router = useRouter();
@@ -15,7 +19,7 @@ function Slider() {
       <div className="lg:p-2 overflow-x-hidden ">
         <div className="slider py-5">
           <Nav />
-          <div className="flex flex-col lg:flex-row  justify-between  w-full h-full container mx-auto py-20 lg:px-10 xl:px-20">
+          <div className="flex flex-col lg:flex-row  justify-between  w-full h-full container mx-auto py-8  md::py-20 lg:px-10 xl:px-20">
             <div className="w-full h-full  m-auto lg:w-[50%]  ">
               <div className="flex flex-col justify-center px-5 lg:px-10 xl:px-1">
                 <Maintext />
@@ -135,47 +139,88 @@ function Slider() {
             </div>
           </div>
 
-          <marquee width="100%" direction="left">
-            <div className="w-full  grid grid-cols-3 gap-40  md:hidden justify-items-center px-10  py-10 ">
-              <div className="">
-                <img
-                  src="/images1/icons/icon3.png"
-                  className="h-[80px] w-[80px] object-cover"
-                  alt=""
-                />
-                <h1 className="text-white font-bold">100k+ Members</h1>
-                <p className="text-xs text-white">
-                  Over thousand of interested travellers <br /> are waiting for
-                  you
-                </p>
-              </div>
-
-              <div className="">
-                <img
-                  src="/images1/icons/icon2.png"
-                  className="h-[80px] w-[80px] object-cover"
-                  alt=""
-                />
-                <h1 className="text-white font-bold">Find Travel Partner</h1>
-                <p className="text-xs text-white">
-                  Browse members, pick any & start <br /> chatting with them
-                </p>
-              </div>
-
-              <div className="">
-                <img
-                  className="h-[80px] w-[80px] object-cover"
-                  src="/images1/icons/icon1.png"
-                  alt=""
-                />
-                <h1 className="text-white font-bold">Perfect Match</h1>
-                <p className="text-xs text-white">
-                  10k+ Daily active girls to <br /> connect with you
-                </p>
-              </div>
-            </div>
-          </marquee>
-
+          <div className="block  md:hidden   py-6  px-2">
+            <Swiper
+              className=""
+              spaceBetween={0}
+              slidesPerView={5}
+              // modules={[FreeMode, Autoplay]}
+              loop={true}
+              autoplay={{
+                delay: 1200,
+                disableOnInteraction: false,
+              }}
+              onSlideChange={() => console.log("slide change")}
+              onSwiper={(swiper) => console.log(swiper)}
+              breakpoints={{
+                0: {
+                  slidesPerView: 1,
+                  spaceBetween: 10,
+                },
+                320: {
+                  slidesPerView: 1.8,
+                  spaceBetween: 5,
+                },
+                480: {
+                  slidesPerView: 1.8,
+                  spaceBetween: 5,
+                },
+                768: {
+                  slidesPerView: 3,
+                  spaceBetween: 15,
+                },
+                1024: {
+                  slidesPerView: 4,
+                  spaceBetween: 15,
+                },
+                1280: {
+                  slidesPerView: 4,
+                  spaceBetween: 30,
+                },
+              }}
+            >
+              <SwiperSlide>
+                <div className="">
+                  <img
+                    src="/images1/icons/icon3.png"
+                    className="h-[80px] w-[80px] object-cover"
+                    alt=""
+                  />
+                  <h1 className="text-white font-bold">100k+ Members</h1>
+                  <p className="text-xs text-white">
+                    Over thousand of interested travellers <br /> are waiting
+                    for you
+                  </p>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className="">
+                  <img
+                    src="/images1/icons/icon2.png"
+                    className="h-[80px] w-[80px] object-cover"
+                    alt=""
+                  />
+                  <h1 className="text-white font-bold">Find Travel Partner</h1>
+                  <p className="text-xs text-white">
+                    Browse members, pick any & start <br /> chatting with them
+                  </p>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className="">
+                  <img
+                    className="h-[80px] w-[80px] object-cover"
+                    src="/images1/icons/icon1.png"
+                    alt=""
+                  />
+                  <h1 className="text-white font-bold">Perfect Match</h1>
+                  <p className="text-xs text-white">
+                    10k+ Daily active girls to <br /> connect with you
+                  </p>
+                </div>
+              </SwiperSlide>
+            </Swiper>
+          </div>
           <div className="mt-4 gap-4 flex lg:hidden items-center justify-center">
             <Iconbutton text="Join Traveldate" icon={heart} />
           </div>

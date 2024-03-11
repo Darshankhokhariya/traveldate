@@ -1,3 +1,4 @@
+import { getHeaders, getToken } from "@/constant/authorization";
 import axios from "axios";
 
 const baseURL = "https://traveldate.onrender.com"
@@ -27,23 +28,22 @@ export const post = (url, data, actionType, dispatch) => {
 };
 
 export const get = (url, actionType, dispatch, headers) => {
+    console.log('headers', headers)
     return new Promise(async (resolve, reject) => {
         try {
-            // Dispatch the action with INIT type
-            dispatch({ type: `${actionType}_INIT` });
-
-            const response = await axios.get(`${baseURL}${url}`);
-
-            // Dispatch the action with SUCCESS type
-            dispatch({
-                type: `${actionType}_SUCCESS`,
-                payload: response.data,
-            });
-            resolve(response.data);
+        // Dispatch the action with INIT type
+        dispatch({ type: `${actionType}_INIT` });
+        const response = await axios.get(`${baseURL}${url}`, { headers: headers.headers });
+        // Dispatch the action with SUCCESS type
+        dispatch({
+            type: `${actionType}_SUCCESS`,
+            payload: response.data,
+        });
+        resolve(response.data);
         } catch (error) {
             // Dispatch the action with FAIL type
             dispatch({
-                type: `${actionType}_FAIL`,
+                type: `${ actionType }_FAIL`,
                 payload: error.response,
             });
         }
