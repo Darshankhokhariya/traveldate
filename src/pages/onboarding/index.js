@@ -8,7 +8,7 @@ import Input from "@/component/inputs/Input";
 import Select from "@/component/inputs/Select";
 import Textarea from "@/component/inputs/Textarea";
 import { FORM_HEADERS, HEADERS } from "@/constant/authorization";
-import { bodyType } from "@/constant/bodyType";
+// import { bodyType } from "@/constant/bodyType";
 import { gender } from "@/constant/gender";
 import { showToast } from "@/constant/toast/toastUtils";
 import { get, put } from "@/redux/services/apiServices";
@@ -51,6 +51,8 @@ const Index = () => {
   const [croppedImage, setCroppedImage] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
+
+  const bodyTypes = ["slim", "average", "heavy"]
 
   const ImageUploadingButton = ({ value, onChange, ...props }) => {
     return (
@@ -288,6 +290,9 @@ const Index = () => {
       });
   };
 
+  console.log('formik :>> ', formik.values);
+
+
   return (
     <div className="md:pt-5 mx-auto m-auto mb-9">
       {loading && <Loader />}
@@ -394,7 +399,7 @@ const Index = () => {
                     onChange={formik.handleChange}
                     value={formik.values.bodyType}
                     name="bodyType"
-                    data={bodyType}
+                    data={bodyTypes}
                     label="Body type"
                   />
                   {formik.touched.bodyType && formik.errors.bodyType && (
