@@ -35,7 +35,7 @@ function Offer() {
   ];
   return (
     <>
-      <div className="container mx-auto px-3 md:px-16">
+      <div className="container mx-auto px-3 md:px-24">
         <div className="pt-10  lg:py-10 text-center md:text-start">
           <div className="uppercase  text-primary font-medium">New Member</div>
           <p className="text-[27px]  lg:text-[48px] font-semibold text-black">
@@ -63,9 +63,9 @@ function Offer() {
           })}
         </div> */}
 
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center  md:gap-y-10">
           {/* First row with three cards */}
-          <div className="flex flex-col lg:flex-row justify-center ">
+          <div className="flex flex-col lg:flex-row justify-center gap-x-10">
             {cards.slice(0, 3).map((e, index) => (
               <div
                 key={index}
@@ -89,7 +89,7 @@ function Offer() {
           </div>
 
           {/* Second row with two cards */}
-          <div className="flex flex-col lg:flex-row justify-center">
+          <div className="flex flex-col lg:flex-row justify-center gap-x-10">
             {cards.slice(3).map((e, index) => (
               <div
                 key={index}

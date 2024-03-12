@@ -5,55 +5,26 @@ import { get } from "@/redux/services/apiServices";
 import { useDispatch, useSelector } from "react-redux";
 import { HEADERS } from "@/constant/authorization";
 import { Carousel } from "react-responsive-carousel";
+import Image from "next/image";
 
 function Index() {
-  const testimonials = [
-    {
-      name: "Mark Smith",
-      description: "Travel Enthusiast",
-      image: "/images1/models/model1.png",
-    },
-    {
-      name: "Mark Smith",
-      description: "Travel Enthusiast",
-      image: "/images1/models/model2.png",
-    },
-    {
-      name: "Mark Smith",
-      description: "Travel Enthusiast",
-      image: "/images1/models/model3.png",
-    },
-    {
-      name: "Mark Smith",
-      description: "Travel Enthusiast",
-      image: "/images1/models/model4.png",
-    },
+  const images = [
+    { src: "/images1/models/model1.png", alt: "Image 1" },
+    { src: "/images1/models/model2.png", alt: "Image 2" },
+    { src: "/images1/models/model3.png", alt: "Image 3" },
   ];
 
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-
-  const [activeSlide1, setActiveSlide1] = useState(0);
+  const handleOnChange = (index) => {
+    setCurrentSlide(index);
+  };
   const dispatch = useDispatch();
-  const userData = useSelector((state) => state?.Auth?.userProfile)
-
-  const handleNextSlide = () => {
-    setActiveSlide1(
-      (prevActiveSlide1) => (prevActiveSlide1 + 1) % testimonials.length
-    );
-  };
-
-  const handlePrevSlide = () => {
-    setActiveSlide1(
-      (prevActiveSlide1) =>
-        (prevActiveSlide1 + testimonials.length - 1) % testimonials.length
-    );
-  };
+  const userData = useSelector((state) => state?.Auth?.userProfile);
 
   useEffect(() => {
     get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
-  }, [])
-
-
+  }, []);
 
   return (
     <>
@@ -68,18 +39,23 @@ function Index() {
                   alt=""
                 />
               </div> */}
-
-              <Carousel showStatus={false} showThumbs={false}>
-                <div>
-                  <img src="/images1/model1.png" />
-                </div>
-                <div>
-                  <img src="/images1/model1.png" />
-                </div>
-                <div>
-                  <img src="/images1/model1.png" />
-                </div>
-              </Carousel>
+              <Carousel
+                selectedItem={currentSlide}
+                onChange={handleOnChange}
+                showThumbs={false} // optional prop to hide thumbnails
+              >
+                {images?.map((image, index) => (
+                  <div key={index}>
+                    <Image
+                      className="rounded-xl"
+                      src={image?.src}
+                      alt={image?.alt}
+                      width={70} // set a fixed width
+                      height={70} // set a fixed height
+                    />
+                  </div>
+                ))}
+              </Carousel>{" "}
               {/* <div className="w-full ">
                 <div className="relative  overflow-hidden ">
                   <div
@@ -197,9 +173,7 @@ function Index() {
             <div>
               <h1 className="py-3 text-base font-semibold">About Me</h1>
               <div className=" md:space-y-4 text-secondary1">
-                <p className="text-sm">
-                  {userData?.aboutUser}
-                </p>
+                <p className="text-sm">{userData?.aboutUser}</p>
                 <p className="text-sm">{userData?.aboutUser}</p>
               </div>
             </div>
@@ -211,7 +185,9 @@ function Index() {
               </div>
               <div className="flex gap-8 py-2">
                 <div className="text-secondary1 w-20">Languages</div>
-                <div className="font-medium">{userData?.language?.join(", ")}</div>
+                <div className="font-medium">
+                  {userData?.language?.join(", ")}
+                </div>
               </div>
               <div className="flex gap-8 py-2">
                 <div className="text-secondary1 w-20">Height</div>
