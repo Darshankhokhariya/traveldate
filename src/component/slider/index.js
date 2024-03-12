@@ -140,7 +140,7 @@ function Slider() {
           </div>
 
           <div className="block  md:hidden   py-6  px-2">
-            <Swiper
+            {/* <Swiper
               className=""
               spaceBetween={0}
               slidesPerView={5}
@@ -219,7 +219,7 @@ function Slider() {
                   </p>
                 </div>
               </SwiperSlide>
-            </Swiper>
+            </Swiper> */}
           </div>
           <div className="mt-4 gap-4 flex lg:hidden items-center justify-center">
             <Iconbutton text="Join Traveldate" icon={heart} />

@@ -11,66 +11,70 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 function UserProfile({ userData }) {
-  const genderData = ["male", "female"];
-  const bodyTypes = ["slim", "average", "heavy"];
-  const dispatch = useDispatch();
-  const countries = useSelector((state) => state?.Auth?.countryList);
-  const cityList = useSelector((state) => state?.Auth?.cityList);
-  const formik = useFormik({
-    initialValues: {
-      name: "",
-      age: "",
-      gender: "",
-      about: "",
-      bodyType: "",
-      country: "",
-      city: [],
-      language: [],
-    },
-    validationSchema: Yup.object({
-      name: Yup.string()
-        .required("Name is required")
-        .matches(
-          /^[a-zA-Z]+$/,
-          "Invalid name format. Only letters are allowed."
-        )
-        .max(10),
-      age: Yup.number()
-        .required("Age is required")
-        .typeError("Age must be a number"),
-      gender: Yup.string().required("Gender is required"),
-      about: Yup.string().required("About is required"),
-      bodyType: Yup.string().required("Body type is required"),
-      country: Yup.string().required("Country is required"),
-      city: Yup.array()
-        .min(1, "City is required")
-        .max(5, "You can select up to 5 cities"),
-      language: Yup.array()
-        .min(1, "Language is required")
-        .max(5, "You can select up to 5 languages"),
-    }),
-    onSubmit: (values, { setErrors }) => {
-      formik.validateForm().then((errors) => {
-        if (Object.keys(errors).length === 0 && croppedImage !== null) {
-          // handleSubmit(values, setErrors);
+    const genderData = ["male", "female"]
+    const bodyTypes = ["slim", "average", "heavy"]
+    const dispatch = useDispatch()
+    const countries = useSelector((state) => state?.Auth?.countryList);
+    const cityList = useSelector((state) => state?.Auth?.cityList)
+    const formik = useFormik({
+        initialValues: {
+            name: "",
+            age: "",
+            gender: "",
+            about: "",
+            bodyType: "",
+            country: "",
+            city: [],
+            language: [],
+        },
+        validationSchema: Yup.object({
+            name: Yup.string().required("Name is required").matches(/^[a-zA-Z]+$/, "Invalid name format. Only letters are allowed.").max(10),
+            age: Yup.number()
+                .required("Age is required")
+                .typeError("Age must be a number"),
+            gender: Yup.string().required("Gender is required"),
+            about: Yup.string().required("About is required"),
+            bodyType: Yup.string().required("Body type is required"),
+            country: Yup.string().required("Country is required"),
+            city: Yup.array()
+                .min(1, "City is required")
+                .max(5, "You can select up to 5 cities"),
+            language: Yup.array()
+                .min(1, "Language is required")
+                .max(5, "You can select up to 5 languages"),
+        }),
+        onSubmit: (values, { setErrors }) => {
+            formik.validateForm().then((errors) => {
+                if (Object.keys(errors).length === 0 && croppedImage !== null) {
+                    // handleSubmit(values, setErrors);
+                }
+            });
+        },
+    });
+
+    useEffect(() => {
+        if (userData) {
+            formik.setValues({
+                name: userData?.name,
+                age: userData?.age,
+                gender: userData?.gender,
+                about: userData?.aboutUser,
+                bodyType: userData?.bodyType,
+                country: countries?.find((e) => e?.name === userData?.country),
+            });
+        }
+    }, [userData]);
+
+    console.log('userData', userData,countries)
+
+    useEffect(() => {
+        if (formik.values.city) {
+            get(`/country/getCity?city=${formik.values.city || ""}`, "GET_CITY", dispatch, HEADERS);
         }
       });
-    },
-  });
+    
 
-  useEffect(() => {
-    if (userData) {
-      formik.setValues({
-        name: userData?.name,
-        age: userData?.age,
-        gender: userData?.gender,
-        about: userData?.aboutUser,
-        bodyType: userData?.bodyType,
-        country: userData?.country,
-      });
-    }
-  }, [userData]);
-
+      
   useEffect(() => {
     if (formik.values.city) {
       get(
@@ -186,52 +190,57 @@ function UserProfile({ userData }) {
                                 data={[]}
                                 label="Body type"
                             /> */}
-                <div className="text-gray-400">Body type</div>
-                <Autocomplete
-                  size="small"
-                  name="bodyType"
-                  disablePortal
-                  className="block w-full bg-[#ffffff] hover:border-[#e6e6e6] border border-[#e6e6e6] rounded-lg"
-                  options={bodyTypes}
-                  onChange={formik.handleChange}
-                  value={formik.values.bodyType}
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: "0",
-                    },
-                    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                      {
-                        borderRadius: "7px",
-                        border: "1px solid #e6e6e6",
-                      },
-                  }}
-                  renderInput={(params) => (
-                    <TextField {...params} placeholder="Body type" />
-                  )}
-                />
-              </div>
-              <div className="pt-5">
-                <div className="text-gray-400">Country</div>
-                <Autocomplete
-                  size="small"
-                  name="country"
-                  disablePortal
-                  className="block w-full bg-[#ffffff] hover:border-[#e6e6e6] border border-[#e6e6e6] rounded-lg"
-                  options={countries}
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: "0",
-                    },
-                    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                      {
-                        borderRadius: "7px",
-                        border: "1px solid #e6e6e6",
-                      },
-                  }}
-                  renderInput={(params) => (
-                    <TextField {...params} placeholder="Country" />
-                  )}
-                />
+                                <div className="text-gray-400">Body type</div>
+                                <Autocomplete
+                                    size="small"
+                                    name="bodyType"
+                                    disablePortal
+                                    className="block w-full bg-[#ffffff] hover:border-[#e6e6e6] border border-[#e6e6e6] rounded-lg"
+                                    options={bodyTypes}
+                                    onChange={formik.handleChange}
+                                    value={formik.values.bodyType}
+                                    sx={{
+                                        "& .MuiOutlinedInput-root": {
+                                            borderRadius: "0",
+                                        },
+                                        "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+                                        {
+                                            borderRadius: "7px",
+                                            border: "1px solid #e6e6e6",
+                                        },
+                                    }}
+                                    renderInput={(params) => (
+                                        <TextField {...params} placeholder="Body type" />
+                                    )}
+                                />
+                            </div>
+                            <div className="pt-5">
+                                <div className="text-gray-400">Country</div>
+                                <Autocomplete
+                                    size="small"
+                                    name="country"
+                                    value={formik.values.country}
+                                    getOptionLabel={(option) => option?.name}
+                                    disablePortal
+                                    onChange={(event, value) =>
+                                        formik.setFieldValue("country", value ? value : null)
+                                      }
+                                    className="block w-full bg-[#ffffff] hover:border-[#e6e6e6] border border-[#e6e6e6] rounded-lg"
+                                    options={countries}
+                                    sx={{
+                                        "& .MuiOutlinedInput-root": {
+                                            borderRadius: "0",
+                                        },
+                                        "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+                                        {
+                                            borderRadius: "7px",
+                                            border: "1px solid #e6e6e6",
+                                        },
+                                    }}
+                                    renderInput={(params) => (
+                                        <TextField {...params} placeholder="Country" />
+                                    )}
+                                />
 
                 {/* <Select data={gender} label="Country" /> */}
               </div>

@@ -84,9 +84,9 @@ function Index() {
                     </div>
                     {
                         tab === "profile" ?
-                            <UserProfile userData={userData} />
+                            <UserProfile userData={userData}  />
                             :
-                            <PhotosUpload />
+                            <PhotosUpload userData={userData} />
                     }
                 </div>
 
