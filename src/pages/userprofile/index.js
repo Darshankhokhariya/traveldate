@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Iconstartbutton from "@/component/Buttons/Iconstartbutton";
 import Sidebar from "@/component/sidebar/Sidebar";
-import Upgrademodal from "@/component/Modal/Upgrademodel";
-import Mobilenav from "@/component/navbar/Mobilenav";
 import { get } from "@/redux/services/apiServices";
 import { useDispatch, useSelector } from "react-redux";
-import { HEADERS, getHeaders } from "@/constant/authorization";
-import axios from "axios";
+import { HEADERS } from "@/constant/authorization";
 import { Carousel } from "react-responsive-carousel";
 
 function Index() {
@@ -33,9 +30,12 @@ function Index() {
     },
   ];
 
+
+
   const [activeSlide1, setActiveSlide1] = useState(0);
   const dispatch = useDispatch();
   const userData = useSelector((state) => state?.Auth?.userProfile)
+
   const handleNextSlide = () => {
     setActiveSlide1(
       (prevActiveSlide1) => (prevActiveSlide1 + 1) % testimonials.length
