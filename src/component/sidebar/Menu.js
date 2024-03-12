@@ -52,7 +52,7 @@ const Menu = [
   //   path: "/Addtable",
   // },
   {
-    name: "Favorites",
+    name: "Favourites",
     icon: (e) => (
       <svg
         width="20"

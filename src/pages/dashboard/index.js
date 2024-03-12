@@ -3,20 +3,36 @@ import Filter from "@/component/Dashboard/filters/Filter";
 import Searchbar from "@/component/Dashboard/searchbar/Searchbar";
 import Recent1 from "@/component/recent/Recent1";
 import Sidebar from "@/component/sidebar/Sidebar";
-import React, { useState } from "react";
+import { HEADERS } from "@/constant/authorization";
+import { get } from "@/redux/services/apiServices";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 function Dashboard() {
+  const dispatch = useDispatch()
+  const recentUser = useSelector((state) => state?.Auth?.recentUserDetails)
 
   const [moreLessFilter, SetMoreLessFilter] = useState(false)
+  const [searchValue, setSearchValue] = useState("")
+
+  useEffect(() => {
+    get(`/user/getRecentUser?name=${searchValue}&page=1&limit=3&sort=`, "GET_RECENT_USER", dispatch, HEADERS);
+  }, [])
 
   return (
     <>
       <Sidebar>
         <div className="px-5 lg:px-10 xl:px-14 pb-20 md:pb-0 hidden md:block">
           <Banner />
-          <Searchbar SetMoreLessFilter={SetMoreLessFilter} moreLessFilter={moreLessFilter} />
+          <Searchbar
+            SetMoreLessFilter={SetMoreLessFilter}
+            moreLessFilter={moreLessFilter}
+            page="dashboard"
+            setSearchValue={setSearchValue}
+            searchValue={searchValue}
+          />
           {moreLessFilter && <Filter />}
-          <Recent1 />
+          <Recent1 recentUser={recentUser} />
         </div>
         <div className="md:px-14  pb-20 md:pb-0 block md:hidden">
           <div className="flex justify-center py-5">
@@ -24,7 +40,7 @@ function Dashboard() {
           </div>
           <Searchbar SetMoreLessFilter={SetMoreLessFilter} moreLessFilter={moreLessFilter} />
           {moreLessFilter && <Filter />}
-          <Recent1 />
+          <Recent1 recentUser={recentUser} />
         </div>
       </Sidebar>
     </>

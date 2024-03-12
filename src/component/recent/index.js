@@ -1,14 +1,14 @@
 import { HEADERS } from "@/constant/authorization";
 import { get } from "@/redux/services/apiServices";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 function Recent() {
   const dispatch = useDispatch();
-  const getRecentUser = useSelector(
-    (state) => state?.Auth?.recentLandingPageUser
-  );
+  const getRecentUser = useSelector((state) => state?.Auth?.recentLandingPageUser)
+
+  const router = useRouter()
 
   useEffect(() => {
     get(`/user/getLandingPageUser`, "GET_LANDING_PAGE_USER", dispatch, HEADERS);
@@ -37,7 +37,7 @@ function Recent() {
                   return (
                     <>
                       <div class=" bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
-                        <Link href="#">
+                        <div onClick={() => router.push("/userprofile")}>
                           <img
                             src={
                               e?.image?.[0]?.filename ||
@@ -66,7 +66,7 @@ function Recent() {
                               </div>
                             </div>
                           </div>
-                        </Link>
+                        </div>
                       </div>
                     </>
                   );

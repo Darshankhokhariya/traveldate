@@ -7,7 +7,10 @@ const initialState = {
   languageList: [],
   cityList: [],
   userProfile: {},
-  recentLandingPageUser: []
+  recentLandingPageUser: [],
+  favouriteUser: [],
+  visitorDetails: [],
+  recentUserDetails: [],
 };
 
 const store = (state = initialState, action) => {
@@ -51,6 +54,51 @@ const store = (state = initialState, action) => {
       return {
         ...state,
         recentLandingPageUser: action?.payload?.data
+      };
+    case actionTypes.GET_FAVOURITE_PAGE_USER_INIT:
+      return {
+        ...state,
+        loading: true
+      };
+    case actionTypes.GET_FAVOURITE_PAGE_USER_SUCCESS:
+      return {
+        ...state,
+        favouriteUser: action?.payload?.data
+      };
+    case actionTypes.GET_FAVOURITE_PAGE_USER_FAIL:
+      return {
+        ...state,
+        favouriteUser: []
+      };
+    case actionTypes.GET_VISITOR_PAGE_USER_INIT:
+      return {
+        ...state,
+        loading: true
+      };
+    case actionTypes.GET_VISITOR_PAGE_USER_SUCCESS:
+      return {
+        ...state,
+        visitorDetails: action?.payload?.data
+      };
+    case actionTypes.GET_VISITOR_PAGE_USER_FAIL:
+      return {
+        ...state,
+        visitorDetails: []
+      };
+    case actionTypes.GET_RECENT_USER_INIT:
+      return {
+        ...state,
+        loading: true
+      };
+    case actionTypes.GET_RECENT_USER_SUCCESS:
+      return {
+        ...state,
+        recentUserDetails: action?.payload?.data
+      };
+    case actionTypes.GET_RECENT_USER_FAIL:
+      return {
+        ...state,
+        recentUserDetails: []
       };
     default:
       return state;
