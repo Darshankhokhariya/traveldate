@@ -1,11 +1,8 @@
-import Input from "@/component/inputs/Input";
-import Select from "@/component/inputs/Select";
 import SelectTwo from "@/component/inputs/SelectTwo";
-import { filterJson } from "@/constant/gender";
+import { filterAge, filterBodyType } from "@/constant/gender";
 import React from "react";
 
-function Filter() {
-
+function Filter(props) {
   return (
     <>
       <div className="px-5">
@@ -53,23 +50,16 @@ function Filter() {
           </div>
 
           <div className="hidden md:block">
-            <Input placeholder="Name" />
+            {/* <Input placeholder="Name" /> */}
           </div>
         </div>
         <div className="grid grid-cols-2  md:grid-cols-3 lg:grid-cols-4  gap-4 lg:gap-y-6 md:gap-x-14">
-          <SelectTwo data={filterJson} />
-          <SelectTwo data={filterJson} />
-          <SelectTwo data={filterJson} />
-          <SelectTwo data={filterJson} />
-          <SelectTwo data={filterJson} />
-          <SelectTwo data={filterJson} />
-          <SelectTwo data={filterJson} />
-          <SelectTwo data={filterJson} />
-          <SelectTwo data={filterJson} />
-          <SelectTwo data={filterJson} />
-          <SelectTwo data={filterJson} />
-          <SelectTwo data={filterJson} />
-          <SelectTwo data={filterJson} />
+          <SelectTwo data={filterAge} placeHolder="Age From" label="label" values="value" />
+          <SelectTwo data={filterAge} placeHolder="Age To" label="label" values="value" />
+          <SelectTwo data={props?.languageData} placeHolder="Language" label="name" values="name" />
+          <SelectTwo data={filterBodyType} placeHolder="Body type" label="label" values="value" />
+          <SelectTwo data={props?.country} placeHolder="Country" label="name" values="is02" />
+          {/* <SelectTwo data={filterJson} placeHolder="City" label="label" values="value" /> */}
         </div>
       </div>
     </>

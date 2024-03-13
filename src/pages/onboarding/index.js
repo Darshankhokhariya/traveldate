@@ -290,9 +290,6 @@ const Index = () => {
       });
   };
 
-  console.log('formik :>> ', formik.values);
-
-
   return (
     <div className="md:pt-5 mx-auto m-auto mb-9">
       {loading && <Loader />}
