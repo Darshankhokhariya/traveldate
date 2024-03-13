@@ -45,8 +45,8 @@ function Index() {
               class="  grid   xl:grid-cols-4 md:grid-cols-3 grid-cols-2 justify-items-center justify-center gap-y-10  gap-4  mt-5 md:mt-10 mb-5"
             >
               {
-                favourite && favourite.favouriteUser.length > 0 ? (
-                  favourite && favourite?.favouriteUser.map((e) => {
+                favourite && favourite?.favouriteUser?.length > 0 ? (
+                  favourite && favourite?.favouriteUser?.map((e) => {
                     return (
                       <>
                         <div class="shadow-md rounded-xl duration-500 bg-whites relative hover:scale-105 hover:shadow-xl">

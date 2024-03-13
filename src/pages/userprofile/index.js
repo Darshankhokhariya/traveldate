@@ -26,6 +26,8 @@ function Index() {
     get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
   }, []);
 
+
+
   return (
     <>
       <Sidebar>
@@ -42,19 +44,21 @@ function Index() {
               <Carousel
                 selectedItem={currentSlide}
                 onChange={handleOnChange}
-                showThumbs={false} // optional prop to hide thumbnails
+                showThumbs={true}
+                dynamicHeight={false}
+                showStatus={false}
               >
                 {images?.map((image, index) => (
                   <div key={index}>
-                    <Image
-                      className="rounded-xl"
+                    <img
+                      className="rounded-xl "
                       src={image?.src}
                       alt={image?.alt}
-                      width={70} // set a fixed width
-                      height={70} // set a fixed height
+                      showStatus={false}
                     />
                   </div>
                 ))}
+
               </Carousel>{" "}
               {/* <div className="w-full ">
                 <div className="relative  overflow-hidden ">
@@ -241,8 +245,8 @@ function Index() {
 
             {/* <Upgrademodal isOpen={open} onClose={handleClose} /> */}
           </div>
-        </div>
-      </Sidebar>
+        </div >
+      </Sidebar >
     </>
   );
 }
