@@ -1,9 +1,15 @@
 import React from "react";
 import Home from "./home";
+import Loader from "@/component/Loader/Loader";
 
-function index() {
+function index({ isPageLoading }) {
   return <div>
-    <Home/>
+    {
+      isPageLoading ?
+        <Loader />
+        :
+        <Home />
+    }
   </div>;
 }
 

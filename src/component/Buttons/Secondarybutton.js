@@ -9,7 +9,7 @@ function Secondarybutton(props) {
       <button
         onClick={() => {
           path && router.push(path);
-        }}
+        }} type="submit"
         className="py-3 px-4 md:px-[32px] md:py-[16px] bg-primary text-sm md:text-[17px] text-nowrap text-white font-semibold rounded-full w-full"
       >
         {text}
