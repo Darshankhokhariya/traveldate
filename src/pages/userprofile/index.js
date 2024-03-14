@@ -6,6 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { HEADERS } from "@/constant/authorization";
 import { Carousel } from "react-responsive-carousel";
 import Image from "next/image";
+import {
+  BsChevronBarLeft,
+  BsChevronBarRight,
+  BsChevronLeft,
+  BsChevronRight,
+} from "react-icons/bs";
 
 function Index() {
   const images = [
@@ -26,14 +32,22 @@ function Index() {
     get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
   }, []);
 
+  const [currentIndex, setCurrentIndex] = useState(0);
 
+  const handlePrevClick = () => {
+    setCurrentIndex(currentIndex - 1);
+  };
+
+  const handleNextClick = () => {
+    setCurrentIndex(currentIndex + 1);
+  };
 
   return (
     <>
       <Sidebar>
         <div className="px-4 lg:px-4 xl:px-14 ">
-          <div className="flex flex-col md:flex-row md:items-start">
-            <div className="flex flex-col gap-y-8 items-center justify-center ">
+          <div className="flex ">
+            <div className="flex flex-col gap-y-8 items-center justify-center w-full  lg:w-[30%] xl:w-[40%] ">
               {/* <div className="w-full h-full">
                 <img
                   src={userData?.image?.[0]?.filename}
@@ -41,25 +55,39 @@ function Index() {
                   alt=""
                 />
               </div> */}
-              <Carousel
-                selectedItem={currentSlide}
-                onChange={handleOnChange}
-                showThumbs={true}
-                dynamicHeight={false}
-                showStatus={false}
-              >
-                {images?.map((image, index) => (
-                  <div key={index}>
-                    <img
-                      className="rounded-xl "
-                      src={image?.src}
-                      alt={image?.alt}
-                      showStatus={false}
-                    />
-                  </div>
-                ))}
 
-              </Carousel>{" "}
+              <div className="relative">
+                <Carousel
+                  className=" "
+                  selectedItem={currentIndex}
+                  onChange={handleOnChange}
+                  showThumbs={true}
+                  showArrows={false}
+                  dynamicHeight={false}
+                  showStatus={false}
+                >
+                  {images?.map((image, index) => (
+                    <div key={index}>
+                      <img
+                        className="rounded-xl object-cover"
+                        src={image?.src}
+                        alt={image?.alt}
+                        showStatus={false}
+                      />
+                    </div>
+                  ))}
+                </Carousel>
+                <BsChevronLeft
+                  direction="left"
+                  className={`absolute  transform -translate-y-1/2  left-3  bottom-14  cursor-pointer text-secondary1`}
+                  onClick={handlePrevClick}
+                />
+                <BsChevronRight
+                  direction="left"
+                  className={`absolute transform -translate-y-1/2  right-5 bottom-14  cursor-pointer text-secondary1`}
+                  onClick={handleNextClick}
+                />
+              </div>
               {/* <div className="w-full ">
                 <div className="relative  overflow-hidden ">
                   <div
@@ -123,9 +151,9 @@ function Index() {
                 </div>
               </div> */}
             </div>
-            <div className="text-dark md:px-8 py-4 md:mt-14">
+            <div className="text-dark m-auto  py-4 md:mt-14  w-full  lg:w-[30%] xl:w-[40%]">
               <h1 className="text-2xl md:text-4xl font-semibold capitalize">
-                {userData?.name} | <span>{userData?.age}</span>
+                {userData?.name}
               </h1>
               <p className="font-medium text-xl py-2 hidden  md:block capitalize">
                 {userData?.age} Year | {userData?.gender}
@@ -245,8 +273,8 @@ function Index() {
 
             {/* <Upgrademodal isOpen={open} onClose={handleClose} /> */}
           </div>
-        </div >
-      </Sidebar >
+        </div>
+      </Sidebar>
     </>
   );
 }

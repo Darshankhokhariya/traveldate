@@ -31,7 +31,7 @@ body {
 }  */
 
 
-.slider {
+.slider1 {
   background-image: url(/images1/Main.png);
   background-position: center;
   width: 100%;
@@ -139,7 +139,7 @@ body {
     /* border-radius: 30px !important; */
   }
 
-  .slider {
+  .slider1 {
     background-image: url(/images1/Main.png);
     background-position: center;
     width: 100%;
@@ -275,3 +275,16 @@ body {
   display: flex !important;
   justify-content: center !important;
 }
+
+.carousel{
+  width: 400px !important;
+}
+
+.carousel .thumb{
+  width: 100px !important;
+}
+
+.carousel .thumb{
+  border-radius: 18px;
+}
+
