@@ -17,7 +17,7 @@ function Slider() {
   return (
     <>
       <div className="lg:p-2 overflow-x-hidden ">
-        <div className="slider py-5">
+        <div className="slider1 py-5">
           <Nav />
           <div className="flex flex-col lg:flex-row  justify-between  w-full h-full container mx-auto py-8  md::py-20 lg:px-10 xl:px-20">
             <div className="w-full h-full  m-auto lg:w-[50%]  ">
