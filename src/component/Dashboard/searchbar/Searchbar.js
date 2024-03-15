@@ -3,6 +3,7 @@ import { gender } from "@/constant/gender";
 import React from "react";
 
 function Searchbar(props) {
+  const { values, searchValue, handleChange } = props
   return (
     <>
       {" "}
@@ -31,14 +32,10 @@ function Searchbar(props) {
                 <input
                   class="peer h-full w-full outline-none text-sm  text-gray-700 pr-2 bg-secondary1 bg-opacity-[7%]"
                   type="text"
-                  id="search"
+                  name="searchValue"
                   placeholder="Search something.."
-                  value={props?.searchValue}
-                  onChange={(event) => {
-                    if (event.target.value.length <= 20) {
-                      props.setSearchValue(event.target.value)
-                    }
-                  }}
+                  value={searchValue}
+                  onChange={handleChange}
                 />
               </div>
             </div>

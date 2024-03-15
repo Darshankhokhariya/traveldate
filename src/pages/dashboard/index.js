@@ -12,21 +12,50 @@ import { useDispatch, useSelector } from "react-redux";
 
 function Dashboard({ isPageLoading }) {
   const dispatch = useDispatch()
+  const [moreLessFilter, SetMoreLessFilter] = useState(false)
   const recentUser = useSelector((state) => state?.Auth?.recentUserDetails)
   const languageData = useSelector((state) => state?.Auth?.languageList);
   const countries = useSelector((state) => state?.Auth?.countryList);
+  const [searchValue, setSearchValue] = useState("")
+  // const cities = useSelector((state) => state?.Auth?.cityList);
+  const [values, setValues] = useState({
+    gender: "",
+    ageFrom: "",
+    ageTo: "",
+    bodyType: "",
+    country: "",
+    city: "",
+    language: "",
+  })
 
   let language = [{ code: 'Select language', name: 'Select language' }, ...languageData]
   let country = [{ name: 'Select country', is02: 'Select country' }, ...countries]
 
-  const [moreLessFilter, SetMoreLessFilter] = useState(false)
-  const [searchValue, setSearchValue] = useState("")
+
+  const handleSearch = (gender, ageFrom, ageTo, bodyType, country, city, language) => {
+    get(`/user/getRecentUser?name=${searchValue}?gender=${gender}&ageFrom=${ageFrom}&ageTo=${ageTo}&bodyType=${bodyType}&country${country}&city=${city}&languge=${language}page=1&limit=3&sort=`, "GET_RECENT_USER", dispatch, HEADERS);
+  }
 
   useEffect(() => {
     get("/country/getCountry", "GET_COUNTRY", dispatch, HEADERS);
     get(`/language/getLanguage`, "GET_LANGUAGE", dispatch, HEADERS);
-    get(`/user/getRecentUser?name=${searchValue}&page=1&limit=3&sort=`, "GET_RECENT_USER", dispatch, HEADERS);
+    handleSearch(values.gender, values.ageFrom, values.ageTo, values.bodyType, values.country, values.city, values.language)
   }, [])
+
+
+  const handleChange = (e) => {
+    console.log('handleChange============',e)
+    const { name, value } = e.target;
+    console.log('name', name, value)
+    setSearchValue(value)
+    setValues(prevValues => ({
+      ...prevValues,
+      [name]: value
+    }));
+    handleSearch(values.gender, values.ageFrom, values.ageTo, values.bodyType, values.country, values.city, values.language)
+  };
+
+  console.log('values', values)
 
   return (
     <>
@@ -43,11 +72,11 @@ function Dashboard({ isPageLoading }) {
                   SetMoreLessFilter={SetMoreLessFilter}
                   moreLessFilter={moreLessFilter}
                   page="dashboard"
-                  setSearchValue={setSearchValue}
+                  handleChange={handleChange}
                   searchValue={searchValue}
                 />
 
-                {moreLessFilter && <Filter languageData={language} country={country} />}
+                {moreLessFilter && <Filter languageData={language} country={country} values={values} handleChange={handleChange} />}
                 <Recent1 recentUser={recentUser} isPageLoading={isPageLoading} />
               </div>
               <div className="md:px-14  pb-20 md:pb-0 block md:hidden">
@@ -55,7 +84,7 @@ function Dashboard({ isPageLoading }) {
                   <img className=" h-[30px] md:h-[58px]" src="/images1/Frame1.png" />
                 </div>
                 <Searchbar SetMoreLessFilter={SetMoreLessFilter} moreLessFilter={moreLessFilter} />
-                {moreLessFilter && <Filter languageData={languageData} country={country} />}
+                {moreLessFilter && <Filter languageData={languageData} country={country} values={values} handleChange={handleChange} />}
 
                 <Recent1 recentUser={recentUser} />
               </div>
@@ -64,6 +93,8 @@ function Dashboard({ isPageLoading }) {
       </Sidebar>
     </>
   );
+
 }
+
 
 export default Dashboard;

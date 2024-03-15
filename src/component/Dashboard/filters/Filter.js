@@ -3,6 +3,7 @@ import { filterAge, filterBodyType } from "@/constant/gender";
 import React from "react";
 
 function Filter(props) {
+  const { values, handleChange } = props
   return (
     <>
       <div className="px-5">
@@ -12,56 +13,54 @@ function Filter(props) {
           </h1>
 
           <div className="flex items-center  gap-5 py-8 md:py-10">
-            <div class="flex items-center ">
+            <div className="flex items-center">
               <input
-                id="country-option-1"
+                id="first"
                 type="radio"
-                name="countries"
-                value="USA"
-                class="h-4 w-4 border-gray-300 focus:ring-2 focus:ring-blue-300"
-                aria-labelledby="country-option-1"
-                aria-describedby="country-option-1"
-                checked=""
+                name="gender"
+                value="male"
+                onChange={handleChange}
+                className="h-4 w-4 border-gray-300 focus:ring-2 focus:ring-blue-300"
               />
               <label
-                for="country-option-1"
-                class="text-sm font-medium text-secondary1 ml-2 block"
+                htmlFor="first"
+                className="text-sm font-medium text-secondary1 ml-2 block"
               >
                 Male
               </label>
             </div>
-            <div class="flex items-center">
+            <div className="flex items-center">
               <input
-                id="country-option-2"
+                id="second"
                 type="radio"
-                name="countries"
-                value="Germany"
-                class="h-4 w-4 border-gray-300 focus:ring-2 focus:ring-blue-300"
-                aria-labelledby="country-option-2"
-                aria-describedby="country-option-2"
+                name="gender"
+                value="female"
+                onChange={handleChange}
+                className="h-4 w-4 border-gray-300 focus:ring-2 focus:ring-blue-300"
               />
               <label
-                for="country-option-2"
-                class="text-sm font-medium text-secondary1 ml-2 block"
+                htmlFor="second"
+                className="text-sm font-medium text-secondary1 ml-2 block"
               >
                 Female
               </label>
             </div>
+
           </div>
 
           <div className="hidden md:block">
             {/* <Input placeholder="Name" /> */}
           </div>
-        </div>
+        </div >
         <div className="grid grid-cols-2  md:grid-cols-3 lg:grid-cols-4  gap-4 lg:gap-y-6 md:gap-x-14">
-          <SelectTwo data={filterAge} placeHolder="Age From" label="label" values="value" />
-          <SelectTwo data={filterAge} placeHolder="Age To" label="label" values="value" />
-          <SelectTwo data={props?.languageData} placeHolder="Language" label="name" values="name" />
-          <SelectTwo data={filterBodyType} placeHolder="Body type" label="label" values="value" />
-          <SelectTwo data={props?.country} placeHolder="Country" label="name" values="is02" />
+          <SelectTwo data={filterAge} placeHolder="Age From" label="label" value={values?.ageFrom} name="ageFrom" onChange={handleChange} />
+          <SelectTwo data={filterAge} placeHolder="Age To" label="label" value={values?.ageTo} name="ageTo" onChange={handleChange} />
+          <SelectTwo data={props?.languageData} placeHolder="Language" label="name" value={values.language} name="language" onChange={handleChange} />
+          <SelectTwo data={filterBodyType} placeHolder="Body type" label="label" value={values.bodyType} name="bodyType" onChange={handleChange} />
+          <SelectTwo data={props?.country} placeHolder="Country" label="name" value={values.country} name="country" onChange={handleChange} />
           {/* <SelectTwo data={filterJson} placeHolder="City" label="label" values="value" /> */}
         </div>
-      </div>
+      </div >
     </>
   );
 }

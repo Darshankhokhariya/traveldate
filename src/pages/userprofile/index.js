@@ -15,7 +15,6 @@ const images = [
 
 function Index() {
   const dispatch = useDispatch();
-  const userData = useSelector((state) => state?.Auth?.userProfile);
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -23,6 +22,17 @@ function Index() {
   const handleOnChange = (index) => {
     setCurrentSlide(index);
   };
+  const userData = useSelector((state) => state?.Auth?.userProfile);
+
+  useEffect(() => {
+    console.log('userData', userData)
+  }, [userData])
+  
+
+  useEffect(() => {
+    get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
+  }, []);
+
 
   const handlePrevClick = () => {
     setCurrentIndex(currentIndex - 1);
@@ -60,11 +70,11 @@ function Index() {
                   dynamicHeight={false}
                   showStatus={false}
                 >
-                  {images?.map((image, index) => (
+                  {userData?.image?.map((image, index) => (
                     <div key={index}>
                       <img
-                        className="rounded-xl "
-                        src={image?.src}
+                        className="rounded-xl object-cover"
+                        src={image?.filename}
                         alt={image?.alt}
                         showStatus={false}
                       />
