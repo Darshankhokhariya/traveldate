@@ -5,34 +5,24 @@ import { get } from "@/redux/services/apiServices";
 import { useDispatch, useSelector } from "react-redux";
 import { HEADERS } from "@/constant/authorization";
 import { Carousel } from "react-responsive-carousel";
-import Image from "next/image";
-import {
-  BsChevronBarLeft,
-  BsChevronBarRight,
-  BsChevronLeft,
-  BsChevronRight,
-} from "react-icons/bs";
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
+
+const images = [
+  { src: "/images1/models/model1.png", alt: "Image 1" },
+  { src: "/images1/models/model2.png", alt: "Image 2" },
+  { src: "/images1/models/model3.png", alt: "Image 3" },
+];
 
 function Index() {
-  const images = [
-    { src: "/images1/models/model1.png", alt: "Image 1" },
-    { src: "/images1/models/model2.png", alt: "Image 2" },
-    { src: "/images1/models/model3.png", alt: "Image 3" },
-  ];
+  const dispatch = useDispatch();
+  const userData = useSelector((state) => state?.Auth?.userProfile);
 
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleOnChange = (index) => {
     setCurrentSlide(index);
   };
-  const dispatch = useDispatch();
-  const userData = useSelector((state) => state?.Auth?.userProfile);
-
-  useEffect(() => {
-    get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
-  }, []);
-
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   const handlePrevClick = () => {
     setCurrentIndex(currentIndex - 1);
@@ -42,6 +32,9 @@ function Index() {
     setCurrentIndex(currentIndex + 1);
   };
 
+  useEffect(() => {
+    get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
+  }, []);
 
   return (
     <>

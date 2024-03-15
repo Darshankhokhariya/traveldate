@@ -44,17 +44,16 @@ function Index({ isPageLoading }) {
                   searchValue={searchValue}
                   handleSearch={handleSearch}
                 />
-                {/* {moreLessFilter && <Filter />} */}
                 <div className="container mx-auto md:px-3">
-                  <section
-                    id="Projects"
-                    class="  grid xl:grid-cols-4 md:grid-cols-3 grid-cols-2 justify-items-center justify-center gap-x-5 md:gap-y-10  gap-4  mt-5 md:mt-10 mb-5"
-                  >
-                    {visitor && visitor.length > 0
-                      ? (
-                        visitor.map((e) => {
-                          return (
-                            <>
+                  {visitor && visitor.length > 0
+                    ? (
+                      visitor.map((e) => {
+                        return (
+                          <>
+                            <section
+                              id="Projects"
+                              class="grid xl:grid-cols-4 md:grid-cols-3 grid-cols-2 justify-items-center justify-center gap-x-5 md:gap-y-10  gap-4  mt-5 md:mt-10 mb-5"
+                            >
                               <div class="shadow-md rounded-xl duration-500 bg-whites relative hover:scale-105 hover:shadow-xl">
                                 <Link href="#">
                                   <img
@@ -103,21 +102,23 @@ function Index({ isPageLoading }) {
                                   </div>
                                 </div>
                               </div>
-                            </>
-                          );
-                        })
-                      )
-                      :
-                      (
-                        "No Data Found!"
-                      )
-                    }
-                  </section>
+                            </section>
+                          </>
+                        );
+                      })
+                    )
+                    :
+                    (
+                      <div className="flex h-[400px] justify-center">
+                        <img className="" src="/images1/noData.png" />
+                      </div>
+                    )
+                  }
                 </div>
               </div>
             </>
         }
-      </Sidebar>
+      </Sidebar >
     </>
   );
 }

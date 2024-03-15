@@ -33,7 +33,7 @@ function Searchbar(props) {
                   type="text"
                   id="search"
                   placeholder="Search something.."
-                  value={props.searchValue}
+                  value={props?.searchValue}
                   onChange={(event) => {
                     if (event.target.value.length <= 20) {
                       props.setSearchValue(event.target.value)

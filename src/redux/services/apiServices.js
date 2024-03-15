@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const baseURL = "https://traveldate.onrender.com"
-// const baseURL = "http://localhost:8080"
+// const baseURL = "https://traveldate.onrender.com"
+const baseURL = "http://localhost:8080"
 
 export const post = (url, data, actionType, dispatch) => {
     return new Promise(async (resolve, reject) => {
