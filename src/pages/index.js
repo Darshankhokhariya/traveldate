@@ -4,12 +4,7 @@ import Loader from "@/component/Loader/Loader";
 
 function index({ isPageLoading }) {
   return <div>
-    {
-      isPageLoading ?
-        <Loader />
-        :
-        <Home />
-    }
+    <Home />
   </div>;
 }
 

@@ -6,7 +6,7 @@ import Recent1 from "@/component/recent/Recent1";
 import Sidebar from "@/component/sidebar/Sidebar";
 import { HEADERS } from "@/constant/authorization";
 import { get } from "@/redux/services/apiServices";
-import { Skeleton } from "@mui/material";
+import { Box, Grid, Skeleton, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -30,40 +30,41 @@ function Dashboard({ isPageLoading }) {
     get(`/user/getRecentUser?name=${searchValue}&page=1&limit=3&sort=`, "GET_RECENT_USER", dispatch, HEADERS);
   }, [])
 
+  
+
   return (
     <>
       <Sidebar>
-        <div className="px-5 lg:px-10 xl:px-14 pb-20 md:pb-0 hidden md:block">
-          {
-            isPageLoading ?
-              <Skeleton variant="rounded" className="py-4 flex justify-center w-full h-full" height={200} />
-              :
-              <Banner />
-          }
-          {
-            isPageLoading ?
-              <Skeleton variant="rounded" className="flex justify-center w-full h-full mt-4" height={60} />
-              :
-              <Searchbar
-                SetMoreLessFilter={SetMoreLessFilter}
-                moreLessFilter={moreLessFilter}
-                page="dashboard"
-                setSearchValue={setSearchValue}
-                searchValue={searchValue}
-              />
-          }
+        {
+          isPageLoading ?
+            <Loader />
+            :
+            <>
+              <div className="px-5 lg:px-10 xl:px-14 pb-20 md:pb-0 hidden md:block">
+                <Banner />
 
-          {moreLessFilter && <Filter languageData={language} country={country} />}
-          <Recent1 recentUser={recentUser} isPageLoading={isPageLoading} />
-        </div>
-        <div className="md:px-14  pb-20 md:pb-0 block md:hidden">
-          <div className="flex justify-center py-5">
-            <img className=" h-[30px] md:h-[58px]" src="/images1/Frame1.png" />
-          </div>
-          <Searchbar SetMoreLessFilter={SetMoreLessFilter} moreLessFilter={moreLessFilter} />
-          {moreLessFilter && <Filter languageData={languageData} country={country} />}
-          <Recent1 recentUser={recentUser} />
-        </div>
+                <Searchbar
+                  SetMoreLessFilter={SetMoreLessFilter}
+                  moreLessFilter={moreLessFilter}
+                  page="dashboard"
+                  setSearchValue={setSearchValue}
+                  searchValue={searchValue}
+                />
+
+                {moreLessFilter && <Filter languageData={language} country={country} />}
+                <Recent1 recentUser={recentUser} isPageLoading={isPageLoading} />
+              </div>
+              <div className="md:px-14  pb-20 md:pb-0 block md:hidden">
+                <div className="flex justify-center py-5">
+                  <img className=" h-[30px] md:h-[58px]" src="/images1/Frame1.png" />
+                </div>
+                <Searchbar SetMoreLessFilter={SetMoreLessFilter} moreLessFilter={moreLessFilter} />
+                {moreLessFilter && <Filter languageData={languageData} country={country} />}
+
+                <Recent1 recentUser={recentUser} />
+              </div>
+            </>
+        }
       </Sidebar>
     </>
   );

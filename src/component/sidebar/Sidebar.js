@@ -8,7 +8,7 @@ import Mobilenav from "../navbar/Mobilenav";
 function Sidebar(props) {
 
   const router = useRouter();
-  const { userData } = props;
+  const { userData, isPageLoading, } = props;
 
   return (
     <>
