@@ -15,11 +15,9 @@ function Dashboard({ isPageLoading }) {
   const recentUser = useSelector((state) => state?.Auth?.recentUserDetails)
   const languageData = useSelector((state) => state?.Auth?.languageList);
   const countries = useSelector((state) => state?.Auth?.countryList);
-  // const cities = useSelector((state) => state?.Auth?.cityList);
 
   let language = [{ code: 'Select language', name: 'Select language' }, ...languageData]
   let country = [{ name: 'Select country', is02: 'Select country' }, ...countries]
-
 
   const [moreLessFilter, SetMoreLessFilter] = useState(false)
   const [searchValue, setSearchValue] = useState("")
@@ -29,8 +27,6 @@ function Dashboard({ isPageLoading }) {
     get(`/language/getLanguage`, "GET_LANGUAGE", dispatch, HEADERS);
     get(`/user/getRecentUser?name=${searchValue}&page=1&limit=3&sort=`, "GET_RECENT_USER", dispatch, HEADERS);
   }, [])
-
-  
 
   return (
     <>

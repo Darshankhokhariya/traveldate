@@ -7,19 +7,20 @@ function Recent1(props) {
       <div className="container mx-auto px-3 ">
         <section
           id="Projects"
-          class="bg-whites  grid   xl:grid-cols-4 md:grid-cols-3 grid-cols-2 justify-items-center justify-center gap-y-10  gap-4  mt-5 md:mt-10 mb-5 "
+          class="bg-whites  grid   xl:grid-cols-4 lg:grid-cols-3 grid-cols-2 justify-items-center justify-center gap-y-10  gap-4  mt-5 md:mt-10 mb-5 "
         >
           {
             props?.recentUser && props?.recentUser.length > 0 ? (
               props?.recentUser.map((e) => {
                 return (
                   <>
-                    <div class="shadow-md rounded-xl duration-500 bg-white hover:scale-105 hover:shadow-xl">
+                    <div class="shadow-md rounded-xl duration-500 bg-white h hover:shadow-xl">
                       <Link href="#">
                         <img
-                          src={e?.image.length > 0 && e?.image?.[0].filename || "/images1/models/model2.png"}
+                          // src={e?.image.length > 0 && e?.image?.[0].filename || "/images1/models/model2.png"}
+                          src="/images1/models/model2.png"
                           alt="Product"
-                          class="md:h-[250px] w-auto  object-cover rounded-t-2xl"
+                          class="md:h-[200px] w-auto  object-cover rounded-t-2xl"
                         />
                         <div class="px-1 sm:px-4 md:px-4 py-3 w-auto ">
                           <div class="flex items-start w-full">

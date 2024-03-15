@@ -42,11 +42,12 @@ function Index() {
     setCurrentIndex(currentIndex + 1);
   };
 
+
   return (
     <>
       <Sidebar>
         <div className="px-4 lg:px-4 xl:px-14 ">
-          <div className="flex ">
+          <div className="flex flex-col lg:flex-row">
             <div className="flex flex-col gap-y-8 items-center justify-center w-full  lg:w-[30%] xl:w-[40%] ">
               {/* <div className="w-full h-full">
                 <img
@@ -69,7 +70,7 @@ function Index() {
                   {images?.map((image, index) => (
                     <div key={index}>
                       <img
-                        className="rounded-xl object-cover"
+                        className="rounded-xl "
                         src={image?.src}
                         alt={image?.alt}
                         showStatus={false}
@@ -79,12 +80,12 @@ function Index() {
                 </Carousel>
                 <BsChevronLeft
                   direction="left"
-                  className={`absolute  transform -translate-y-1/2  left-3  bottom-14  cursor-pointer text-secondary1`}
+                  className={`absolute  transform -translate-y-1/2 left-0 md:left-3 bottom-10 md:bottom-14  cursor-pointer text-secondary1`}
                   onClick={handlePrevClick}
                 />
                 <BsChevronRight
                   direction="left"
-                  className={`absolute transform -translate-y-1/2  right-5 bottom-14  cursor-pointer text-secondary1`}
+                  className={`absolute transform -translate-y-1/2 right-0  md:right-5 bottom-10 md:bottom-14  cursor-pointer text-secondary1`}
                   onClick={handleNextClick}
                 />
               </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Menu from "../sidebar/Menu";
 import { useRouter } from "next/router";
 import "./sidebar.css";
@@ -6,9 +6,10 @@ import Link from "next/link";
 import Mobilenav from "../navbar/Mobilenav";
 
 function Sidebar(props) {
-
   const router = useRouter();
   const { userData, isPageLoading, } = props;
+  const [activeIndex, setActiveIndex] = useState(null);
+
 
   return (
     <>
@@ -26,10 +27,18 @@ function Sidebar(props) {
                   />
                 </li>
                 {Menu && Menu.map((e, index) => {
-                  const isActive = router.pathname === e.path;
+                  const isActive = router.pathname === e.path || activeIndex === index;
+                  let temp = false
                   return (
                     <>
                       <li
+                        onMouseOver={() => {
+                          setActiveIndex(index)
+                        }}
+                        on
+                        onMouseOut={() => {
+                          setActiveIndex(false)
+                        }}
                         key={index}
                         className={`rounded-sm cursor-pointer py-6 ml-2 flex justify-start group ${isActive
                           ? "text-primary font-semibold"
@@ -44,7 +53,7 @@ function Sidebar(props) {
                             }`}
                         >
                           <div className=" group-hover:text-red-500">
-                            {e.icon(isActive)}
+                            {e.icon(isActive, temp)}
                           </div>
                           <span className="text-[14px]  group-hover:text-red-500  group-hover:font-semibold">
                             {e.name}

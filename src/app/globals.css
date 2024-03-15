@@ -276,15 +276,47 @@ body {
   justify-content: center !important;
 }
 
-.carousel{
+.carousel {
   width: 400px !important;
 }
 
-.carousel .thumb{
+.carousel img {
+  object-fit: cover;
+}
+
+.carousel .thumb {
   width: 100px !important;
 }
 
-.carousel .thumb{
+.carousel .thumb {
+  width: 100px !important;
+}
+
+.carousel .thumb {
   border-radius: 18px;
 }
 
+
+@media screen and (max-width: 480px) {
+  .carousel {
+    width: 360px !important;
+  }
+
+  .carousel .thumb {
+    width: 80px !important;
+  }
+
+
+}
+
+@media screen and (max-width: 380px) {
+  .carousel {
+    width: 300px !important;
+  }
+
+  .carousel .thumb {
+    width: 80px !important;
+  }
+
+
+}

@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const { id } = router.query;
   const [isPageLoading, setIsPageLoading] = useState(false);
-  
+
   useEffect(() => {
     const routeEventStart = () => {
       setIsPageLoading(true);
