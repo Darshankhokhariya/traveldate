@@ -13,9 +13,8 @@ function Index({ isPageLoading }) {
   const dispatch = useDispatch();
   const visitor = useSelector((state) => state?.Auth?.visitorDetails)
   const userData = useSelector((state) => state?.Auth?.userProfile);
+
   const [viewSearch, setViewSearch] = useState(false)
-
-
   const [moreLessFilter, SetMoreLessFilter] = useState(false)
   const [searchValue, setSearchValue] = useState("")
 
@@ -28,13 +27,12 @@ function Index({ isPageLoading }) {
   }
 
   useEffect(() => {
-    get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
     get(`/user/getVisitors?name=${searchValue}&page=1&limit=3&sort=`, "GET_VISITOR_PAGE_USER", dispatch, HEADERS);
   }, [])
 
   return (
     <>
-      <Sidebar userData={userData}>
+      <Sidebar>
         {
           isPageLoading ?
             <Loader />

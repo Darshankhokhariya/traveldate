@@ -59,7 +59,7 @@ function Index() {
 
     return (
         <div>
-            <Sidebar userData={userData}>
+            <Sidebar>
                 <div className='lg:mx-20 mx-5 mt-10 lg:mt-0'>
                     <div >
                         <div className='flex gap-4 w-full justify-center sm:justify-start '>

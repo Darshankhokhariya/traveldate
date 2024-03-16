@@ -1,6 +1,5 @@
 import Sidebar from "@/component/sidebar/Sidebar";
 import React from "react";
-import premium from "../../assets/premium.svg";
 
 function Index() {
   const Advanced = [

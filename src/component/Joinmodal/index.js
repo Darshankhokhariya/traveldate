@@ -100,7 +100,7 @@ function Index({ isOpen, onClose }) {
                 />
               </div>
 
-              <div class="flex w-full font-semibold items-center justify-center gap-2 py-4 text-sm text-slate-600">
+              <div class="flex w-full font-semibold items-center justify-center gap-2 py-2 md:py-4 text-sm text-slate-600">
                 or
               </div>
               <div class="flex w-full items-center justify-center  md:gap-8 gap-6  py-4 text-sm text-slate-600">

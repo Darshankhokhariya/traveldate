@@ -1,13 +1,3 @@
-import { AiOutlineHome } from "react-icons/ai";
-import { BiShowAlt } from "react-icons/bi";
-import {
-  BsBag,
-  BsCart2,
-  BsDiagram2Fill,
-  BsFillCaretDownFill,
-  BsPlusSquareFill,
-} from "react-icons/bs";
-
 const Menu = [
   {
     name: "Travelers",

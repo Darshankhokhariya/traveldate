@@ -1,14 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Menu from "../sidebar/Menu";
 import { useRouter } from "next/router";
 import "./sidebar.css";
 import Link from "next/link";
 import Mobilenav from "../navbar/Mobilenav";
+import { useDispatch, useSelector } from "react-redux";
+import { get } from "@/redux/services/apiServices";
+import { HEADERS } from "@/constant/authorization";
 
 function Sidebar(props) {
+  const { toggleSearch } = props;
+  const dispatch = useDispatch()
+  const userData = useSelector((state) => state?.Auth?.userProfile);
   const router = useRouter();
-  const { userData,toggleSearch } = props;
   const [activeIndex, setActiveIndex] = useState(null);
+
+
+  useEffect(() => {
+    get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
+  }, []);
 
   return (
     <>

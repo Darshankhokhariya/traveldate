@@ -6,31 +6,30 @@ import Sidebar from "@/component/sidebar/Sidebar";
 import { HEADERS } from "@/constant/authorization";
 import { get } from "@/redux/services/apiServices";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 function Index({ isPageLoading }) {
+  const router = useRouter();
+
   const dispatch = useDispatch();
   const favourite = useSelector((state) => state?.Auth)
-  const userData = useSelector((state) => state?.Auth?.userProfile)
 
   const [moreLessFilter, SetMoreLessFilter] = useState(false)
   const [searchValue, setSearchValue] = useState("")
-
- 
 
   const handleSearch = () => {
     get(`/user/getFavourite?name=${searchValue}&page=1&limit=3&sort=`, "GET_FAVOURITE_PAGE_USER", dispatch, HEADERS);
   }
 
   useEffect(() => {
-    get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
     get(`/user/getFavourite?name=${searchValue}&page=1&limit=3&sort=`, "GET_FAVOURITE_PAGE_USER", dispatch, HEADERS);
   }, [])
 
   return (
     <>
-      <Sidebar userData={userData}>
+      <Sidebar>
         {
           isPageLoading ?
             <Loader />
@@ -60,7 +59,7 @@ function Index({ isPageLoading }) {
                               class="grid xl:grid-cols-4 md:grid-cols-3 grid-cols-2 justify-items-center justify-center gap-y-10  gap-4  mt-5 md:mt-10 mb-5"
                             >
                               <div class="shadow-md rounded-xl duration-500 bg-whites relative hover:scale-105 hover:shadow-xl">
-                                <Link href="#">
+                                <div className="cursor-pointer" onClick={() => router.push(`/userprofile?id=${e._id}`)}>
                                   <img
                                     src={e?.image.length > 0 && e?.image?.[0].filename || "/images1/models/model2.png"}
                                     alt="Product"
@@ -100,7 +99,7 @@ function Index({ isPageLoading }) {
                                       </div>
                                     </div>
                                   </div>
-                                </Link>
+                                </div>
                                 <div className="absolute top-3 right-3">
                                   <svg
                                     width="27"
@@ -157,7 +156,6 @@ function Index({ isPageLoading }) {
                                 </div>
                               </div>
                             </section >
-
                           </>
                         );
                       })
@@ -171,7 +169,7 @@ function Index({ isPageLoading }) {
               </div>
             </>
         }
-      </Sidebar >
+      </Sidebar>
     </>
   );
 }

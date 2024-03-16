@@ -1,5 +1,3 @@
-import Input from "@/component/inputs/Input";
-import Textarea from "@/component/inputs/Textarea";
 import Mobilenav from "@/component/navbar/Mobilenav";
 import Sidebar from "@/component/sidebar/Sidebar";
 import React from "react";

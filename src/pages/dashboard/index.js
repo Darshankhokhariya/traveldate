@@ -11,7 +11,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import search from "../../assets/search.png";
 
-
 function Dashboard({ isPageLoading }) {
   const dispatch = useDispatch()
   const recentUser = useSelector((state) => state?.Auth?.recentUserDetails);
@@ -40,7 +39,6 @@ function Dashboard({ isPageLoading }) {
   }
 
   useEffect(() => {
-    get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
     get("/country/getCountry", "GET_COUNTRY", dispatch, HEADERS);
     get(`/language/getLanguage`, "GET_LANGUAGE", dispatch, HEADERS);
   }, [])
@@ -80,7 +78,7 @@ function Dashboard({ isPageLoading }) {
 
   return (
     <>
-      <Sidebar userData={userData}>
+      <Sidebar>
         {
           isPageLoading ?
             <Loader />

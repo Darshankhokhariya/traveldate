@@ -139,15 +139,15 @@ function Slider() {
             </div>
           </div>
 
-          <div className="block  md:hidden   py-6  px-2">
-            {/* <Swiper
+          <div className="block md:hidden py-6 px-2">
+            <Swiper
               className=""
               spaceBetween={0}
               slidesPerView={5}
               // modules={[FreeMode, Autoplay]}
               loop={true}
               autoplay={{
-                delay: 1200,
+                delay: 2500,
                 disableOnInteraction: false,
               }}
               // onSlideChange={() => console.log("slide change")}
@@ -180,7 +180,7 @@ function Slider() {
               }}
             >
               <SwiperSlide>
-                <div className="">
+                <div>
                   <img
                     src="/images1/icons/icon3.png"
                     className="h-[80px] w-[80px] object-cover"
@@ -194,7 +194,7 @@ function Slider() {
                 </div>
               </SwiperSlide>
               <SwiperSlide>
-                <div className="">
+                <div>
                   <img
                     src="/images1/icons/icon2.png"
                     className="h-[80px] w-[80px] object-cover"
@@ -207,7 +207,7 @@ function Slider() {
                 </div>
               </SwiperSlide>
               <SwiperSlide>
-                <div className="">
+                <div>
                   <img
                     className="h-[80px] w-[80px] object-cover"
                     src="/images1/icons/icon1.png"
@@ -219,7 +219,7 @@ function Slider() {
                   </p>
                 </div>
               </SwiperSlide>
-            </Swiper> */}
+            </Swiper>
           </div>
           <div className="mt-4 gap-4 flex lg:hidden items-center justify-center">
             <Iconbutton text="Join Traveldate" icon={heart} />
