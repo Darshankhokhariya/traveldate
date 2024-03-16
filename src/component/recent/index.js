@@ -38,7 +38,7 @@ function Recent() {
                 getRecentUser.map((e) => {
                   return (
                     <>
-                      <div class="bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl cursor-pointer">
+                      <div class="bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl cursor-pointer w-full">
                         <div /* onClick={() => router.push(`/userprofile?id=${e._id}&page=Home`)} */>
                           <img
                             src={

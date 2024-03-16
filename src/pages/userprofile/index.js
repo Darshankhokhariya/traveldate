@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Iconstartbutton from "@/component/Buttons/Iconstartbutton";
 import Sidebar from "@/component/sidebar/Sidebar";
-import { get, post } from "@/redux/services/apiServices";
+import { get, post, postAuthToken } from "@/redux/services/apiServices";
 import { useDispatch, useSelector } from "react-redux";
 import { HEADERS } from "@/constant/authorization";
 import { Carousel } from "react-responsive-carousel";
@@ -45,7 +45,7 @@ function Index() {
   const handleAddFavouriteProfile = (profileId) => {
     let body = [{ profile_id: profileId }];
     setLoading(true);
-    post("/user/addFavourite", body, "USER_GOOGLE_LOGIN", dispatch, HEADERS)
+    postAuthToken("/user/addFavourite", body, "USER_GOOGLE_LOGIN", dispatch, HEADERS)
       .then((res) => {
         if (res?.status === 200) {
           setLoading(false);
