@@ -112,7 +112,7 @@ border-4 border-solid border-red-500 border-t-transparent"
                 <Searchbar SetMoreLessFilter={SetMoreLessFilter} moreLessFilter={moreLessFilter} />
                 {moreLessFilter && <Filter languageData={languageData} countries={countries} values={values} handleChange={handleChange} />}
                 {
-                  !loading ?
+                  loading ?
                     <div className="-mt-52 ml-[40%]">
                       <div
                         className="flex justify-center text-center mt-72 items-center w-12 h-12 rounded-full animate-spin
