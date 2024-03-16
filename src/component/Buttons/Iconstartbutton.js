@@ -1,23 +1,24 @@
 import React, { useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/router";
 import Join from "../../component/Joinmodal";
 
 function Iconstartbutton(props) {
-  const { text, icon } = props;
-  const router = useRouter();
+  const { text } = props;
   const [open, setOpen] = useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
+
   const handleOpen = () => {
-    setOpen(true);
+    let isLogin = localStorage.getItem("authToken");
+    if (!isLogin) {
+      setOpen(true)
+    }
   };
+
+  const handleClose = () => { setOpen(false) };
   return (
     <>
       <button
         onClick={() => handleOpen()}
         className="px-[32px] py-[16px] bg-primary text-white rounded-full flex items-center gap-2"
+        style={{ whiteSpace: 'nowrap' }}
       >
         <svg
           width="20"

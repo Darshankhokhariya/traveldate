@@ -11,11 +11,11 @@ import * as Yup from "yup";
 
 function Index() {
     const dispatch = useDispatch()
-    const [tab, setTab] = useState("profile")
-    const handleTabChange = (e) => {
-        setTab(e)
-    }
     const userData = useSelector((state) => state?.Auth?.userProfile)
+
+    const [tab, setTab] = useState("profile")
+
+    const handleTabChange = (e) => { setTab(e) }
 
     const formik = useFormik({
         initialValues: {
@@ -59,7 +59,7 @@ function Index() {
 
     return (
         <div>
-            <Sidebar>
+            <Sidebar userData={userData}>
                 <div className='lg:mx-20 mx-5 mt-10 lg:mt-0'>
                     <div >
                         <div className='flex gap-4 w-full justify-center sm:justify-start '>
@@ -84,7 +84,7 @@ function Index() {
                     </div>
                     {
                         tab === "profile" ?
-                            <UserProfile userData={userData}  />
+                            <UserProfile userData={userData} />
                             :
                             <PhotosUpload userData={userData} />
                     }

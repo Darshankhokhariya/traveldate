@@ -11,6 +11,7 @@ const initialState = {
   favouriteUser: [],
   visitorDetails: [],
   recentUserDetails: [],
+  otherUserDetails: []
 };
 
 const store = (state = initialState, action) => {
@@ -99,6 +100,21 @@ const store = (state = initialState, action) => {
       return {
         ...state,
         recentUserDetails: []
+      };
+    case actionTypes.GET_OTHER_USER_PROFILE_INIT:
+      return {
+        ...state,
+        loading: true
+      };
+    case actionTypes.GET_OTHER_USER_PROFILE_SUCCESS:
+      return {
+        ...state,
+        otherUserDetails: action?.payload?.data
+      };
+    case actionTypes.GET_OTHER_USER_PROFILE_FAIL:
+      return {
+        ...state,
+        otherUserDetails: []
       };
     default:
       return state;

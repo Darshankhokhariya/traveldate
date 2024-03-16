@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 function Index({ isPageLoading }) {
   const dispatch = useDispatch();
   const visitor = useSelector((state) => state?.Auth?.visitorDetails)
+  const userData = useSelector((state) => state?.Auth?.userProfile);
 
   const [moreLessFilter, SetMoreLessFilter] = useState(false)
   const [searchValue, setSearchValue] = useState("")
@@ -21,12 +22,13 @@ function Index({ isPageLoading }) {
   }
 
   useEffect(() => {
+    get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
     get(`/user/getVisitors?name=${searchValue}&page=1&limit=3&sort=`, "GET_VISITOR_PAGE_USER", dispatch, HEADERS);
   }, [])
 
   return (
     <>
-      <Sidebar>
+      <Sidebar userData={userData}>
         {
           isPageLoading ?
             <Loader />

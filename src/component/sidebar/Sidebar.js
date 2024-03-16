@@ -7,9 +7,8 @@ import Mobilenav from "../navbar/Mobilenav";
 
 function Sidebar(props) {
   const router = useRouter();
-  const { userData, isPageLoading, } = props;
+  const { userData } = props;
   const [activeIndex, setActiveIndex] = useState(null);
-
 
   return (
     <>
@@ -23,7 +22,7 @@ function Sidebar(props) {
                     src={"/images1/Frame1.png"}
                     alt="logo"
                     style={{ cursor: "pointer" }}
-                    onClick={() => router.push("/")}
+                    onClick={() => router.push("/dashboard")}
                   />
                 </li>
                 {Menu && Menu.map((e, index) => {
@@ -94,12 +93,11 @@ function Sidebar(props) {
             </div>
           </div>
         </div>
-
         <div className="w-[80%] ml-auto text-black ">
           <div className="flex justify-end">
             <div className="flex justify-end py-10 bg-transparent w-full px-20">
               <img
-                src={userData?.image?.[0]?.filename}
+                src={userData?.profileImage || ""}
                 className="w-[54px] h-[54px] rounded-xl object-cover"
                 alt=""
               />

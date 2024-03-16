@@ -9,7 +9,7 @@ import Select from "@/component/inputs/Select";
 import Textarea from "@/component/inputs/Textarea";
 import { FORM_HEADERS, HEADERS } from "@/constant/authorization";
 // import { bodyType } from "@/constant/bodyType";
-import { gender } from "@/constant/gender";
+import { genderJson } from "@/constant/gender";
 import { showToast } from "@/constant/toast/toastUtils";
 import { get, put } from "@/redux/services/apiServices";
 import {
@@ -209,10 +209,10 @@ const Index = () => {
       name: Yup.string()
         .required("Name is required")
         .matches(
-          /^[a-zA-Z]+$/,
+          /^[a-zA-Z\s]+$/,
           "Invalid name format. Only letters are allowed."
         )
-        .max(10),
+        .max(20),
       age: Yup.number()
         .required("Age is required")
         .typeError("Age must be a number"),
@@ -272,13 +272,16 @@ const Index = () => {
     formData.append("aboutUser", values?.about);
     formData.append("city", values?.city);
     formData.append("image", croppedImage);
+    formData.append("onBoarding", 1);
 
     setLoading(true);
     put("/user/userDetails", formData, "USER_UPDATE", dispatch, FORM_HEADERS)
-      .then((res) => {
-        if (res?.status === 200) {
+      .then((response) => {
+        if (response?.status === 200) {
+          localStorage.setItem("authToken", response.data.authToken);
+          localStorage.setItem("refreshToken", response.data.refreshToken);
           setLoading(false);
-          showToast(res.message, { type: "success" });
+          showToast(response.message, { type: "success" });
           formik.resetForm();
           setIsSubmit(false);
           router.push("/dashboard");
@@ -306,7 +309,7 @@ const Index = () => {
           <div className="flex items-center flex-col justify-center p-10">
             <img className="h-[58px]" src="/images1/Frame1.png" style={{ cursor: "pointer" }} onClick={() => router.push("/")} />
             <div className="md:flex w-full items-start gap-10 mt-14 md:mt-">
-              <div className=" w-full md:w-[50%] mx-auto">
+              <div className=" w-full md:w-[50%] mx-auto ">
                 <div>
                   <Input
                     label="Name"
@@ -336,7 +339,7 @@ const Index = () => {
                     onChange={formik.handleChange}
                     value={formik.values.gender}
                     name="gender"
-                    data={gender}
+                    data={genderJson}
                     label="Gender"
                   />
                   {formik.touched.gender && formik.errors.gender && (
@@ -369,7 +372,7 @@ const Index = () => {
                         border: "1px solid #e6e6e6",
                       },
                     }}
-                    renderInput={(params) => <TextField {...params} />}
+                    renderInput={(params) => <TextField {...params} placeholder="Select Language" />}
                   />
                   {formik.touched.language && formik.errors.language && (
                     <ErrorMessage error={formik.errors.language} />
@@ -381,6 +384,7 @@ const Index = () => {
                     value={formik.values.about}
                     onChange={formik.handleChange}
                     label="About Me"
+                    placeholder={"Enter more details"}
                   />
                   {formik.touched.about && formik.errors.about && (
                     <ErrorMessage error={formik.errors.about} />
@@ -418,7 +422,6 @@ const Index = () => {
                     sx={{
                       "& .MuiOutlinedInput-root": {
                         borderRadius: "0",
-                        // height: "40px",
                       },
                       "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
                       {
@@ -426,7 +429,7 @@ const Index = () => {
                         border: "1px solid #e6e6e6",
                       },
                     }}
-                    renderInput={(params) => <TextField {...params} />}
+                    renderInput={(params) => <TextField {...params} placeholder="Select Country" />}
                   />
                   {formik.touched.country && formik.errors.country && (
                     <ErrorMessage error={formik.errors.country} />
@@ -459,7 +462,7 @@ const Index = () => {
                         border: "1px solid #e6e6e6",
                       },
                     }}
-                    renderInput={(params) => <TextField {...params} />}
+                    renderInput={(params) => <TextField {...params} placeholder="Select City" />}
                   />
                   {formik.touched.city && formik.errors.city && (
                     <ErrorMessage error={formik.errors.city} />

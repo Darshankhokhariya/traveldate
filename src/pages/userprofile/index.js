@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { HEADERS } from "@/constant/authorization";
 import { Carousel } from "react-responsive-carousel";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
+import { useRouter } from "next/router";
 
 const images = [
   { src: "/images1/models/model1.png", alt: "Image 1" },
@@ -14,52 +15,37 @@ const images = [
 ];
 
 function Index() {
+  const router = useRouter()
+
   const dispatch = useDispatch();
+  const userData = useSelector((state) => state?.Auth?.userProfile);
+  const otherUserData = useSelector((state) => state?.Auth?.otherUserDetails);
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const handleOnChange = (index) => {
-    setCurrentSlide(index);
-  };
-  const userData = useSelector((state) => state?.Auth?.userProfile);
+  const handleOnChange = (index) => { setCurrentSlide(index) };
 
-  useEffect(() => {
-    console.log('userData', userData)
-  }, [userData])
-  
+  const handlePrevClick = () => { setCurrentIndex(currentIndex - 1) };
+
+  const handleNextClick = () => { setCurrentIndex(currentIndex + 1) };
 
   useEffect(() => {
     get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
   }, []);
 
-
-  const handlePrevClick = () => {
-    setCurrentIndex(currentIndex - 1);
-  };
-
-  const handleNextClick = () => {
-    setCurrentIndex(currentIndex + 1);
-  };
-
   useEffect(() => {
-    get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
-  }, []);
+    if (router.query.id) {
+      get(`/user/moreProfile?id=${router.query.id}&page=1`, "GET_OTHER_USER_PROFILE", dispatch, HEADERS);
+    }
+  }, [router.query])
 
   return (
     <>
-      <Sidebar>
+      <Sidebar userData={userData}>
         <div className="px-4 lg:px-4 xl:px-14 ">
           <div className="flex flex-col lg:flex-row">
             <div className="flex flex-col gap-y-8 items-center justify-center w-full  lg:w-[30%] xl:w-[40%] ">
-              {/* <div className="w-full h-full">
-                <img
-                  src={userData?.image?.[0]?.filename}
-                  className="w-full h-full   md:h-[300px]  rounded-3xl"
-                  alt=""
-                />
-              </div> */}
-
               <div className="relative">
                 <Carousel
                   className=" "
@@ -70,7 +56,7 @@ function Index() {
                   dynamicHeight={false}
                   showStatus={false}
                 >
-                  {userData?.image?.map((image, index) => (
+                  {otherUserData?.image?.map((image, index) => (
                     <div key={index}>
                       <img
                         className="rounded-xl object-cover"
@@ -157,10 +143,10 @@ function Index() {
             </div>
             <div className="text-dark m-auto  py-4 md:mt-14  w-full  lg:w-[30%] xl:w-[40%]">
               <h1 className="text-2xl md:text-4xl font-semibold capitalize">
-                {userData?.name}
+                {otherUserData?.name}
               </h1>
               <p className="font-medium text-xl py-2 hidden  md:block capitalize">
-                {userData?.age} Year | {userData?.gender}
+                {otherUserData?.age} Year | {otherUserData?.gender}
               </p>
               <div className="flex items-center py-2 md:py-4 gap-4 text-secondary1 text-[12px]">
                 <div className="flex items-center text-primary gap-2  ">
@@ -176,16 +162,16 @@ function Index() {
                       fill="#F4425A"
                     />
                   </svg>
-                  {userData?.country}
+                  {otherUserData?.country}
                 </div>
                 Active about 3 hours ago
               </div>
 
               <div className="hidden md:flex items-center gap-3">
-                <Iconstartbutton text="Chat With Rebecca" />
+                <Iconstartbutton text={`Chat With ${otherUserData?.name}`} />
                 <button
-                  // onClick={() => handleOpen()}
                   className="px-[32px] py-[16px] bg-primary  bg-opacity-[13%] text-primary rounded-full flex items-center gap-2 font-semibold"
+                  style={{ whiteSpace: 'nowrap' }}
                 >
                   <svg
                     width="22"
@@ -202,43 +188,36 @@ function Index() {
                   Add Favorites
                 </button>
               </div>
+
             </div>
           </div>
 
-          <div className=" md:py-10  flex  flex-col md:flex-row  md:gap-20  ">
+          <div className=" md:py-10  flex  flex-col md:flex-row md:gap-20  ">
             <div>
               <h1 className="py-3 text-base font-semibold">About Me</h1>
               <div className=" md:space-y-4 text-secondary1">
-                <p className="text-sm">{userData?.aboutUser}</p>
-                <p className="text-sm">{userData?.aboutUser}</p>
+                <p className="text-sm">{otherUserData?.aboutUser}</p>
               </div>
             </div>
-            <div className="pt-7">
+            <div className="pt-3">
               <h1 className="text-base font-semibold">Other Details</h1>
               <div className="flex gap-8 py-2">
-                <div className="text-secondary1 w-20">Nationality</div>
-                <div className="font-medium">{userData?.country}</div>
+                <div className="text-secondary1 w-20">Country</div>
+                <div className="font-medium">{otherUserData?.country}</div>
+              </div>
+              <div className="flex gap-8 py-2">
+                <div className="text-secondary1 w-20">City</div>
+                <div className="font-medium"> {otherUserData?.city?.join(", ")}</div>
               </div>
               <div className="flex gap-8 py-2">
                 <div className="text-secondary1 w-20">Languages</div>
                 <div className="font-medium">
-                  {userData?.language?.join(", ")}
+                  {otherUserData?.language?.join(", ")}
                 </div>
               </div>
               <div className="flex gap-8 py-2">
-                <div className="text-secondary1 w-20">Height</div>
-              </div>
-              <div className="flex gap-8 py-2">
                 <div className="text-secondary1 w-20">Body type</div>
-                <div className="font-medium">{userData?.bodyType}</div>
-              </div>
-              <div className="flex gap-8 py-2">
-                <div className="text-secondary1 w-20">Eyes</div>
-                <div className="font-medium">Hazel</div>
-              </div>
-              <div className="flex gap-8 py-2">
-                <div className="text-secondary1 w-20">Hair</div>
-                <div className="font-medium">Brown</div>
+                <div className="font-medium">{otherUserData?.bodyType}</div>
               </div>
             </div>
           </div>

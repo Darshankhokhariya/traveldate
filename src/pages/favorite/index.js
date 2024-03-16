@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 function Index({ isPageLoading }) {
   const dispatch = useDispatch();
   const favourite = useSelector((state) => state?.Auth)
+  const userData = useSelector((state) => state?.Auth?.userProfile)
 
   const [moreLessFilter, SetMoreLessFilter] = useState(false)
   const [searchValue, setSearchValue] = useState("")
@@ -21,12 +22,13 @@ function Index({ isPageLoading }) {
   }
 
   useEffect(() => {
+    get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
     get(`/user/getFavourite?name=${searchValue}&page=1&limit=3&sort=`, "GET_FAVOURITE_PAGE_USER", dispatch, HEADERS);
   }, [])
 
   return (
     <>
-      <Sidebar>
+      <Sidebar userData={userData}>
         {
           isPageLoading ?
             <Loader />
@@ -53,7 +55,7 @@ function Index({ isPageLoading }) {
                           <>
                             <section
                               id="Projects"
-                              class="  grid   xl:grid-cols-4 md:grid-cols-3 grid-cols-2 justify-items-center justify-center gap-y-10  gap-4  mt-5 md:mt-10 mb-5"
+                              class="grid xl:grid-cols-4 md:grid-cols-3 grid-cols-2 justify-items-center justify-center gap-y-10  gap-4  mt-5 md:mt-10 mb-5"
                             >
                               <div class="shadow-md rounded-xl duration-500 bg-whites relative hover:scale-105 hover:shadow-xl">
                                 <Link href="#">
@@ -62,7 +64,7 @@ function Index({ isPageLoading }) {
                                     alt="Product"
                                     class="md:h-[250px] w-auto  object-cover rounded-t-2xl"
                                   />
-                                  <div class="px-1 sm:px-4 md:px-4 py-3 w-auto ">
+                                  <div class="px-1 sm:px-4 md:px-4 py-3 w-auto">
                                     <div class="flex items-start w-full">
                                       <div className="w-full">
                                         <div className="flex items-center justify-between w-full ">

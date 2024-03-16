@@ -27,7 +27,6 @@ import { MdClose } from "react-icons/md";
 import ImageUploading from "react-images-uploading";
 import Loader from "@/component/Loader/Loader";
 
-
 function UserProfile({ userData }) {
   const router = useRouter()
   const dispatch = useDispatch()
@@ -35,6 +34,7 @@ function UserProfile({ userData }) {
   const [croppedImage, setCroppedImage] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+
   const countries = useSelector((state) => state?.Auth?.countryList);
   const cityList = useSelector((state) => state?.Auth?.cityList)
 
@@ -77,6 +77,8 @@ function UserProfile({ userData }) {
     },
   });
 
+  const handleCloseImage = () => { setDialogOpen(false) };
+
 
   const handleSubmit = (values) => {
     const formData = new FormData();
@@ -90,6 +92,7 @@ function UserProfile({ userData }) {
     formData.append("aboutUser", values?.about);
     formData.append("city", values?.city);
     formData.append("image", croppedImage ? croppedImage : userData?.image?.[0]);
+    formData.append("onBoarding", 0);
 
     setLoading(true);
     put("/user/userDetails", formData, "USER_UPDATE", dispatch, FORM_HEADERS)
@@ -107,47 +110,6 @@ function UserProfile({ userData }) {
         showToast(error.message, { type: "error" });
       });
   };
-
-
-
-  useEffect(() => {
-    if (userData) {
-      formik.setValues({
-        name: userData?.name,
-        age: userData?.age,
-        gender: userData?.gender,
-        about: userData?.aboutUser,
-        bodyType: userData?.bodyType,
-        country: countries?.find((e) => e?.name === userData?.country),
-      });
-    }
-  }, [userData]);
-
-  console.log('userData', userData, countries)
-
-  useEffect(() => {
-    if (formik.values.city) {
-      get(`/country/getCity?city=${formik.values.city || ""}`, "GET_CITY", dispatch, HEADERS);
-    }
-  });
-
-
-
-  useEffect(() => {
-    if (formik.values.city) {
-      get(
-        `/country/getCity?city=${formik.values.city || ""}`,
-        "GET_CITY",
-        dispatch,
-        HEADERS
-      );
-    }
-  }, [formik.values.city]);
-
-  useEffect(() => {
-    get("/country/getCountry", "GET_COUNTRY", dispatch, HEADERS);
-  }, []);
-
 
   const ImageUploadingButton = ({ value, onChange, ...props }) => {
     return (
@@ -209,9 +171,6 @@ function UserProfile({ userData }) {
     );
   };
 
-  const handleCloseImage = () => {
-    setDialogOpen(false);
-  };
 
   const ImageCropper = ({
     open,
@@ -280,6 +239,34 @@ function UserProfile({ userData }) {
     );
   };
 
+  useEffect(() => {
+    get("/country/getCountry", "GET_COUNTRY", dispatch, HEADERS);
+  }, []);
+
+  useEffect(() => {
+    if (userData) {
+      formik.setValues({
+        name: userData?.name,
+        age: userData?.age,
+        gender: userData?.gender,
+        about: userData?.aboutUser,
+        bodyType: userData?.bodyType,
+        country: countries?.find((e) => e?.name === userData?.country),
+        city: userData.city
+      });
+    }
+  }, [userData]);
+
+  useEffect(() => {
+    if (formik.values.city) {
+      get(
+        `/country/getCity?city=${formik.values.city || ""}`,
+        "GET_CITY",
+        dispatch,
+        HEADERS
+      );
+    }
+  }, [formik.values.city]);
 
   return (
     <div>
@@ -295,7 +282,7 @@ function UserProfile({ userData }) {
               />
               :
               <img
-                src={userData?.image?.[0]?.filename}
+                src={userData?.profileImage}
                 // src="/images1/myProfile.jpg"
                 className="h-[171px] w-[171px]  "
                 alt=""
@@ -380,11 +367,6 @@ function UserProfile({ userData }) {
                 More details
               </span>
               <div className="pt-5">
-                {/* <Select
-                                name="bodyType"
-                                data={[]}
-                                label="Body type"
-                            /> */}
                 <div className="text-gray-400">Body type</div>
                 <Autocomplete
                   size="small"
@@ -437,11 +419,9 @@ function UserProfile({ userData }) {
                   )}
                 />
 
-                {/* <Select data={gender} label="Country" /> */}
               </div>
               <div className="pt-5">
                 <div className="text-gray-400">Wants to Visit</div>
-                {/* <Select data={gender} label="Wants to Visit" /> */}
                 <Autocomplete
                   options={cityList}
                   value={formik.values.city}
@@ -474,7 +454,7 @@ function UserProfile({ userData }) {
           </div>
         </div>
         <div className="flex items-center gap-4 justify-center sm:justify-end pb-28">
-          <div className="text-primary underline text-nowrap font-semibold">
+          <div className="text-primary underline text-nowrap font-semibold cursor-pointer">
             Change Password?
           </div>
           <div className="text-primary underline">

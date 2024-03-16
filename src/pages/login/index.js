@@ -15,7 +15,7 @@ function Index() {
 
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const [showPassword, setShowPassword] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (values, setErrors) => {
     try {

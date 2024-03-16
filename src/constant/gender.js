@@ -32,3 +32,4 @@ export const filterBodyType = [
 ];
 
 
+export const genderJson = ["Male", "Female"]

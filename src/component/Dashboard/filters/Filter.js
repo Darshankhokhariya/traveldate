@@ -7,7 +7,7 @@ function Filter(props) {
   return (
     <>
       <div className="px-5">
-        <div className="flex  flex-col md:flex-row items-center-start md:justify-between md:items-center">
+        <div className="flex flex-col md:flex-row items-center-start md:justify-between md:items-center">
           <h1 className="text-xl md:text-2xl font-medium">
             What are you looking for?
           </h1>
