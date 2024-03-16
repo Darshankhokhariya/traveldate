@@ -118,15 +118,17 @@ function Testi() {
             disabled={activeSlide === 0}
             onClick={handlePrevSlide}
             aria-label="Prev Button"
-            className="absolute top-1/2 left-4 md:left-20 transform -translate-y-1/2 bg-white p-4 w-14 h-14 rounded-full text-gray-800 dark:text-gray-200"
+            className="absolute top-1/2 left-4 md:left-20 transform -translate-y-1/2 hover:bg-primary bg-white flex justify-center items-center p-4 w-14 h-14 rounded-full text-gray-800 "
           >
-            <img src="/icons/left.svg" />
+            <svg width="19" height="13" viewBox="0 0 19 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.94141 5.50053H17.5272C18.0795 5.50053 18.5272 5.94824 18.5272 6.50053C18.5272 7.05281 18.0795 7.50053 17.5272 7.50053H3.94141L7.18405 10.7432C7.57457 11.1337 7.57457 11.7669 7.18405 12.1574C6.79352 12.5479 6.16036 12.5479 5.76983 12.1574L1.52719 7.91474C0.746144 7.13369 0.746144 5.86736 1.52719 5.08632L5.76983 0.843674C6.16036 0.45315 6.79352 0.45315 7.18405 0.843674C7.57457 1.2342 7.57457 1.86736 7.18405 2.25789L3.94141 5.50053Z" fill="#191825" />
+            </svg>
           </button>
           <button
             disabled={activeSlide === testimonials.length - 1}
             onClick={handleNextSlide}
             aria-label="Next Button"
-            className="absolute top-1/2 right-4 md:right-20 transform -translate-y-1/2  bg-primary p-4 rounded-full text-gray-800 dark:text-gray-200"
+            className="absolute top-1/2 right-4 md:right-20 transform -translate-y-1/2  hover:bg-primary bg-white p-4 rounded-full text-gray-800 "
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

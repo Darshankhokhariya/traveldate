@@ -18,7 +18,7 @@ function PhotosUpload({ userData }) {
         <div class="mt-12 grid md:grid-cols-3 grid-cols-2 gap-x-3 gap-y-5">
           {userData?.image?.map((item, i) => {
             return (
-              <div key={i} className="rounded-xl h-[clamp(170px, 20em, 270px)]  overflow-hidden aspect-square">
+              <div key={i} className="rounded-xl  overflow-hidden aspect-square">
                 <img
                   src={item?.filename}
                   alt="Product"

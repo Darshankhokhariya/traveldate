@@ -18,10 +18,10 @@ function Recent() {
 
   return (
     <>
-      <div className="container mx-auto px-3 md:px-16">
+      <div className="container mx-auto min-w-full px-3 sm:px-10 md:px-16">
         {getRecentUser && getRecentUser.length > 0 && (
           <>
-            <div className="pt-10  lg:py-10 text-center md:text-start">
+            <div className="pt-10 lg:py-10 text-center md:text-start">
               <div className="uppercase  text-primary font-medium">
                 New Member
               </div>
@@ -46,7 +46,7 @@ function Recent() {
                               "/images1/models/model1.png"
                             }
                             alt="Product"
-                            class="h-[180px] md:h-[250px] w-full lg:w-full object-cover rounded-t-xl"
+                            class=" aspect-square  w-full lg:w-full object-cover rounded-t-xl"
                           />
                           <div class="px-4 py-3 w-auto lg:w-full">
                             <div class="flex items-start w-full">
@@ -61,7 +61,7 @@ function Recent() {
                                 </div>
                                 <div className="flex items-center gap-1 text-secondary">
                                   <img src="/icons/location.svg" alt="" />
-                                  <p class="text-sm  cursor-auto my-3">
+                                  <p class="text-sm  cursor-auto my-1 sm:my-3">
                                     {e?.country || "India"}
                                   </p>
                                 </div>

@@ -82,7 +82,7 @@ function Slider() {
                 <div className="w-[50%] lg:w-[60%] -rotate-12 h-max   z-10  xl:ml-10 relative">
                   <div class="w-full h-full ml-6 lg:ml-14 -mb-8  bg-white rounded-3xl  unded-lg shadow-lg p-1">
                     <img
-                      class="object-cover  h-[150px] lg:h-[280px] w-full rounded-3xl"
+                      class="object-cover  aspect-square w-full rounded-3xl"
                       src="/images1/models/model1.png"
                       alt="avatar"
                     />
@@ -113,7 +113,7 @@ function Slider() {
                 <div className="w-[50%] lg:w-[60%]   rounded-3xl h-max overflow-clip  bg-white z-10 mt-32 -ml-5 lg:-ml-20 ">
                   <div class="w-full h-full  bg-white   unded-lg shadow-lg p-1">
                     <img
-                      class="object-cover  h-[150px] lg:h-[280px] w-full rounded-3xl"
+                      class="object-cover  aspect-square w-full rounded-3xl"
                       src="/images1/models/model2.png"
                       alt="avatar"
                     />
