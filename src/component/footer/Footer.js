@@ -125,7 +125,7 @@ function Footer() {
                   </div>
 
                   <div className=" lg:px-20">
-                    <p class="font-bold text-gray-800 dark:text-white">Page</p>
+                    <p class="font-bold text-white">Page</p>
 
                     <div class="flex flex-col items-start mt-5 space-y-6">
                       <p class="text-white    hover:cursor-pointer ">

@@ -6,9 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 function Recent() {
   const dispatch = useDispatch();
-  const getRecentUser = useSelector((state) => state?.Auth?.recentLandingPageUser)
+  const getRecentUser = useSelector(
+    (state) => state?.Auth?.recentLandingPageUser
+  );
 
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     get(`/user/getLandingPageUser`, "GET_LANDING_PAGE_USER", dispatch, HEADERS);
@@ -29,24 +31,28 @@ function Recent() {
             </div>
             <section
               id="Projects"
-              class="  grid   xl:grid-cols-4 md:grid-cols-3 grid-cols-2 justify-items-center justify-center gap-y-10 lg:gap-x-4 lg:gap-y-8 gap-4  mt-5 md:mt-10 mb-5"
+              class="  grid   xl:grid-cols-4 md:grid-cols-3 grid-cols-2 justify-items-center justify-center gap-y-10 lg:gap-x-10 lg:gap-y-8 gap-4  mt-5 md:mt-10 mb-5"
             >
               {getRecentUser &&
                 getRecentUser.length > 0 &&
                 getRecentUser.map((e) => {
                   return (
                     <>
-                      <div class="bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl cursor-pointer">
-                        <div onClick={() => router.push(`/userprofile?id=${e._id}`)}>
+                      <div class="bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl w-full cursor-pointer">
+                        <div
+                          onClick={() =>
+                            router.push(`/userprofile?id=${e._id}`)
+                          }
+                        >
                           <img
                             src={
                               e?.image?.[0]?.filename ||
                               "/images1/models/model1.png"
                             }
                             alt="Product"
-                            class="md:h-[250px] w-auto lg:w-72 object-cover rounded-t-xl"
+                            class="h-[180px] md:h-[250px] w-full lg:w-full object-cover rounded-t-xl"
                           />
-                          <div class="px-4 py-3 w-auto lg:w-72">
+                          <div class="px-4 py-3 w-auto lg:w-full">
                             <div class="flex items-start w-full">
                               <div className="w-full">
                                 <div className="flex items-center justify-between w-full">

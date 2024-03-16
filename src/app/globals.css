@@ -276,7 +276,7 @@ body {
   justify-content: center !important;
 }
 
-.carousel {
+/* .carousel {
   width: 400px !important;
 }
 
@@ -290,25 +290,29 @@ body {
 
 .carousel .thumb {
   width: 100px !important;
-}
+}*/
 
 .carousel .thumb {
   border-radius: 18px;
-}
+} 
 
 
 @media screen and (max-width: 480px) {
-  .carousel {
-    width: 360px !important;
-  }
 
   .carousel .thumb {
     width: 80px !important;
+    height: 80px !important;
+  }
+
+
+  .carousel .thumb img{
+    width: 100% !important;
+    height: 100% !important;
   }
 
 
 }
-
+/* 
 @media screen and (max-width: 380px) {
   .carousel {
     width: 300px !important;
@@ -317,6 +321,43 @@ body {
   .carousel .thumb {
     width: 80px !important;
   }
+} */
 
 
+@media only screen and (min-width: 1024px) and (max-width :1240){
+
+.carousel {
+  width: 400px !important;
+  height: 400px !important;
 }
+.carousel img{
+ object-fit: cover !important;
+}
+.carousel .thumb {
+  width: 100px !important;
+  height: 100px !important;
+}
+.carousel .thumb img{
+  width: 100% !important;
+  height: 100% !important;
+}
+}
+
+@media only screen and (min-width: 1244px) and (max-width :1240){
+
+  .carousel {
+    width: 400px !important;
+    height: 400px !important;
+  }
+  .carousel img{
+   object-fit: cover !important;
+  }
+  .carousel .thumb {
+    width: 100px !important;
+    height: 100px !important;
+  }
+  .carousel .thumb img{
+    width: 100% !important;
+    height: 100% !important;
+  }
+  }

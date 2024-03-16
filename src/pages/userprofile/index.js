@@ -13,30 +13,41 @@ import Loader from "@/component/Loader/Loader";
 import { showToast } from "@/constant/toast/toastUtils";
 
 function Index() {
-  const router = useRouter()
+  const router = useRouter();
 
   const dispatch = useDispatch();
   const otherUserData = useSelector((state) => state?.Auth?.otherUserDetails);
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
-  const handleOnChange = (index) => { setCurrentSlide(index) };
-  const handlePrevClick = () => { setCurrentIndex(currentIndex - 1) };
-  const handleNextClick = () => { setCurrentIndex(currentIndex + 1) };
+  const handleOnChange = (index) => {
+    setCurrentSlide(index);
+  };
+  const handlePrevClick = () => {
+    setCurrentIndex(currentIndex - 1);
+  };
+  const handleNextClick = () => {
+    setCurrentIndex(currentIndex + 1);
+  };
 
   const getSingleProfile = () => {
-    get(`/user/moreProfile?id=${router.query.id}&page=1`, "GET_OTHER_USER_PROFILE", dispatch, HEADERS);
-  }
+    get(
+      `/user/moreProfile?id=${router.query.id}&page=1`,
+      "GET_OTHER_USER_PROFILE",
+      dispatch,
+      HEADERS
+    );
+  };
   const handleAddFavouriteProfile = (profileId) => {
-    let body = [{ profile_id: profileId }]
+    let body = [{ profile_id: profileId }];
     setLoading(true);
     post("/user/addFavourite", body, "USER_GOOGLE_LOGIN", dispatch, HEADERS)
       .then((res) => {
         if (res?.status === 200) {
           setLoading(false);
-          getSingleProfile()
+          getSingleProfile();
           showToast(res?.message, { type: "success" });
         }
       })
@@ -44,13 +55,13 @@ function Index() {
         showToast(err?.response?.data?.message, { type: "error" });
         setLoading(false);
       });
-  }
+  };
 
   useEffect(() => {
     if (router.query.id) {
-      getSingleProfile()
+      getSingleProfile();
     }
-  }, [router.query])
+  }, [router.query]);
 
   return (
     <>
@@ -59,7 +70,7 @@ function Index() {
         <Sidebar>
           <div className="px-4 lg:px-4 xl:px-14 ">
             <div className="flex flex-col lg:flex-row">
-              <div className="flex flex-col gap-y-8 items-center justify-center w-full  lg:w-[30%] xl:w-[40%] ">
+              <div className="flex flex-col gap-y-8 items-center justify-center w-full  lg:w-[40%] xl:w-[40%] ">
                 <div className="relative">
                   <Carousel
                     className=" "
@@ -155,7 +166,7 @@ function Index() {
                 </div>
               </div> */}
               </div>
-              <div className="text-dark m-auto  py-4 md:mt-14  w-full  lg:w-[30%] xl:w-[40%]">
+              <div className="text-dark m-auto  py-4 md:mt-14  md:px-10  w-full  lg:w-[70%] xl:w-[60%] flex flex-col items-start ">
                 <h1 className="text-2xl md:text-4xl font-semibold capitalize">
                   {otherUserData?.name}
                 </h1>
@@ -184,12 +195,14 @@ function Index() {
                   <Iconstartbutton text={`Chat With ${otherUserData?.name}`} />
                   <button
                     className="px-[32px] py-[16px] bg-primary  bg-opacity-[13%] text-primary rounded-full flex items-center gap-2 font-semibold"
-                    style={{ whiteSpace: 'nowrap' }}
+                    style={{ whiteSpace: "nowrap" }}
                     onClick={() => handleAddFavouriteProfile(otherUserData._id)}
                   >
-                    {
-                      otherUserData?.favourite === 0 ? <FaRegHeart /> : <FaHeart />
-                    }
+                    {otherUserData?.favourite === 0 ? (
+                      <FaRegHeart />
+                    ) : (
+                      <FaHeart />
+                    )}
                     Add Favorites
                   </button>
                 </div>
@@ -210,7 +223,10 @@ function Index() {
                 </div>
                 <div className="flex gap-8 py-2">
                   <div className="text-secondary1 w-20">City</div>
-                  <div className="font-medium"> {otherUserData?.city?.join(", ")}</div>
+                  <div className="font-medium">
+                    {" "}
+                    {otherUserData?.city?.join(", ")}
+                  </div>
                 </div>
                 <div className="flex gap-8 py-2">
                   <div className="text-secondary1 w-20">Languages</div>
