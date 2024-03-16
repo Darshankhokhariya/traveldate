@@ -13,9 +13,15 @@ function Index({ isPageLoading }) {
   const dispatch = useDispatch();
   const visitor = useSelector((state) => state?.Auth?.visitorDetails)
   const userData = useSelector((state) => state?.Auth?.userProfile);
+  const [viewSearch, setViewSearch] = useState(false)
+
 
   const [moreLessFilter, SetMoreLessFilter] = useState(false)
   const [searchValue, setSearchValue] = useState("")
+
+  const toggleSearch = () => {
+    setViewSearch(!viewSearch)
+  }
 
   const handleSearch = () => {
     get(`/user/getVisitors?name=${searchValue}&page=1&limit=3&sort=`, "GET_VISITOR_PAGE_USER", dispatch, HEADERS);

@@ -9,6 +9,8 @@ import { get } from "@/redux/services/apiServices";
 import { debounce } from "lodash";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import search from "../../assets/search.png";
+
 
 function Dashboard({ isPageLoading }) {
   const dispatch = useDispatch()
@@ -30,6 +32,7 @@ function Dashboard({ isPageLoading }) {
     city: "",
     language: "",
   })
+
 
 
   const handleSearch = (searchValue, values) => {
@@ -95,21 +98,18 @@ function Dashboard({ isPageLoading }) {
                 {moreLessFilter && <Filter languageData={languageData} countries={countries} values={values} handleChange={handleChange} />}
                 {
                   loading ?
-                      <div className="-mt-52 ml-[40%]">
-                        <div
-                          className="flex justify-center text-center mt-72 items-center w-12 h-12 rounded-full animate-spin
+                    <div className="-mt-52 ml-[40%]">
+                      <div
+                        className="flex justify-center text-center mt-72 items-center w-12 h-12 rounded-full animate-spin
 border-4 border-solid border-red-500 border-t-transparent"
-                        ></div>
-                      </div>
+                      ></div>
+                    </div>
                     :
                     <Recent1 recentUser={recentUser} isPageLoading={isPageLoading} />
                 }
               </div>
               <div className="md:px-14 pb-20 md:pb-0 block md:hidden">
-                <div className="flex justify-center py-5">
-                  <img className="h-[30px] md:h-[58px]" src="/images1/Frame1.png" />
-                </div>
-                <Searchbar SetMoreLessFilter={SetMoreLessFilter} moreLessFilter={moreLessFilter} />
+                {/* {viewSearch && <Searchbar SetMoreLessFilter={SetMoreLessFilter} moreLessFilter={moreLessFilter} />} */}
                 {moreLessFilter && <Filter languageData={languageData} countries={countries} values={values} handleChange={handleChange} />}
                 {
                   loading ?

@@ -7,7 +7,7 @@ import Mobilenav from "../navbar/Mobilenav";
 
 function Sidebar(props) {
   const router = useRouter();
-  const { userData } = props;
+  const { userData,toggleSearch } = props;
   const [activeIndex, setActiveIndex] = useState(null);
 
   return (
@@ -204,7 +204,7 @@ function Sidebar(props) {
             <span class="sr-only">Profile</span>
           </Link>
         </div>
-        <Mobilenav />
+        <Mobilenav toggleSearch={toggleSearch} />
         <div style={{ height: "calc(100% - 70px)" }} className="">
           {props.children}
         </div>

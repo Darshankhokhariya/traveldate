@@ -17,6 +17,8 @@ function Index({ isPageLoading }) {
   const [moreLessFilter, SetMoreLessFilter] = useState(false)
   const [searchValue, setSearchValue] = useState("")
 
+ 
+
   const handleSearch = () => {
     get(`/user/getFavourite?name=${searchValue}&page=1&limit=3&sort=`, "GET_FAVOURITE_PAGE_USER", dispatch, HEADERS);
   }
