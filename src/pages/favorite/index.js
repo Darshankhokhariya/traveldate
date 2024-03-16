@@ -5,6 +5,7 @@ import Loader from "@/component/Loader/Loader";
 import Sidebar from "@/component/sidebar/Sidebar";
 import { HEADERS } from "@/constant/authorization";
 import { get } from "@/redux/services/apiServices";
+import { debounce } from "lodash";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -19,13 +20,34 @@ function Index({ isPageLoading }) {
   const [moreLessFilter, SetMoreLessFilter] = useState(false)
   const [searchValue, setSearchValue] = useState("")
 
+
+
   const handleSearch = () => {
     get(`/user/getFavourite?name=${searchValue}&page=1&limit=3&sort=`, "GET_FAVOURITE_PAGE_USER", dispatch, HEADERS);
   }
 
+  const handleChangeSearch = (e) => {
+    setSearchValue(e.target.value)
+  }
+
+  const searchDebounced = debounce((value) => {
+    handleSearch(value);
+  }, 2000);
+
+  useEffect(() => {
+    searchDebounced(searchValue)
+    return () => {
+      searchDebounced.cancel();
+    };
+  }, [searchValue])
+
   useEffect(() => {
     get(`/user/getFavourite?name=${searchValue}&page=1&limit=3&sort=`, "GET_FAVOURITE_PAGE_USER", dispatch, HEADERS);
   }, [])
+
+  
+
+
 
   return (
     <>
@@ -39,14 +61,16 @@ function Index({ isPageLoading }) {
                 <div className="hidden md:block">
                   <Banner />
                 </div>
-                <Searchbar
-                  SetMoreLessFilter={SetMoreLessFilter}
-                  moreLessFilter={moreLessFilter}
-                  page="favourite"
-                  setSearchValue={setSearchValue}
-                  searchValue={searchValue}
-                  handleSearch={handleSearch}
-                />
+                <div className="hidden md:block">
+                  <Searchbar
+                    SetMoreLessFilter={SetMoreLessFilter}
+                    moreLessFilter={moreLessFilter}
+                    page="favourite"
+                    setSearchValue={setSearchValue}
+                    searchValue={searchValue}
+                    onChange={handleChangeSearch}
+                  />
+                </div>
                 {/* {moreLessFilter && <Filter />} */}
                 <div className="container mx-auto ">
                   {

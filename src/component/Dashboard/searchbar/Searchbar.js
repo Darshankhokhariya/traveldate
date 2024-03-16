@@ -62,9 +62,9 @@ function Searchbar(props) {
                   </>
                 ) : (
                   <>
-                    <button className="flex items-center py-2 rounded-xl px-4 gap-2 text-secondary bg-secondary1 bg-opacity-[7%]" onClick={props.handleSearch}>
+                    {/* <button className="flex items-center py-2 rounded-xl px-4 gap-2 text-secondary bg-secondary1 bg-opacity-[7%]" onClick={props.handleSearch}>
                       Search
-                    </button>
+                    </button> */}
                   </>
                 )
               }

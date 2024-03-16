@@ -1,7 +1,6 @@
 export const getToken = () => {
     if (typeof window !== 'undefined') {
         const tokenData = localStorage.getItem('authToken');
-        console.log('tokenData', tokenData)
         return tokenData;
     }
     return null;

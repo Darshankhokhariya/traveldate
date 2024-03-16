@@ -15,7 +15,10 @@ function Index() {
 
     const [tab, setTab] = useState("profile")
 
-    const handleTabChange = (e) => { setTab(e) }
+    const handleTabChange = (e) => { 
+        console.log('e+++++', e)
+        setTab(e) 
+    }
 
     const formik = useFormik({
         initialValues: {

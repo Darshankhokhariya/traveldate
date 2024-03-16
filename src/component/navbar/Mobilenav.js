@@ -26,7 +26,7 @@ function Mobilenav(props) {
           </div>
           :
           <div className="flex lg:hidden items-center justify-between px-2 w-full py-4">
-            <img src={left.src} onClick={() => router.back()} alt=""  className="cursor-pointer" />
+            <img src={left.src} onClick={() => router.back()} alt="" className="cursor-pointer" />
             <h1 className="text-[20px] font-semibold">
               {router?.pathname === "/myprofile" && "User Profile"}
               {router?.pathname === "/visitors" && "New Member"}
@@ -35,7 +35,10 @@ function Mobilenav(props) {
             <img src={search.src} alt="" onClick={() => toggleSearchBar()} className="cursor-pointer" />
           </div>
       }
-      <Searchbar/>
+      {
+        viewSearch && router?.pathname !== "/myprofile" &&
+        <Searchbar />
+      }
 
     </>
   );

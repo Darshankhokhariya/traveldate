@@ -5,6 +5,7 @@ import Loader from "@/component/Loader/Loader";
 import Sidebar from "@/component/sidebar/Sidebar";
 import { HEADERS } from "@/constant/authorization";
 import { get } from "@/redux/services/apiServices";
+import { debounce } from "lodash";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,16 +19,31 @@ function Index({ isPageLoading }) {
   const [moreLessFilter, SetMoreLessFilter] = useState(false)
   const [searchValue, setSearchValue] = useState("")
 
-  const toggleSearch = () => {
-    setViewSearch(!viewSearch)
-  }
 
   const handleSearch = () => {
     get(`/user/getVisitors?name=${searchValue}&page=1&limit=3&sort=`, "GET_VISITOR_PAGE_USER", dispatch, HEADERS);
   }
 
+  const handleChangeSearch = (e) => {
+    setSearchValue(e.target.value)
+  }
+
+  const searchDebounced = debounce((value) => {
+    handleSearch(value);
+  }, 2000);
+
   useEffect(() => {
-    get(`/user/getVisitors?name=${searchValue}&page=1&limit=3&sort=`, "GET_VISITOR_PAGE_USER", dispatch, HEADERS);
+    searchDebounced(searchValue)
+    return () => {
+      searchDebounced.cancel();
+    };
+  }, [searchValue])
+
+
+  useEffect(() => {
+    get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
+    // get(`/user/getVisitors?name=${searchValue}&page=1&limit=3&sort=`, "GET_VISITOR_PAGE_USER", dispatch, HEADERS);
+    handleSearch();
   }, [])
 
   return (
@@ -40,16 +56,18 @@ function Index({ isPageLoading }) {
             <>
               <div className="px-3 md:md-5 lg:px-10 ">
                 <div className="hidden md:block">
-                  <Banner />
+                  <Banners />
                 </div>
-                <Searchbar
-                  SetMoreLessFilter={SetMoreLessFilter}
-                  moreLessFilter={moreLessFilter}
-                  page="visitor"
-                  setSearchValue={setSearchValue}
-                  searchValue={searchValue}
-                  handleSearch={handleSearch}
-                />
+                <div className="hidden md:block">
+                  <Searchbar
+                    SetMoreLessFilter={SetMoreLessFilter}
+                    moreLessFilter={moreLessFilter}
+                    page="visitor"
+                    setSearchValue={setSearchValue}
+                    searchValue={searchValue}
+                    onChange={handleChangeSearch}
+                  />
+                </div>
                 <div className="container mx-auto md:px-3">
                   {visitor && visitor.length > 0
                     ? (
