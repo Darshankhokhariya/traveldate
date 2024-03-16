@@ -56,7 +56,7 @@ function Index({ isPageLoading }) {
             <>
               <div className="px-3 md:md-5 lg:px-10 ">
                 <div className="hidden md:block">
-                  <Banners />
+                  <Banner />
                 </div>
                 <div className="hidden md:block">
                   <Searchbar

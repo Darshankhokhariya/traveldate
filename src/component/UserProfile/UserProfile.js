@@ -252,21 +252,24 @@ function UserProfile({ userData }) {
         about: userData?.aboutUser,
         bodyType: userData?.bodyType,
         country: countries?.find((e) => e?.name === userData?.country),
-        city: userData.city
+        city: userData.city || []
       });
     }
   }, [userData]);
 
-  useEffect(() => {
-    if (formik.values.city) {
+
+  const getCity = (value) => {
+    if (value) {
       get(
-        `/country/getCity?city=${formik.values.city || ""}`,
+        `/country/getCity?city=${value || ""}`,
         "GET_CITY",
         dispatch,
         HEADERS
       );
     }
-  }, [formik.values.city]);
+  }
+
+
 
   return (
     <div>
@@ -425,14 +428,16 @@ function UserProfile({ userData }) {
                 <Autocomplete
                   options={cityList}
                   value={formik.values.city}
+                  multiple
                   size="small"
                   disablePortal
                   onChange={(event, value) =>
                     formik.setFieldValue("city", value)
                   }
-                  onInputChange={(event, value) =>
-                    formik.setFieldValue("city", value)
-                  }
+                  onInputChange={(event, value) => {
+                    console.log('value :>> ', value);
+                    getCity(value)
+                  }}
                   className="block w-full bg-[#ffffff] hover:border-[#e6e6e6] border border-[#e6e6e6] rounded-lg"
                   name="city"
                   sx={{
@@ -445,8 +450,9 @@ function UserProfile({ userData }) {
                       border: "1px solid #e6e6e6",
                     },
                   }}
+
                   renderInput={(params) => (
-                    <TextField {...params} placeholder="Wants to Visit" />
+                    <TextField {...params} placeholder={`${formik?.values?.city ? "" : "Wants to Visit"}`} />
                   )}
                 />
               </div>
