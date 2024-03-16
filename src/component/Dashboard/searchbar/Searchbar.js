@@ -3,7 +3,8 @@ import { gender } from "@/constant/gender";
 import React from "react";
 
 function Searchbar(props) {
-  const { values, searchValue, handleChange } = props
+  const { onChange, searchValue } = props
+  // const { searchValue } = props.values
   return (
     <>
       {" "}
@@ -35,7 +36,7 @@ function Searchbar(props) {
                   name="searchValue"
                   placeholder="Search something.."
                   value={searchValue}
-                  onChange={handleChange}
+                  onChange={onChange}
                 />
               </div>
             </div>

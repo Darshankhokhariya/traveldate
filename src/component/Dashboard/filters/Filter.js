@@ -3,7 +3,7 @@ import { filterAge, filterBodyType } from "@/constant/gender";
 import React from "react";
 
 function Filter(props) {
-  const { values, handleChange } = props
+  const { values, handleChange, countries, languageData } = props
   return (
     <>
       <div className="px-5">
@@ -53,11 +53,11 @@ function Filter(props) {
           </div>
         </div >
         <div className="grid grid-cols-2  md:grid-cols-3 lg:grid-cols-4  gap-4 lg:gap-y-6 md:gap-x-14">
-          <SelectTwo data={filterAge} placeHolder="Age From" label="label" value={values?.ageFrom} name="ageFrom" onChange={handleChange} />
-          <SelectTwo data={filterAge} placeHolder="Age To" label="label" value={values?.ageTo} name="ageTo" onChange={handleChange} />
-          <SelectTwo data={props?.languageData} placeHolder="Language" label="name" value={values.language} name="language" onChange={handleChange} />
-          <SelectTwo data={filterBodyType} placeHolder="Body type" label="label" value={values.bodyType} name="bodyType" onChange={handleChange} />
-          <SelectTwo data={props?.country} placeHolder="Country" label="name" value={values.country} name="country" onChange={handleChange} />
+          <SelectTwo data={filterAge} placeHolder="Select Age From" label="label" value={values?.ageFrom} name="ageFrom" onChange={handleChange} />
+          <SelectTwo data={filterAge} placeHolder="Select Age To" label="label" value={values?.ageTo} name="ageTo" onChange={handleChange} />
+          <SelectTwo data={languageData} placeHolder="Select Language" label="name" value={values.language} name="language" onChange={handleChange} />
+          <SelectTwo data={filterBodyType} placeHolder="Select Body type" label="label" value={values.bodyType} name="bodyType" onChange={handleChange} />
+          <SelectTwo data={countries} placeHolder="Select Country" label="name" value={values.country} name="country" onChange={handleChange} />
           {/* <SelectTwo data={filterJson} placeHolder="City" label="label" values="value" /> */}
         </div>
       </div >

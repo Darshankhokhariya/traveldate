@@ -1,8 +1,8 @@
 export const filterAge = [
-  {
-    label: "Select Age From",
-    value: "",
-  },
+  // {
+  //   label: "Select Age From",
+  //   value: "",
+  // },
 ];
 
 for (let age = 18; age <= 75; age++) {
@@ -13,10 +13,6 @@ for (let age = 18; age <= 75; age++) {
 }
 
 export const filterBodyType = [
-  {
-    label: "Select Body type",
-    value: "",
-  },
   {
     label: "Slim",
     value: "Slim",

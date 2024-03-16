@@ -91,15 +91,17 @@ const store = (state = initialState, action) => {
         ...state,
         loading: true
       };
-    case actionTypes.GET_RECENT_USER_SUCCESS:
-      return {
-        ...state,
-        recentUserDetails: action?.payload?.data
-      };
-    case actionTypes.GET_RECENT_USER_FAIL:
-      return {
-        ...state,
-        recentUserDetails: []
+      case actionTypes.GET_RECENT_USER_SUCCESS:
+        return {
+          ...state,
+          recentUserDetails: action?.payload?.data,
+          loading: false
+        };
+        case actionTypes.GET_RECENT_USER_FAIL:
+          return {
+            ...state,
+            recentUserDetails: [],
+            loading: false
       };
     case actionTypes.GET_OTHER_USER_PROFILE_INIT:
       return {

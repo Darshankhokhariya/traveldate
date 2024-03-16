@@ -6,6 +6,7 @@ import Recent1 from "@/component/recent/Recent1";
 import Sidebar from "@/component/sidebar/Sidebar";
 import { HEADERS } from "@/constant/authorization";
 import { get } from "@/redux/services/apiServices";
+import { debounce } from "lodash";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -15,6 +16,7 @@ function Dashboard({ isPageLoading }) {
   const languageData = useSelector((state) => state?.Auth?.languageList);
   const countries = useSelector((state) => state?.Auth?.countryList);
   const userData = useSelector((state) => state?.Auth?.userProfile);
+  const loading = useSelector((state) => state?.Auth?.loading)
 
   const [moreLessFilter, SetMoreLessFilter] = useState(false)
   const [searchValue, setSearchValue] = useState("")
@@ -29,31 +31,49 @@ function Dashboard({ isPageLoading }) {
     language: "",
   })
 
-  let language = [{ code: 'Select language', name: 'Select language' }, ...languageData]
-  let country = [{ name: 'Select country', is02: 'Select country' }, ...countries]
 
-
-  const handleSearch = (gender, ageFrom, ageTo, bodyType, country, city, language) => {
-    get(`/user/getRecentUser?name=${searchValue}&gender=${gender}&ageFrom=${ageFrom}&ageTo=${ageTo}&bodyType=${bodyType}&country${country}&city=${city}&page=1&limit=3&sort=`, "GET_RECENT_USER", dispatch, HEADERS);
+  const handleSearch = (searchValue, values) => {
+    get(`/user/getRecentUser?name=${searchValue}&gender=${values?.gender}&ageFrom=${values?.ageFrom}&ageTo=${values?.ageTo}&bodyType=${values?.bodyType}&country=${values?.country}&city=${values?.city}&language=${values?.language}&page=1&limit=3&sort=`, "GET_RECENT_USER", dispatch, HEADERS);
   }
 
   useEffect(() => {
     get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
     get("/country/getCountry", "GET_COUNTRY", dispatch, HEADERS);
     get(`/language/getLanguage`, "GET_LANGUAGE", dispatch, HEADERS);
-    handleSearch(values.gender, values.ageFrom, values.ageTo, values.bodyType, values.country, values.city, values.language)
   }, [])
+
 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setSearchValue(value)
     setValues(prevValues => ({
       ...prevValues,
       [name]: value
     }));
-    handleSearch(values.gender, values.ageFrom, values.ageTo, values.bodyType, values.country, values.city, values.language)
+    handleSearch(searchValue, {
+      ...values,
+      [name]: value
+    });
   };
+
+  const handleChangeSearch = (e) => {
+    setSearchValue(e.target.value)
+  }
+
+  const searchDebounced = debounce((value) => {
+    handleSearch(value, values);
+  }, 2000);
+
+
+  useEffect(() => {
+    searchDebounced(searchValue)
+    return () => {
+      searchDebounced.cancel();
+    };
+  }, [searchValue])
+
+
+
 
   return (
     <>
@@ -69,19 +89,39 @@ function Dashboard({ isPageLoading }) {
                   SetMoreLessFilter={SetMoreLessFilter}
                   moreLessFilter={moreLessFilter}
                   page="dashboard"
-                  handleChange={handleChange}
+                  onChange={handleChangeSearch}
                   searchValue={searchValue}
                 />
-                {moreLessFilter && <Filter languageData={language} country={country} values={values} handleChange={handleChange} />}
-                <Recent1 recentUser={recentUser} isPageLoading={isPageLoading} />
+                {moreLessFilter && <Filter languageData={languageData} countries={countries} values={values} handleChange={handleChange} />}
+                {
+                  loading ?
+                      <div className="-mt-52 ml-[40%]">
+                        <div
+                          className="flex justify-center text-center mt-72 items-center w-12 h-12 rounded-full animate-spin
+border-4 border-solid border-red-500 border-t-transparent"
+                        ></div>
+                      </div>
+                    :
+                    <Recent1 recentUser={recentUser} isPageLoading={isPageLoading} />
+                }
               </div>
               <div className="md:px-14 pb-20 md:pb-0 block md:hidden">
                 <div className="flex justify-center py-5">
                   <img className="h-[30px] md:h-[58px]" src="/images1/Frame1.png" />
                 </div>
                 <Searchbar SetMoreLessFilter={SetMoreLessFilter} moreLessFilter={moreLessFilter} />
-                {moreLessFilter && <Filter languageData={languageData} country={country} values={values} handleChange={handleChange} />}
-                <Recent1 recentUser={recentUser} />
+                {moreLessFilter && <Filter languageData={languageData} countries={countries} values={values} handleChange={handleChange} />}
+                {
+                  !loading ?
+                    <div className="-mt-52 ml-[40%]">
+                      <div
+                        className="flex justify-center text-center mt-72 items-center w-12 h-12 rounded-full animate-spin
+border-4 border-solid border-red-500 border-t-transparent"
+                      ></div>
+                    </div>
+                    :
+                    <Recent1 recentUser={recentUser} />
+                }
               </div>
             </>
         }
