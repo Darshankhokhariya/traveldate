@@ -17,6 +17,8 @@ function Index() {
 
   const dispatch = useDispatch();
   const otherUserData = useSelector((state) => state?.Auth?.otherUserDetails);
+  const userData = useSelector((state) => state?.Auth?.userProfile);
+  const recentUserData = useSelector((state) => state?.Auth);
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -33,13 +35,13 @@ function Index() {
   };
 
   const getSingleProfile = () => {
-    get(
-      `/user/moreProfile?id=${router.query.id}&page=1`,
-      "GET_OTHER_USER_PROFILE",
-      dispatch,
-      HEADERS
-    );
-  };
+    get(`/user/moreProfile?id=${router.query.id}&page=1`, "GET_OTHER_USER_PROFILE", dispatch, HEADERS);
+  }
+
+  const getOneProfile = () => {
+    get(`/user/getOneUser?id=${router.query.id}`, "GET_OTHER_USER_PROFILE", dispatch);
+  }
+
   const handleAddFavouriteProfile = (profileId) => {
     let body = [{ profile_id: profileId }];
     setLoading(true);
@@ -58,16 +60,21 @@ function Index() {
   };
 
   useEffect(() => {
-    if (router.query.id) {
-      getSingleProfile();
+    let authToken = localStorage.getItem("authToken")
+    if (router.query.id && router.query.page !== "Home" && authToken) {
+      get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
+      getSingleProfile()
     }
-  }, [router.query]);
+    if (router.query.id && router.query.page == "Home") {
+      getOneProfile()
+    }
+  }, [router.query])
 
   return (
     <>
       <section class="bg-transparent">
         {loading && <Loader />}
-        <Sidebar>
+        <Sidebar userData={userData}>
           <div className="px-4 lg:px-4 xl:px-14 ">
             <div className="flex flex-col lg:flex-row">
               <div className="flex flex-col gap-y-8 items-center justify-center w-full  lg:w-[40%] xl:w-[40%] ">
@@ -195,8 +202,12 @@ function Index() {
                   <Iconstartbutton text={`Chat With ${otherUserData?.name}`} />
                   <button
                     className="px-[32px] py-[16px] bg-primary  bg-opacity-[13%] text-primary rounded-full flex items-center gap-2 font-semibold"
-                    style={{ whiteSpace: "nowrap" }}
-                    onClick={() => handleAddFavouriteProfile(otherUserData._id)}
+                    style={{ whiteSpace: 'nowrap' }}
+                    onClick={() => {
+                      if (otherUserData?.favourite === 0) {
+                        handleAddFavouriteProfile(otherUserData._id)
+                      }
+                    }}
                   >
                     {otherUserData?.favourite === 0 ? (
                       <FaRegHeart />

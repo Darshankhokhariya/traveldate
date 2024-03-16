@@ -11,7 +11,8 @@ const initialState = {
   favouriteUser: [],
   visitorDetails: [],
   recentUserDetails: [],
-  otherUserDetails: []
+  otherUserDetails: [],
+  landingPageUSer: [],
 };
 
 const store = (state = initialState, action) => {
@@ -91,17 +92,17 @@ const store = (state = initialState, action) => {
         ...state,
         loading: true
       };
-      case actionTypes.GET_RECENT_USER_SUCCESS:
-        return {
-          ...state,
-          recentUserDetails: action?.payload?.data,
-          loading: false
-        };
-        case actionTypes.GET_RECENT_USER_FAIL:
-          return {
-            ...state,
-            recentUserDetails: [],
-            loading: false
+    case actionTypes.GET_RECENT_USER_SUCCESS:
+      return {
+        ...state,
+        recentUserDetails: action?.payload?.data,
+        loading: false
+      };
+    case actionTypes.GET_RECENT_USER_FAIL:
+      return {
+        ...state,
+        recentUserDetails: [],
+        loading: false
       };
     case actionTypes.GET_OTHER_USER_PROFILE_INIT:
       return {
@@ -117,6 +118,21 @@ const store = (state = initialState, action) => {
       return {
         ...state,
         otherUserDetails: []
+      };
+    case actionTypes.GET_RECENT_USER_PROFILE_INIT:
+      return {
+        ...state,
+        loading: true
+      };
+    case actionTypes.GET_RECENT_USER_PROFILE_SUCCESS:
+      return {
+        ...state,
+        landingPageUSer: action?.payload?.data
+      };
+    case actionTypes.GET_RECENT_USER_PROFILE_FAIL:
+      return {
+        ...state,
+        landingPageUSer: []
       };
     default:
       return state;

@@ -45,7 +45,7 @@ function Index({ isPageLoading }) {
     get(`/user/getFavourite?name=${searchValue}&page=1&limit=3&sort=`, "GET_FAVOURITE_PAGE_USER", dispatch, HEADERS);
   }, [])
 
-  
+
 
 
 

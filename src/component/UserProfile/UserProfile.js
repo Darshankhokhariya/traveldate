@@ -79,7 +79,6 @@ function UserProfile({ userData }) {
 
   const handleCloseImage = () => { setDialogOpen(false) };
 
-
   const handleSubmit = (values) => {
     const formData = new FormData();
     formData.append("name", values?.name);
@@ -170,7 +169,6 @@ function UserProfile({ userData }) {
       </ImageUploading>
     );
   };
-
 
   const ImageCropper = ({
     open,
