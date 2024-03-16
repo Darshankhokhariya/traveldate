@@ -57,7 +57,10 @@ function Index() {
     });
 
     useEffect(() => {
-        get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
+        let authToken = localStorage.getItem("authToken")
+        if (authToken) {
+            get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
+        }
     }, [])
 
     return (

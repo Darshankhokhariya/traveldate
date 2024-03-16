@@ -19,6 +19,7 @@ function Index({ isPageLoading }) {
   const [moreLessFilter, SetMoreLessFilter] = useState(false)
   const [searchValue, setSearchValue] = useState("")
 
+  const toggleSearch = () => { setViewSearch(!viewSearch) }
 
   const handleSearch = () => {
     get(`/user/getVisitors?name=${searchValue}&page=1&limit=3&sort=`, "GET_VISITOR_PAGE_USER", dispatch, HEADERS);
@@ -79,7 +80,7 @@ function Index({ isPageLoading }) {
                               class="grid xl:grid-cols-4 md:grid-cols-3 grid-cols-2 justify-items-center justify-center gap-x-5 md:gap-y-10  gap-4  mt-5 md:mt-10 mb-5"
                             >
                               <div class="shadow-md rounded-xl duration-500 bg-whites relative hover:scale-105 hover:shadow-xl">
-                                <Link href="#">
+                                <div href="#">
                                   <img
                                     src={e?.image.length > 0 && e?.image?.[0].filename || "/images1/models/model2.png"}
                                     alt="Product"
@@ -119,7 +120,7 @@ function Index({ isPageLoading }) {
                                       </div>
                                     </div>
                                   </div>
-                                </Link>
+                                </div>
                                 <div className="absolute top-3 left-3">
                                   <div className="bg-[#78F293] bg-opacity-[73%] py-0.5 text-[12px] px-2 text-white rounded-md">
                                     New
