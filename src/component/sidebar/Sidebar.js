@@ -7,6 +7,7 @@ import Mobilenav from "../navbar/Mobilenav";
 import { useDispatch, useSelector } from "react-redux";
 import { get } from "@/redux/services/apiServices";
 import { HEADERS } from "@/constant/authorization";
+import { IoLogOutOutline, IoLogOut } from "react-icons/io5";
 
 function Sidebar(props) {
   const { toggleSearch } = props;
@@ -15,7 +16,6 @@ function Sidebar(props) {
   const router = useRouter();
   const [activeIndex, setActiveIndex] = useState(null);
 
-
   useEffect(() => {
     get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
   }, []);
@@ -23,9 +23,10 @@ function Sidebar(props) {
   return (
     <>
       <div className="hidden lg:flex  w-full h-screen ">
-        <div className="bg-white fixed h-screen  z-10 animate__animated animate__fadeInLeft  top-0 text-white shadow  lg:w-[20%]  px-4">
-          <div className="space-y-3">
-            <div className="flex-1">
+        <div className="bg-white fixed h-screen  z-10 animate__animated animate__fadeInLeft  top-0 text-white shadow  lg:w-[20%]  px-4 ">
+
+          <div className="space-y-3 relative h-full">
+            <div className="flex-1 ">
               <ul className="pt-2 pb-4 lg:pl-10 xl:pl-20 space-y-1 text-sm">
                 <li className="rounded-sm  flex justify-center py-8">
                   <img
@@ -44,7 +45,6 @@ function Sidebar(props) {
                         onMouseOver={() => {
                           setActiveIndex(index)
                         }}
-                        on
                         onMouseOut={() => {
                           setActiveIndex(false)
                         }}
@@ -101,13 +101,28 @@ function Sidebar(props) {
                 </li> */}
               </ul>
             </div>
+            <div className="text-black pt-2 lg:pl-10 xl:pl-20 space-y-1 text-sm self-end absolute bottom-0 group">
+              <div className={`rounded-sm cursor-pointer py-6 ml-2 flex justify-start  group text-secondary1 font-medium hover:font-semibold`}>
+                <div
+                  className={`flex items-center space-x-3 px-3 group-hover:border-l-2  border-primary group-hover:text-primary`}
+                >
+                  <div className=" group-hover:text-red-500">
+                    <IoLogOutOutline className="w-7 h-9" />
+                  </div>
+                  <span className="text-[14px]  group-hover:text-red-500  group-hover:font-semibold">
+                    Logout
+                  </span>
+                  {/* Logout */}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="w-[80%] ml-auto text-black ">
+        <div className="w-[80%] ml-auto text-black">
           <div className="flex justify-end">
             <div className="flex justify-end py-10 bg-transparent w-full px-20">
               <img
-                src={userData?.profileImage || ""}
+                src={userData?.profileImage || "/images1/defaultPerson.jpg"}
                 className="w-[54px] h-[54px] rounded-xl object-cover"
                 alt=""
               />

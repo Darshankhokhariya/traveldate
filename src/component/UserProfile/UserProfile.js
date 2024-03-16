@@ -282,7 +282,7 @@ function UserProfile({ userData }) {
               />
               :
               <img
-                src={userData?.profileImage}
+                src={userData?.profileImage || "/images1/defaultPerson.jpg"}
                 // src="/images1/myProfile.jpg"
                 className="h-[171px] w-[171px]  "
                 alt=""
@@ -397,7 +397,7 @@ function UserProfile({ userData }) {
                   size="small"
                   name="country"
                   value={formik.values.country}
-                  getOptionLabel={(option) => option?.name}
+                  getOptionLabel={(option) => option?.name || ""}
                   disablePortal
                   onChange={(event, value) =>
                     formik.setFieldValue("country", value ? value : null)
