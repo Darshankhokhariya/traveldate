@@ -351,3 +351,23 @@ body {
   }
 
 }
+
+@media screen and (min-width:480px) and (max-width: 1023px) {
+  .carousel .slide img {
+    width: 500px !important;
+    aspect-ratio: 1/1 !important;
+    object-fit: cover !important;
+    border: 2px solid black;
+  }
+
+  .carousel .thumb {
+    width: 100px !important;
+    height: 100px !important;
+  }
+
+  .carousel .thumb img {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+}

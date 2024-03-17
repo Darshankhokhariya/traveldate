@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Iconstartbutton from "@/component/Buttons/Iconstartbutton";
 import Sidebar from "@/component/sidebar/Sidebar";
-import { get, getNoAuth, post, postAuthToken } from "@/redux/services/apiServices";
+import {
+  get,
+  getNoAuth,
+  post,
+  postAuthToken,
+} from "@/redux/services/apiServices";
 import { useDispatch, useSelector } from "react-redux";
 import { HEADERS } from "@/constant/authorization";
 import { Carousel } from "react-responsive-carousel";
@@ -18,7 +23,8 @@ function Index() {
   const dispatch = useDispatch();
   const otherUserData = useSelector((state) => state?.Auth?.otherUserDetails);
   const userData = useSelector((state) => state?.Auth?.userProfile);
-  let authToken = typeof localStorage !== 'undefined' && localStorage.getItem("authToken")
+  let authToken =
+    typeof localStorage !== "undefined" && localStorage.getItem("authToken");
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -29,8 +35,8 @@ function Index() {
     setCurrentSlide(index);
   };
   const handleClose = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   const handlePrevClick = () => {
     setCurrentIndex(currentIndex - 1);
@@ -40,18 +46,33 @@ function Index() {
   };
 
   const getSingleProfile = () => {
-    get(`/user/moreProfile?id=${router.query.id}&page=1`, "GET_OTHER_USER_PROFILE", dispatch, HEADERS);
-  }
+    get(
+      `/user/moreProfile?id=${router.query.id}&page=1`,
+      "GET_OTHER_USER_PROFILE",
+      dispatch,
+      HEADERS
+    );
+  };
 
   const getOneProfile = () => {
-    console.log("enter")
-    getNoAuth(`/user/getOneUser?id=${router.query.id}`, "GET_OTHER_USER_PROFILE", dispatch);
-  }
+    console.log("enter");
+    getNoAuth(
+      `/user/getOneUser?id=${router.query.id}`,
+      "GET_OTHER_USER_PROFILE",
+      dispatch
+    );
+  };
 
   const handleAddFavouriteProfile = (profileId) => {
     let body = [{ profile_id: profileId }];
     setLoading(true);
-    postAuthToken("/user/addFavourite", body, "USER_GOOGLE_LOGIN", dispatch, HEADERS)
+    postAuthToken(
+      "/user/addFavourite",
+      body,
+      "USER_GOOGLE_LOGIN",
+      dispatch,
+      HEADERS
+    )
       .then((res) => {
         if (res?.status === 200) {
           setLoading(false);
@@ -68,20 +89,20 @@ function Index() {
   useEffect(() => {
     if (router.query.id && router.query.page !== "Home" && authToken) {
       get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
-      getSingleProfile()
+      getSingleProfile();
     }
     if (router.query.id && router.query.page == "Home") {
-      getOneProfile()
+      getOneProfile();
     }
-  }, [router.query])
+  }, [router.query]);
 
-  console.log('otherUserData :>> 🕒🕒🕒🕒🕒', otherUserData);
+  console.log("otherUserData :>> 🕒🕒🕒🕒🕒", otherUserData);
   return (
     <>
       <section class="bg-transparent">
         {loading && <Loader />}
         <Sidebar userData={userData}>
-          <div className="px-4 lg:px-4 xl:px-14 ">
+          <div className="px-4 xl:px-14 ">
             <div className="flex flex-col lg:flex-row">
               <div className="flex flex-col gap-y-8 items-center justify-center w-full  lg:w-[40%] xl:w-[40%] ">
                 <div className="relative">
@@ -179,7 +200,7 @@ function Index() {
                 </div>
               </div> */}
               </div>
-              <div className="text-dark m-auto  py-4 md:mt-14  md:px-10  w-full  lg:w-[70%] xl:w-[60%] flex flex-col items-start ">
+              <div className="text-dark m-auto  py-4 md:mt-14  md:px-10  w-full  lg:w-[60%] xl:w-[60%] flex flex-col items-start ">
                 <h1 className="text-2xl md:text-4xl font-semibold capitalize">
                   {otherUserData?.name}
                 </h1>
@@ -208,13 +229,12 @@ function Index() {
                   <Iconstartbutton text={`Chat With ${otherUserData?.name}`} />
                   <button
                     className="px-[32px] py-[16px] bg-primary  bg-opacity-[13%] text-primary rounded-full flex items-center gap-2 font-semibold"
-                    style={{ whiteSpace: 'nowrap' }}
+                    style={{ whiteSpace: "nowrap" }}
                     onClick={() => {
                       if (authToken && otherUserData?.favourite === 0) {
-                        handleAddFavouriteProfile(otherUserData._id)
-                      }
-                      else {
-                        setOpen(true)
+                        handleAddFavouriteProfile(otherUserData._id);
+                      } else {
+                        setOpen(true);
                       }
                     }}
                   >
@@ -228,7 +248,7 @@ function Index() {
                 </div>
               </div>
             </div>
-            <div className="md:py-10  flex  flex-col md:flex-row md:gap-20">
+            <div className="md:py-10  md:px-10  flex  flex-col lg:flex-row  lg:gap-20">
               <div>
                 <h1 className="py-3 text-base font-semibold">About Me</h1>
                 <div className="max-w-72 md:space-y-4 text-secondary1">

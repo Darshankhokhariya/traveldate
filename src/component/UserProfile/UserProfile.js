@@ -28,18 +28,20 @@ import ImageUploading from "react-images-uploading";
 import Loader from "@/component/Loader/Loader";
 
 function UserProfile({ userData }) {
-  const router = useRouter()
-  const dispatch = useDispatch()
+  const router = useRouter();
+  const dispatch = useDispatch();
   const [image, setImage] = useState([]);
   const [croppedImage, setCroppedImage] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const countries = useSelector((state) => state?.Auth?.countryList);
-  const cityList = useSelector((state) => state?.Auth?.cityList)
+  const cityList = useSelector((state) => state?.Auth?.cityList);
 
-  const genderData = ["male", "female"]
-  const bodyTypes = ["slim", "average", "heavy"]
+  const genderData = ["male", "female"];
+  const bodyTypes = ["slim", "average", "heavy"];
+
+  console.log("image", image);
 
   const formik = useFormik({
     initialValues: {
@@ -77,7 +79,9 @@ function UserProfile({ userData }) {
     },
   });
 
-  const handleCloseImage = () => { setDialogOpen(false) };
+  const handleCloseImage = () => {
+    setDialogOpen(false);
+  };
 
   const handleSubmit = (values) => {
     const formData = new FormData();
@@ -90,7 +94,10 @@ function UserProfile({ userData }) {
     formData.append("country", values?.country);
     formData.append("aboutUser", values?.about);
     formData.append("city", values?.city);
-    formData.append("image", croppedImage ? croppedImage : userData?.image?.[0]);
+    formData.append(
+      "image",
+      croppedImage ? croppedImage : userData?.image?.[0]
+    );
     formData.append("onBoarding", 0);
 
     setLoading(true);
@@ -147,8 +154,12 @@ function UserProfile({ userData }) {
               </div>
             </label> */}
             <label>
-              <button htmlFor="fileInput" onClick={value ? onImageUpload : () => onImageUpdate(0)}
-                {...props} className="rounded-full bg-primary p-1 border-2 border-white">
+              <button
+                htmlFor="fileInput"
+                onClick={value ? onImageUpload : () => onImageUpdate(0)}
+                {...props}
+                className="rounded-full bg-primary p-1 border-2 border-white"
+              >
                 <svg
                   width="18"
                   height="18"
@@ -163,7 +174,6 @@ function UserProfile({ userData }) {
                 </svg>
               </button>
             </label>
-
           </>
         )}
       </ImageUploading>
@@ -243,6 +253,7 @@ function UserProfile({ userData }) {
 
   useEffect(() => {
     if (userData) {
+      console.log("userData", userData);
       formik.setValues({
         name: userData?.name,
         age: userData?.age,
@@ -250,11 +261,10 @@ function UserProfile({ userData }) {
         about: userData?.aboutUser,
         bodyType: userData?.bodyType,
         country: countries?.find((e) => e?.name === userData?.country),
-        city: userData.city || []
+        city: userData.city || [],
       });
     }
   }, [userData]);
-
 
   const getCity = (value) => {
     if (value) {
@@ -265,30 +275,32 @@ function UserProfile({ userData }) {
         HEADERS
       );
     }
-  }
-
-
+  };
 
   return (
     <div>
       <div className="mt-5 flex gap-8 items-center justify-center sm:justify-start">
         <div className="relative">
           <div className=" overflow-hidden rounded-lg ring-2 ring-gray-700 dark:ring-gray-100">
-            {croppedImage ?
+            {croppedImage ? (
               <img
                 src={URL.createObjectURL(croppedImage)}
                 // src="/images1/myProfile.jpg"
                 className="h-[171px] w-[171px]  "
                 alt=""
               />
-              :
+            ) : (
               <img
-                src={userData?.profileImage || "/images1/defaultPerson.jpg"}
+                src={
+                  !userData?.profileImage || userData?.profileImage === "0"
+                    ? "/images1/defaultPerson.jpg"
+                    : userData?.profileImage
+                }
                 // src="/images1/myProfile.jpg"
                 className="h-[171px] w-[171px]  "
                 alt=""
               />
-            }
+            )}
           </div>
           <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 ">
             <ImageUploadingButton
@@ -298,7 +310,6 @@ function UserProfile({ userData }) {
                 setImage(newImage);
               }}
             />
-
           </div>
         </div>
         <div className="hidden sm:block">
@@ -382,10 +393,10 @@ function UserProfile({ userData }) {
                       borderRadius: "0",
                     },
                     "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                    {
-                      borderRadius: "7px",
-                      border: "1px solid #e6e6e6",
-                    },
+                      {
+                        borderRadius: "7px",
+                        border: "1px solid #e6e6e6",
+                      },
                   }}
                   renderInput={(params) => (
                     <TextField {...params} placeholder="Body type" />
@@ -410,16 +421,15 @@ function UserProfile({ userData }) {
                       borderRadius: "0",
                     },
                     "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                    {
-                      borderRadius: "7px",
-                      border: "1px solid #e6e6e6",
-                    },
+                      {
+                        borderRadius: "7px",
+                        border: "1px solid #e6e6e6",
+                      },
                   }}
                   renderInput={(params) => (
                     <TextField {...params} placeholder="Country" />
                   )}
                 />
-
               </div>
               <div className="pt-5">
                 <div className="text-gray-400">Wants to Visit</div>
@@ -433,8 +443,8 @@ function UserProfile({ userData }) {
                     formik.setFieldValue("city", value)
                   }
                   onInputChange={(event, value) => {
-                    console.log('value :>> ', value);
-                    getCity(value)
+                    console.log("value :>> ", value);
+                    getCity(value);
                   }}
                   className="block w-full bg-[#ffffff] hover:border-[#e6e6e6] border border-[#e6e6e6] rounded-lg"
                   name="city"
@@ -443,14 +453,18 @@ function UserProfile({ userData }) {
                       borderRadius: "0",
                     },
                     "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                    {
-                      borderRadius: "10px",
-                      border: "1px solid #e6e6e6",
-                    },
+                      {
+                        borderRadius: "10px",
+                        border: "1px solid #e6e6e6",
+                      },
                   }}
-
                   renderInput={(params) => (
-                    <TextField {...params} placeholder={`${formik?.values?.city ? "" : "Wants to Visit"}`} />
+                    <TextField
+                      {...params}
+                      placeholder={`${
+                        formik?.values?.city ? "" : "Wants to Visit"
+                      }`}
+                    />
                   )}
                 />
               </div>
