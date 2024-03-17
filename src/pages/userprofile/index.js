@@ -21,9 +21,11 @@ import Join from "../../component/Joinmodal";
 function Index() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const otherUserData = useSelector((state) => state?.Auth?.otherUserDetails);
-  const userData = useSelector((state) => state?.Auth?.userProfile);
-  let authToken = typeof localStorage !== "undefined" && localStorage.getItem("authToken");
+  // const userData = useSelector((state) => state?.Auth?.otherUserDetails);
+  const userData = useSelector((state) => state?.Auth?.otherUserDetails);
+  let authToken = typeof localStorage !== 'undefined' && localStorage.getItem("authToken")
+
+  console.log('userData', userData)
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -44,7 +46,7 @@ function Index() {
     );
   };
 
-  const getOneProfile = () => {
+  const getOneProfile = () => { 
     getNoAuth(`/user/getOneUser?id=${router.query.id}`, "GET_OTHER_USER_PROFILE", dispatch);
   }
 
@@ -81,6 +83,7 @@ function Index() {
     }
   }, [router.query]);
 
+  
   return (
     <>
       <section class="bg-transparent">
@@ -99,7 +102,7 @@ function Index() {
                     dynamicHeight={false}
                     showStatus={false}
                   >
-                    {otherUserData?.image?.map((image, index) => (
+                    {userData?.image?.map((image, index) => (
                       <div key={index}>
                         <img
                           className="rounded-xl object-cover"
@@ -186,10 +189,10 @@ function Index() {
               </div>
               <div className="text-dark m-auto  py-4 md:mt-14  md:px-10  w-full  lg:w-[60%] xl:w-[60%] flex flex-col items-start ">
                 <h1 className="text-2xl md:text-4xl font-semibold capitalize">
-                  {otherUserData?.name}
+                  {userData?.name}
                 </h1>
                 <p className="font-medium text-xl py-2 hidden  md:block capitalize">
-                  {otherUserData?.age} Year | {otherUserData?.gender}
+                  {userData?.age} Year | {userData?.gender}
                 </p>
                 <div className="flex items-center py-2 md:py-4 gap-4 text-secondary1 text-[12px]">
                   <div className="flex items-center text-primary gap-2  ">
@@ -205,18 +208,18 @@ function Index() {
                         fill="#F4425A"
                       />
                     </svg>
-                    {otherUserData?.country}
+                    {userData?.country}
                   </div>
                   {/* Active about 3 hours ago */}
                 </div>
                 <div className="hidden md:flex items-center gap-3">
-                  <Iconstartbutton text={`Chat With ${otherUserData?.name}`} />
+                  <Iconstartbutton text={`Chat With ${userData?.name}`} />
                   <button
                     className="px-[32px] py-[16px] bg-primary  bg-opacity-[13%] text-primary rounded-full flex items-center gap-2 font-semibold"
                     style={{ whiteSpace: "nowrap" }}
                     onClick={() => {
-                      if (authToken && otherUserData?.isFavourite === 0) {
-                        handleAddFavouriteProfile(otherUserData._id)
+                      if (authToken && userData?.favourite === 0) {
+                        handleAddFavouriteProfile(userData._id)
                       }
                       else {
                         if (!authToken) {
@@ -225,7 +228,7 @@ function Index() {
                       }
                     }}
                   >
-                    {otherUserData?.isFavourite === 0 || !authToken ? (
+                    {userData?.isFavourite === 0 || !authToken ? (
                       <FaRegHeart />
                     ) : (
                       <FaHeart />
@@ -239,31 +242,31 @@ function Index() {
               <div>
                 <h1 className="py-3 text-base font-semibold">About Me</h1>
                 <div className="max-w-72 md:space-y-4 text-secondary1">
-                  <p className="text-sm">{otherUserData?.aboutUser}</p>
+                  <p className="text-sm">{userData?.aboutUser}</p>
                 </div>
               </div>
               <div className="pt-3">
                 <h1 className="text-base font-semibold">Other Details</h1>
                 <div className="flex gap-8 py-2">
                   <div className="text-secondary1 w-20">Country</div>
-                  <div className="font-medium">{otherUserData?.country}</div>
+                  <div className="font-medium">{userData?.country}</div>
                 </div>
                 <div className="flex gap-8 py-2">
                   <div className="text-secondary1 w-20">City</div>
                   <div className="font-medium">
                     {" "}
-                    {otherUserData?.city?.join(", ")}
+                    {userData?.city?.join(", ")}
                   </div>
                 </div>
                 <div className="flex gap-8 py-2">
                   <div className="text-secondary1 w-20">Languages</div>
                   <div className="font-medium">
-                    {otherUserData?.language?.join(", ")}
+                    {userData?.language?.join(", ")}
                   </div>
                 </div>
                 <div className="flex gap-8 py-2">
                   <div className="text-secondary1 w-20">Body type</div>
-                  <div className="font-medium">{otherUserData?.bodyType}</div>
+                  <div className="font-medium">{userData?.bodyType}</div>
                 </div>
               </div>
             </div>

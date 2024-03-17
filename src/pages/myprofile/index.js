@@ -13,7 +13,10 @@ function Index() {
     const userData = useSelector((state) => state?.Auth?.userProfile)
 
     const [tab, setTab] = useState("profile")
-    const handleTabChange = (e) => { setTab(e) }
+
+    const handleTabChange = (e) => { 
+        setTab(e) 
+    }
 
     const formik = useFormik({
         initialValues: {
@@ -61,7 +64,7 @@ function Index() {
     return (
         <div>
             <Sidebar>
-                <div className='lg:mx-20 mx-5 mt-10 lg:mt-0'>
+                <div className='lg:mx-20 mx-5 mt-10 lg:mt-0 pb-32'>
                     <div >
                         <div className='flex gap-4 w-full justify-center sm:justify-start '>
                             <div className='w-max'>

@@ -18,7 +18,8 @@ function Filter(props) {
                 id="first"
                 type="radio"
                 name="gender"
-                value="male"
+                defaultChecked={values.gender === "male"}
+                defaultValue="male"
                 onChange={handleChange}
                 className="h-4 w-4 border-gray-300 focus:ring-2 focus:ring-blue-300"
               />
@@ -34,7 +35,8 @@ function Filter(props) {
                 id="second"
                 type="radio"
                 name="gender"
-                value="female"
+                defaultValue="female"
+                defaultChecked={values.gender === "female"}
                 onChange={handleChange}
                 className="h-4 w-4 border-gray-300 focus:ring-2 focus:ring-blue-300"
               />
@@ -45,7 +47,8 @@ function Filter(props) {
                 Female
               </label>
             </div>
-
+            
+            
           </div>
 
           <div className="hidden md:block">

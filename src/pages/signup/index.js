@@ -9,13 +9,24 @@ import { useDispatch } from "react-redux";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { GoogleLogin } from "@react-oauth/google";
+import Modal from "@/component/Modal/Modal";
+import { MdClose } from "react-icons/md";
 
 function Index() {
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const [email, setEmail] = useState(null)
   const [showPassword, setShowPassword] = useState(false);
+  const [open, setOpen] = useState(false);
+
+
+  const handleClose = () => {
+    setOpen(false)
+    formik.resetForm()
+  }
+
 
   const handleSubmit = async (values, setErrors) => {
     try {
@@ -32,11 +43,12 @@ function Index() {
       if (response?.status === 200) {
         setLoading(false);
         showToast(response.message, { type: "success" });
-        formik.resetForm();
-        router.push("/");
+        setEmail(values?.email)
+        setOpen(true)
         setErrors({});
       }
     } catch (error) {
+      console.log('error', error)
       showToast(error?.response?.data?.message, { type: "error" });
       setLoading(false);
       setErrors({});
@@ -248,6 +260,21 @@ function Index() {
           </div>
         </div>
       </section>
+      <Modal isOpen={open} onClose={handleClose}>
+        <MdClose className='absolute right-5 top-5 cursor-pointer' onClick={handleClose} />
+        <div className='flex flex-col justify-center items-center pt-5 px-3 '>
+          <h1 className='font-extrabold text-2xl'>Please check your email!</h1>
+          <div className='pt-[35px] text-center'>
+            An activation email has been sent to:
+            {" "}{email}
+          </div>
+          <p className='text-xs text-center pt-5'>
+            Note! if you experience any deley in receiving your
+            activation email, please check your spam of junk mail
+            folder.
+          </p>
+        </div>
+      </Modal>
     </div>
   );
 }

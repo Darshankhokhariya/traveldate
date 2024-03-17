@@ -99,7 +99,7 @@ export const put = (url, data, actionType, dispatch, headers) => {
             // Dispatch the action with INIT type
             dispatch({ type: `${actionType}_INIT` });
 
-            const response = await axios.put(`${baseURL}${url}`, data);
+            const response = await axios.put(`${baseURL}${url}`, data,{ headers: headers.headers } );
 
             // Dispatch the action with SUCCESS type
             dispatch({
@@ -118,12 +118,13 @@ export const put = (url, data, actionType, dispatch, headers) => {
 };
 
 export const deleteapi = (url, data, actionType, dispatch, headers) => {
+    console.log('data', data)
     return new Promise(async (resolve, reject) => {
         try {
             // Dispatch the action with INIT type
             dispatch({ type: `${actionType}_INIT` });
 
-            const response = await axios.delete(`${baseURL}${url}`, data);
+            const response = await axios.delete(`${baseURL}${url}`, data,{ headers: headers.headers });
 
             // Dispatch the action with SUCCESS type
             dispatch({

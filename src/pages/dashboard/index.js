@@ -63,6 +63,23 @@ function Dashboard({ isPageLoading }) {
     };
   }, [searchValue])
 
+
+
+  const handleClearFilter = () => {
+    setSearchValue("")
+    setValues({
+      gender: "",
+      ageFrom: "",
+      ageTo: "",
+      bodyType: "",
+      country: "",
+      city: "",
+      language: "",
+    })
+  }
+
+
+
   return (
     <>
       <Sidebar>
@@ -79,6 +96,7 @@ function Dashboard({ isPageLoading }) {
                   page="dashboard"
                   onChange={handleChangeSearch}
                   searchValue={searchValue}
+                  handleClearFilter={handleClearFilter}
                 />
                 {moreLessFilter && <Filter languageData={languageData} countries={countries} values={values} handleChange={handleChange} />}
                 {

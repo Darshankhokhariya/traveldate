@@ -472,9 +472,9 @@ function UserProfile({ userData }) {
           </div>
         </div>
         <div className="flex items-center gap-4 justify-center sm:justify-end pb-28">
-          <div className="text-primary underline text-nowrap font-semibold cursor-pointer">
+          {/* <div className="text-primary underline text-nowrap font-semibold cursor-pointer">
             Change Password?
-          </div>
+          </div> */}
           <div className="text-primary underline">
             <Secondarybutton text="Save Changes" />
           </div>

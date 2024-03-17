@@ -31,7 +31,7 @@ const Modal = (props) => {
           style={{ background: "rgba(0,0,0,.7)" }}
         >
           <div className="modal-container mx-3 md:mx-auto bg-white  w-full sm:max-w-lg  md:rounded-3xl rounded-2xl shadow-lg z-50 overflow-y-auto">
-            <div className="modal-content  text-left p-10">
+            <div className="modal-content  text-left p-10 relative">
               {props?.children}
             </div>
           </div>
