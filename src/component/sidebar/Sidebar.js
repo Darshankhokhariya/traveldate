@@ -13,7 +13,7 @@ function Sidebar(props) {
   const { toggleSearch } = props;
   const dispatch = useDispatch();
   const userData = useSelector((state) => state?.Auth?.userProfile);
-  let authToken = typeof localStorage !== 'undefined' && localStorage.getItem("authToken")
+  // const authToken = typeof localStorage !== 'undefined' && localStorage.getItem("authToken")
 
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -21,11 +21,11 @@ function Sidebar(props) {
 
   const handleClose = () => setOpen(false)
 
-  useEffect(() => {
-    if (authToken) {
-      get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (authToken) {
+  //     get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
+  //   }
+  // }, []);
 
   return (
     <>
@@ -44,7 +44,7 @@ function Sidebar(props) {
                 </li>
                 {Menu &&
                   Menu.map((e, index) => {
-                    const isActive = router.pathname === e.path || activeIndex === index;
+                    const isActive = router?.pathname === e.path || activeIndex === index;
                     let temp = false;
                     return (
                       <>
@@ -61,12 +61,12 @@ function Sidebar(props) {
                             : "text-secondary1 font-medium"
                             }`}
                           onClick={() => {
-                            if (!authToken) {
-                              setOpen(true)
-                            }
-                            else {
-                              router.push(e.path);
-                            }
+                            // if (!authToken) {
+                            //   setOpen(true)
+                            // }
+                            // else {
+                            router.push(e.path);
+                            // }
                           }}
                         >
                           <div
@@ -114,7 +114,7 @@ function Sidebar(props) {
               </ul>
             </div>
             {
-              authToken && (
+              true && (
                 <>
                   <div className="text-black pt-2 lg:pl-10 xl:pl-20 space-y-1 text-sm self-end absolute bottom-0 group">
                     <div className={`rounded-sm cursor-pointer py-6 ml-2 flex justify-start  group text-secondary1 font-medium hover:font-semibold`}>
@@ -163,12 +163,12 @@ function Sidebar(props) {
             aria-current="page"
             class="inline-flex flex-col items-center text-xs font-medium py-3 px-4 text-white flex-grow"
             onClick={() => {
-              if (!authToken) {
-                setOpen(true)
-              }
-              else {
-                router.push("/dashboard")
-              }
+              // if (!authToken) {
+              //   setOpen(true)
+              // }
+              // else {
+              router.push("/dashboard")
+              // }
             }}
           >
             <svg
@@ -181,11 +181,11 @@ function Sidebar(props) {
                 fill-rule="evenodd"
                 clip-rule="evenodd"
                 d="M5 7C5 5.89543 5.89543 5 7 5C8.10457 5 9 5.89543 9 7C9 8.10457 8.10457 9 7 9C5.89543 9 5 8.10457 5 7ZM5 17C5 15.8954 5.89543 15 7 15C8.10457 15 9 15.8954 9 17C9 18.1046 8.10457 19 7 19C5.89543 19 5 18.1046 5 17Z"
-                fill={router.pathname === "/dashboard" ? "#F4425A" : "#8c8c8c"}
+                fill={router?.pathname === "/dashboard" ? "#F4425A" : "#8c8c8c"}
               />
               <path
                 d="M2 22C2 17.5817 5.58172 14 10 14C14.4183 14 18 17.5817 18 22H2ZM10 13C6.685 13 4 10.315 4 7C4 3.685 6.685 1 10 1C13.315 1 16 3.685 16 7C16 10.315 13.315 13 10 13ZM17.3628 15.2332C20.4482 16.0217 22.7679 18.7235 22.9836 22H20C20 19.3902 19.0002 17.0139 17.3628 15.2332ZM15.3401 12.9569C16.9728 11.4922 18 9.36607 18 7C18 5.58266 17.6314 4.25141 16.9849 3.09687C19.2753 3.55397 21 5.57465 21 8C21 10.7625 18.7625 13 16 13C15.7763 13 15.556 12.9853 15.3401 12.9569Z"
-                fill={router.pathname === "/dashboard" ? "#F4425A" : "#8c8c8c"}
+                fill={router?.pathname === "/dashboard" ? "#F4425A" : "#8c8c8c"}
               />
             </svg>
             <span class="sr-only">Home</span>
@@ -193,12 +193,12 @@ function Sidebar(props) {
           <div
             class="inline-flex flex-col items-center text-xs font-medium text-blue-400 py-3 px-4 flex-grow"
             onClick={() => {
-              if (!authToken) {
-                setOpen(true)
-              }
-              else {
-                router.push("/favorite");
-              }
+              // if (!authToken) {
+              //   setOpen(true)
+              // }
+              // else {
+              router.push("/favorite");
+              // }
             }}
           >
             <svg
@@ -209,7 +209,7 @@ function Sidebar(props) {
               className=""
               xmlns="http://www.w3.org/2000/svg"
             >
-              {router.pathname === "/favorite" ? (
+              {router?.pathname === "/favorite" ? (
                 <path
                   d="M18.2423 1.71125C20.5049 3.91912 20.5826 7.43663 18.4783 9.73081L9.99971 18L1.52135 9.73081C-0.582941 7.43663 -0.504282 3.91356 1.75733 1.71125C3.51538 -0.000717384 6.09303 -0.42817 8.26034 0.428887L4.34307 4.24408L5.75725 5.62118L9.99981 1.48986L9.98701 1.47639C9.99161 1.48039 9.99621 1.48441 10.0008 1.48843C12.3498 -0.564779 15.9797 -0.496615 18.2423 1.71125Z"
                   fill="#F4425A"
@@ -243,12 +243,12 @@ function Sidebar(props) {
           <div
             class="inline-flex flex-col items-center text-xs font-medium text-blue-400 py-3 px-4 flex-grow"
             onClick={() => {
-              if (!authToken) {
-                setOpen(true)
-              }
-              else {
-                router.push("/visitors");
-              }
+              // if (!authToken) {
+              //   setOpen(true)
+              // }
+              // else {
+              router.push("/visitors");
+              // }
             }}
           >
             <svg
@@ -258,7 +258,7 @@ function Sidebar(props) {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              {router.pathname === "/visitors" ? (
+              {router?.pathname === "/visitors" ? (
                 <path
                   d="M13 0L18 5V19.0082C18 19.556 17.5551 20 17.0066 20H0.9934C0.44476 20 0 19.5447 0 19.0082V0.9918C0 0.44405 0.44495 0 0.9934 0H13ZM9 9.5C10.3807 9.5 11.5 8.3807 11.5 7C11.5 5.61929 10.3807 4.5 9 4.5C7.6193 4.5 6.5 5.61929 6.5 7C6.5 8.3807 7.6193 9.5 9 9.5ZM4.52746 15H13.4725C13.2238 12.75 11.3163 11 9 11C6.68372 11 4.77619 12.75 4.52746 15Z"
                   fill="#F4425A"
@@ -266,35 +266,34 @@ function Sidebar(props) {
               ) : (
                 <path
                   d="M12 2H2V18H16V6H12V2ZM0 0.9918C0 0.44405 0.44749 0 0.9985 0H13L17.9997 5L18 18.9925C18 19.5489 17.5551 20 17.0066 20H0.9934C0.44476 20 0 19.5447 0 19.0082V0.9918ZM9 9.5C7.6193 9.5 6.5 8.3807 6.5 7C6.5 5.61929 7.6193 4.5 9 4.5C10.3807 4.5 11.5 5.61929 11.5 7C11.5 8.3807 10.3807 9.5 9 9.5ZM4.52746 15C4.77619 12.75 6.68372 11 9 11C11.3163 11 13.2238 12.75 13.4725 15H4.52746Z"
-                  fill={router.pathname === "/visitors" ? "#F4425A" : "#8c8c8c"}
+                  fill={router?.pathname === "/visitors" ? "#F4425A" : "#8c8c8c"}
                 />
               )}
             </svg>
-
             <span class="sr-only">Search</span>
           </div>
           <div
             class="inline-flex flex-col items-center text-xs font-medium text-blue-400 py-3 px-4 flex-grow"
             onClick={() => {
-              if (!authToken) {
-                setOpen(true)
-              }
-              else {
-                router.push("/myprofile");
-              }
+              // if (!authToken) {
+              //   setOpen(true)
+              // }
+              // else {
+              router.push("/myprofile");
+              // }
             }}
           >
             <svg
               width="16"
               height="21"
               viewBox="0 0 16 21"
-              fill={router.pathname === "/myprofile" ? "#F4425A" : "#1B1C31"}
+              fill={router?.pathname === "/myprofile" ? "#F4425A" : "#1B1C31"}
               className="#F4425A"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 d="M0 21C0 16.5817 3.58172 13 8 13C12.4183 13 16 16.5817 16 21H14C14 17.6863 11.3137 15 8 15C4.68629 15 2 17.6863 2 21H0ZM8 12C4.685 12 2 9.315 2 6C2 2.685 4.685 0 8 0C11.315 0 14 2.685 14 6C14 9.315 11.315 12 8 12ZM8 10C10.21 10 12 8.21 12 6C12 3.79 10.21 2 8 2C5.79 2 4 3.79 4 6C4 8.21 5.79 10 8 10Z"
-                fill={router.pathname === "/myprofile" ? "#F4425A" : "#8c8c8c"}
+                fill={router?.pathname === "/myprofile" ? "#F4425A" : "#8c8c8c"}
               />
             </svg>
 
