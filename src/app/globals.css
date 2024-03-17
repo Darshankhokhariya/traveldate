@@ -294,10 +294,17 @@ body {
 
 .carousel .thumb {
   border-radius: 18px;
-} 
+}
 
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 1024px) {
+
+  .carousel .slide img {
+    /* width: 300px !important; */
+    aspect-ratio: 1/1 !important;
+    object-fit: cover !important;
+    border: 2px solid black;
+  }
 
   .carousel .thumb {
     width: 80px !important;
@@ -305,13 +312,14 @@ body {
   }
 
 
-  .carousel .thumb img{
+  .carousel .thumb img {
     width: 100% !important;
     height: 100% !important;
   }
 
 
 }
+
 /* 
 @media screen and (max-width: 380px) {
   .carousel {
@@ -324,40 +332,22 @@ body {
 } */
 
 
-@media only screen and (min-width: 1024px) and (max-width :1240){
-
-.carousel {
-  width: 400px !important;
-  height: 400px !important;
-}
-.carousel img{
- object-fit: cover !important;
-}
-.carousel .thumb {
-  width: 100px !important;
-  height: 100px !important;
-}
-.carousel .thumb img{
-  width: 100% !important;
-  height: 100% !important;
-}
-}
-
-@media only screen and (min-width: 1244px) and (max-width :1240){
-
-  .carousel {
-    width: 400px !important;
-    height: 400px !important;
+@media screen and (min-width: 1024px) {
+  .carousel .slide img {
+    width: 300px !important;
+    aspect-ratio: 1/1 !important;
+    object-fit: cover !important;
+    border: 2px solid black;
   }
-  .carousel img{
-   object-fit: cover !important;
-  }
+
   .carousel .thumb {
     width: 100px !important;
     height: 100px !important;
   }
-  .carousel .thumb img{
+
+  .carousel .thumb img {
     width: 100% !important;
     height: 100% !important;
   }
-  }
+
+}

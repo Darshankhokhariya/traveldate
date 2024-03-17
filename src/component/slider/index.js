@@ -7,6 +7,7 @@ import Primarybutton from "../Buttons/Primarybutton";
 import Iconbutton from "../Buttons/Iconbutton";
 import heart from "../../assets/Heart.png";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, FreeMode } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/autoplay";
@@ -139,15 +140,15 @@ function Slider() {
             </div>
           </div>
 
-          <div className="block md:hidden py-6 px-2">
+          <div className="block lg:hidden py-6 px-2  md:px-10">
             <Swiper
               className=""
               spaceBetween={0}
               slidesPerView={5}
-              // modules={[FreeMode, Autoplay]}
+              modules={[FreeMode, Autoplay]}
               loop={true}
               autoplay={{
-                delay: 2500,
+                delay: 1000,
                 disableOnInteraction: false,
               }}
               // onSlideChange={() => console.log("slide change")}
@@ -167,7 +168,7 @@ function Slider() {
                 },
                 768: {
                   slidesPerView: 3,
-                  spaceBetween: 15,
+                  spaceBetween: 5,
                 },
                 1024: {
                   slidesPerView: 4,
@@ -180,7 +181,7 @@ function Slider() {
               }}
             >
               <SwiperSlide>
-                <div>
+                <div className="">
                   <img
                     src="/images1/icons/icon3.png"
                     className="h-[80px] w-[80px] object-cover"
