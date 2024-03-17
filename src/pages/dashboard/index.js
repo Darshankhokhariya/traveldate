@@ -9,19 +9,16 @@ import { get } from "@/redux/services/apiServices";
 import { debounce } from "lodash";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import search from "../../assets/search.png";
 
 function Dashboard({ isPageLoading }) {
   const dispatch = useDispatch()
   const recentUser = useSelector((state) => state?.Auth?.recentUserDetails);
   const languageData = useSelector((state) => state?.Auth?.languageList);
   const countries = useSelector((state) => state?.Auth?.countryList);
-  const userData = useSelector((state) => state?.Auth?.userProfile);
   const loading = useSelector((state) => state?.Auth?.loading)
 
   const [moreLessFilter, SetMoreLessFilter] = useState(false)
   const [searchValue, setSearchValue] = useState("")
-  // const cities = useSelector((state) => state?.Auth?.cityList);
   const [values, setValues] = useState({
     gender: "",
     ageFrom: "",
@@ -32,18 +29,9 @@ function Dashboard({ isPageLoading }) {
     language: "",
   })
 
-
-
   const handleSearch = (searchValue, values) => {
     get(`/user/getRecentUser?name=${searchValue}&gender=${values?.gender}&ageFrom=${values?.ageFrom}&ageTo=${values?.ageTo}&bodyType=${values?.bodyType}&country=${values?.country}&city=${values?.city}&language=${values?.language}&page=1&limit=3&sort=`, "GET_RECENT_USER", dispatch, HEADERS);
   }
-
-  useEffect(() => {
-    get("/country/getCountry", "GET_COUNTRY", dispatch, HEADERS);
-    get(`/language/getLanguage`, "GET_LANGUAGE", dispatch, HEADERS);
-  }, [])
-
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,14 +45,16 @@ function Dashboard({ isPageLoading }) {
     });
   };
 
-  const handleChangeSearch = (e) => {
-    setSearchValue(e.target.value)
-  }
+  const handleChangeSearch = (e) => { setSearchValue(e.target.value) }
 
   const searchDebounced = debounce((value) => {
     handleSearch(value, values);
   }, 2000);
 
+  useEffect(() => {
+    get("/country/getCountry", "GET_COUNTRY", dispatch, HEADERS);
+    get(`/language/getLanguage`, "GET_LANGUAGE", dispatch, HEADERS);
+  }, [])
 
   useEffect(() => {
     searchDebounced(searchValue)
@@ -72,9 +62,6 @@ function Dashboard({ isPageLoading }) {
       searchDebounced.cancel();
     };
   }, [searchValue])
-
-
-
 
   return (
     <>

@@ -8,17 +8,12 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as Yup from "yup";
 
-
 function Index() {
     const dispatch = useDispatch()
     const userData = useSelector((state) => state?.Auth?.userProfile)
 
     const [tab, setTab] = useState("profile")
-
-    const handleTabChange = (e) => { 
-        console.log('e+++++', e)
-        setTab(e) 
-    }
+    const handleTabChange = (e) => { setTab(e) }
 
     const formik = useFormik({
         initialValues: {

@@ -6,22 +6,19 @@ import Sidebar from "@/component/sidebar/Sidebar";
 import { HEADERS } from "@/constant/authorization";
 import { get } from "@/redux/services/apiServices";
 import { debounce } from "lodash";
-import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 function Index({ isPageLoading }) {
+  const router = useRouter();
+
   const dispatch = useDispatch();
   const visitor = useSelector((state) => state?.Auth?.visitorDetails);
-  const userData = useSelector((state) => state?.Auth?.userProfile);
 
   const [viewSearch, setViewSearch] = useState(false);
   const [moreLessFilter, SetMoreLessFilter] = useState(false);
   const [searchValue, setSearchValue] = useState("");
-
-  const toggleSearch = () => {
-    setViewSearch(!viewSearch);
-  };
 
   const handleSearch = () => {
     get(

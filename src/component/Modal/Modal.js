@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 const Modal = (props) => {
   const { isOpen, onClose } = props;
+
   // Close modal when clicking outside the modal content
   useEffect(() => {
     const handleOutsideClick = (event) => {

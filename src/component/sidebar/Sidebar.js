@@ -2,22 +2,26 @@ import React, { useEffect, useState } from "react";
 import Menu from "../sidebar/Menu";
 import { useRouter } from "next/router";
 import "./sidebar.css";
-import Link from "next/link";
 import Mobilenav from "../navbar/Mobilenav";
 import { useDispatch, useSelector } from "react-redux";
 import { get } from "@/redux/services/apiServices";
 import { HEADERS } from "@/constant/authorization";
-import { IoLogOutOutline, IoLogOut } from "react-icons/io5";
+import { IoLogOutOutline } from "react-icons/io5";
+import Join from "../../component/Joinmodal";
 
 function Sidebar(props) {
   const { toggleSearch } = props;
   const dispatch = useDispatch();
   const userData = useSelector((state) => state?.Auth?.userProfile);
+  let authToken = typeof localStorage !== 'undefined' && localStorage.getItem("authToken")
+
   const router = useRouter();
+  const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(null);
 
+  const handleClose = () => setOpen(false)
+
   useEffect(() => {
-    let authToken = localStorage.getItem("authToken");
     if (authToken) {
       get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
     }
@@ -25,7 +29,7 @@ function Sidebar(props) {
 
   return (
     <>
-      <div className="hidden lg:flex  w-full h-screen ">
+      <div className="hidden lg:flex w-full h-screen">
         <div className="bg-white fixed h-screen  z-10 animate__animated animate__fadeInLeft  top-0 text-white shadow  lg:w-[20%]  px-4 ">
           <div className="space-y-3 relative h-full">
             <div className="flex-1 ">
@@ -40,8 +44,7 @@ function Sidebar(props) {
                 </li>
                 {Menu &&
                   Menu.map((e, index) => {
-                    const isActive =
-                      router.pathname === e.path || activeIndex === index;
+                    const isActive = router.pathname === e.path || activeIndex === index;
                     let temp = false;
                     return (
                       <>
@@ -53,19 +56,22 @@ function Sidebar(props) {
                             setActiveIndex(false);
                           }}
                           key={index}
-                          className={`rounded-sm cursor-pointer py-6 ml-2 flex justify-start group ${
-                            isActive
-                              ? "text-primary font-semibold"
-                              : "text-secondary1 font-medium"
-                          }`}
+                          className={`rounded-sm cursor-pointer py-6 ml-2 flex justify-start group ${isActive
+                            ? "text-primary font-semibold"
+                            : "text-secondary1 font-medium"
+                            }`}
                           onClick={() => {
-                            router.push(e.path);
+                            if (!authToken) {
+                              setOpen(true)
+                            }
+                            else {
+                              router.push(e.path);
+                            }
                           }}
                         >
                           <div
-                            className={`flex items-center space-x-3  hover:border-l-2  border-primary px-3  ${
-                              isActive ? "border-l-2  border-primary" : ""
-                            }`}
+                            className={`flex items-center space-x-3  hover:border-l-2  border-primary px-3  ${isActive ? "border-l-2  border-primary" : ""
+                              }`}
                           >
                             <div className=" group-hover:text-red-500">
                               {e.icon(isActive, temp)}
@@ -107,23 +113,26 @@ function Sidebar(props) {
                 </li> */}
               </ul>
             </div>
-            <div className="text-black pt-2 lg:pl-10 xl:pl-20 space-y-1 text-sm self-end absolute bottom-0 group">
-              <div
-                className={`rounded-sm cursor-pointer py-6 ml-2 flex justify-start  group text-secondary1 font-medium hover:font-semibold`}
-              >
-                <div
-                  className={`flex items-center space-x-3 px-3 group-hover:border-l-2  border-primary group-hover:text-primary`}
-                >
-                  <div className=" group-hover:text-red-500">
-                    <IoLogOutOutline className="w-7 h-9" />
+            {
+              authToken && (
+                <>
+                  <div className="text-black pt-2 lg:pl-10 xl:pl-20 space-y-1 text-sm self-end absolute bottom-0 group">
+                    <div className={`rounded-sm cursor-pointer py-6 ml-2 flex justify-start  group text-secondary1 font-medium hover:font-semibold`}>
+                      <div
+                        className={`flex items-center space-x-3 px-3 group-hover:border-l-2  border-primary group-hover:text-primary`}
+                      >
+                        <div className=" group-hover:text-red-500">
+                          <IoLogOutOutline className="w-7 h-9" />
+                        </div>
+                        <span className="text-[14px]  group-hover:text-red-500  group-hover:font-semibold">
+                          Logout
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <span className="text-[14px]  group-hover:text-red-500  group-hover:font-semibold">
-                    Logout
-                  </span>
-                  {/* Logout */}
-                </div>
-              </div>
-            </div>
+                </>
+              )
+            }
           </div>
         </div>
         <div className="w-[80%] ml-auto text-black">
@@ -150,10 +159,17 @@ function Sidebar(props) {
           {props.children}
         </div>
         <div class="fixed bottom-0 left-1/2 transform -translate-x-1/2 inline-flex items-center mx-auto justify-between bg-white  w-full h-[60px] z-30">
-          <Link
+          <div
             aria-current="page"
             class="inline-flex flex-col items-center text-xs font-medium py-3 px-4 text-white flex-grow"
-            href="/dashboard"
+            onClick={() => {
+              if (!authToken) {
+                setOpen(true)
+              }
+              else {
+                router.push("/dashboard")
+              }
+            }}
           >
             <svg
               width="24"
@@ -172,12 +188,18 @@ function Sidebar(props) {
                 fill={router.pathname === "/dashboard" ? "#F4425A" : "#8c8c8c"}
               />
             </svg>
-
             <span class="sr-only">Home</span>
-          </Link>
-          <Link
+          </div>
+          <div
             class="inline-flex flex-col items-center text-xs font-medium text-blue-400 py-3 px-4 flex-grow"
-            href="/favorite"
+            onClick={() => {
+              if (!authToken) {
+                setOpen(true)
+              }
+              else {
+                router.push("/favorite");
+              }
+            }}
           >
             <svg
               width="20"
@@ -199,7 +221,7 @@ function Sidebar(props) {
                 />
               )}
             </svg>
-          </Link>
+          </div>
           <span class="sr-only">Upload</span>
           <button class="relative inline-flex flex-col items-center text-xs font-medium text-white bg-transparent py-3 px-6 flex-grow">
             <div class="absolute bottom-0 p-3 rounded-full border-[20px] border-white bg-primary">
@@ -218,9 +240,16 @@ function Sidebar(props) {
             </div>
             <span class="sr-only">Chat</span>
           </button>
-          <Link
+          <div
             class="inline-flex flex-col items-center text-xs font-medium text-blue-400 py-3 px-4 flex-grow"
-            href="/visitors"
+            onClick={() => {
+              if (!authToken) {
+                setOpen(true)
+              }
+              else {
+                router.push("/visitors");
+              }
+            }}
           >
             <svg
               width="18"
@@ -243,10 +272,17 @@ function Sidebar(props) {
             </svg>
 
             <span class="sr-only">Search</span>
-          </Link>
-          <Link
+          </div>
+          <div
             class="inline-flex flex-col items-center text-xs font-medium text-blue-400 py-3 px-4 flex-grow"
-            href="/myprofile"
+            onClick={() => {
+              if (!authToken) {
+                setOpen(true)
+              }
+              else {
+                router.push("/myprofile");
+              }
+            }}
           >
             <svg
               width="16"
@@ -263,9 +299,10 @@ function Sidebar(props) {
             </svg>
 
             <span class="sr-only">Profile</span>
-          </Link>
+          </div>
         </div>
       </div>
+      <Join isOpen={open} onClose={handleClose} />
     </>
   );
 }

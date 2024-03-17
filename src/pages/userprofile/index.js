@@ -23,27 +23,17 @@ function Index() {
   const dispatch = useDispatch();
   const otherUserData = useSelector((state) => state?.Auth?.otherUserDetails);
   const userData = useSelector((state) => state?.Auth?.userProfile);
-  let authToken =
-    typeof localStorage !== "undefined" && localStorage.getItem("authToken");
+  let authToken = typeof localStorage !== "undefined" && localStorage.getItem("authToken");
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const handleOnChange = (index) => {
-    setCurrentSlide(index);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handlePrevClick = () => {
-    setCurrentIndex(currentIndex - 1);
-  };
-  const handleNextClick = () => {
-    setCurrentIndex(currentIndex + 1);
-  };
+  const handleOnChange = (index) => { setCurrentSlide(index) };
+  const handleClose = () => { setOpen(false) }
+  const handlePrevClick = () => { setCurrentIndex(currentIndex - 1); };
+  const handleNextClick = () => { setCurrentIndex(currentIndex + 1) };
 
   const getSingleProfile = () => {
     get(
@@ -55,13 +45,8 @@ function Index() {
   };
 
   const getOneProfile = () => {
-    console.log("enter");
-    getNoAuth(
-      `/user/getOneUser?id=${router.query.id}`,
-      "GET_OTHER_USER_PROFILE",
-      dispatch
-    );
-  };
+    getNoAuth(`/user/getOneUser?id=${router.query.id}`, "GET_OTHER_USER_PROFILE", dispatch);
+  }
 
   const handleAddFavouriteProfile = (profileId) => {
     let body = [{ profile_id: profileId }];
@@ -96,7 +81,6 @@ function Index() {
     }
   }, [router.query]);
 
-  console.log("otherUserData :>> 🕒🕒🕒🕒🕒", otherUserData);
   return (
     <>
       <section class="bg-transparent">
@@ -231,10 +215,13 @@ function Index() {
                     className="px-[32px] py-[16px] bg-primary  bg-opacity-[13%] text-primary rounded-full flex items-center gap-2 font-semibold"
                     style={{ whiteSpace: "nowrap" }}
                     onClick={() => {
-                      if (authToken && otherUserData?.favourite === 0) {
-                        handleAddFavouriteProfile(otherUserData._id);
-                      } else {
-                        setOpen(true);
+                      if (authToken && otherUserData?.isFavourite === 0) {
+                        handleAddFavouriteProfile(otherUserData._id)
+                      }
+                      else {
+                        if (!authToken) {
+                          setOpen(true)
+                        }
                       }
                     }}
                   >

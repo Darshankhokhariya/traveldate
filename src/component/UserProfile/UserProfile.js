@@ -314,7 +314,7 @@ function UserProfile({ userData }) {
         </div>
         <div className="hidden sm:block">
           <p className="text-3xl font-semibold">{userData?.name}</p>
-          <div className="flex items-center gap-2 mt-2 text-primary">
+          {/* <div className="flex items-center gap-2 mt-2 text-primary">
             <svg
               width="23"
               height="22"
@@ -328,7 +328,7 @@ function UserProfile({ userData }) {
               />
             </svg>
             <span className="font-semibold">Membership</span>
-          </div>
+          </div> */}
         </div>
       </div>
       <form onSubmit={formik.handleSubmit}>
