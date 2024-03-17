@@ -70,76 +70,69 @@ function Index({ isPageLoading }) {
                   />
                 </div>
                 <div className="container mx-auto md:px-3">
-                  {visitor && visitor.length > 0
-                    ? (
-                      visitor.map((e) => {
-                        return (
-                          <>
-                            <section
-                              id="Projects"
-                              class="grid xl:grid-cols-4 md:grid-cols-3 grid-cols-2 justify-items-center justify-center gap-x-5 md:gap-y-10  gap-4  mt-5 md:mt-10 mb-5"
-                            >
-                              <div class="shadow-md rounded-xl duration-500 bg-whites relative hover:scale-105 hover:shadow-xl">
-                                <div href="#">
-                                  <img
-                                    src={e?.image.length > 0 && e?.image?.[0].filename || "/images1/models/model2.png"}
-                                    alt="Product"
-                                    class="md:h-[250px] w-auto  object-cover rounded-t-2xl"
-                                  />
-                                  <div class="px-1 sm:px-4 md:px-4 py-3 w-auto ">
-                                    <div class="flex items-start w-full">
-                                      <div className="w-full">
-                                        <div className="flex items-center justify-between w-full ">
-                                          <p class="text-base md:text-lg font-bold truncate flex items-center gap-1 capitalize">
-                                            {e?.name || "Aasta Smith"}
-                                            <svg
-                                              width="7"
-                                              height="7"
-                                              viewBox="0 0 7 7"
-                                              fill="none"
-                                              xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                              <circle
-                                                cx="3.93652"
-                                                cy="3.13477"
-                                                r="3"
-                                                fill="#78F293"
-                                              />
-                                            </svg>
-                                          </p>
-                                          <div class="ml-auto  text-lg md:text-xl text-primary font-bold">
-                                            {e?.age || "24"}
-                                          </div>
-                                        </div>
-                                        <div className="flex items-center gap-1 text-secondary">
-                                          <img src="/icons/location.svg" alt="" />
-                                          <p class="text-sm  cursor-auto my-3">
-                                            {e?.country || "Rome, Italy 🇮🇹"}
-                                          </p>
-                                        </div>
-                                      </div>
+                  <div className="flex flex-wrap justify-start">
+                    {visitor && visitor.length > 0 ? (
+                      visitor.map((e, index) => (
+                        <section
+                          key={index}
+                          id="Projects"
+                          className="flex-shrink-0 shadow-md rounded-xl duration-500 bg-whites relative hover:scale-105 hover:shadow-xl mx-2 my-2"
+                        >
+                          <div href="#">
+                            <img
+                              src={
+                                e?.image.length > 0 && e?.image?.[0].filename
+                                  ? e?.image?.[0].filename
+                                  : "/images1/models/model2.png"
+                              }
+                              alt="Product"
+                              className="md:h-[250px] w-auto object-cover rounded-t-2xl"
+                            />
+                            <div className="px-1 sm:px-4 md:px-4 py-3 w-auto">
+                              <div className="flex items-start w-full">
+                                <div className="w-full">
+                                  <div className="flex items-center justify-between w-full">
+                                    <p className="text-base md:text-lg font-bold truncate flex items-center gap-1 capitalize">
+                                      {e?.name || "Aasta Smith"}
+                                      <svg
+                                        width="7"
+                                        height="7"
+                                        viewBox="0 0 7 7"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <circle cx="3.93652" cy="3.13477" r="3" fill="#78F293" />
+                                      </svg>
+                                    </p>
+                                    <div className="ml-auto text-lg md:text-xl text-primary font-bold">
+                                      {e?.age || "24"}
                                     </div>
                                   </div>
-                                </div>
-                                <div className="absolute top-3 left-3">
-                                  <div className="bg-[#78F293] bg-opacity-[73%] py-0.5 text-[12px] px-2 text-white rounded-md">
-                                    New
+                                  <div className="flex items-center gap-1 text-secondary">
+                                    <img src="/icons/location.svg" alt="" />
+                                    <p className="text-sm cursor-auto my-3">
+                                      {e?.country || "Rome, Italy 🇮🇹"}
+                                    </p>
                                   </div>
                                 </div>
                               </div>
-                            </section>
-                          </>
-                        );
-                      })
-                    )
-                    :
-                    (
+                            </div>
+                          </div>
+                          <div className="absolute top-3 left-3">
+                            <div className="bg-[#78F293] bg-opacity-[73%] py-0.5 text-[12px] px-2 text-white rounded-md">
+                              New
+                            </div>
+                          </div>
+                        </section>
+                      ))
+                    ) : (
                       <div className="flex h-[400px] justify-center">
                         <img className="" src="/images1/noData.png" />
                       </div>
-                    )
-                  }
+                    )}
+                  </div>
                 </div>
+
               </div>
             </>
         }

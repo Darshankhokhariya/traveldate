@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Iconstartbutton from "@/component/Buttons/Iconstartbutton";
 import Sidebar from "@/component/sidebar/Sidebar";
-import { get, post, postAuthToken } from "@/redux/services/apiServices";
+import { get, getNoAuth, post, postAuthToken } from "@/redux/services/apiServices";
 import { useDispatch, useSelector } from "react-redux";
 import { HEADERS } from "@/constant/authorization";
 import { Carousel } from "react-responsive-carousel";
@@ -11,22 +11,27 @@ import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import Loader from "@/component/Loader/Loader";
 import { showToast } from "@/constant/toast/toastUtils";
+import Join from "../../component/Joinmodal";
 
 function Index() {
   const router = useRouter();
-
   const dispatch = useDispatch();
   const otherUserData = useSelector((state) => state?.Auth?.otherUserDetails);
   const userData = useSelector((state) => state?.Auth?.userProfile);
-  const recentUserData = useSelector((state) => state?.Auth);
+  let authToken = typeof localStorage !== 'undefined' && localStorage.getItem("authToken")
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleOnChange = (index) => {
     setCurrentSlide(index);
   };
+  const handleClose = () => {
+    setOpen(false)
+  }
+
   const handlePrevClick = () => {
     setCurrentIndex(currentIndex - 1);
   };
@@ -39,7 +44,8 @@ function Index() {
   }
 
   const getOneProfile = () => {
-    get(`/user/getOneUser?id=${router.query.id}`, "GET_OTHER_USER_PROFILE", dispatch);
+    console.log("enter")
+    getNoAuth(`/user/getOneUser?id=${router.query.id}`, "GET_OTHER_USER_PROFILE", dispatch);
   }
 
   const handleAddFavouriteProfile = (profileId) => {
@@ -60,7 +66,6 @@ function Index() {
   };
 
   useEffect(() => {
-    let authToken = localStorage.getItem("authToken")
     if (router.query.id && router.query.page !== "Home" && authToken) {
       get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
       getSingleProfile()
@@ -70,6 +75,7 @@ function Index() {
     }
   }, [router.query])
 
+  console.log('otherUserData :>> 🕒🕒🕒🕒🕒', otherUserData);
   return (
     <>
       <section class="bg-transparent">
@@ -196,7 +202,7 @@ function Index() {
                     </svg>
                     {otherUserData?.country}
                   </div>
-                  Active about 3 hours ago
+                  {/* Active about 3 hours ago */}
                 </div>
                 <div className="hidden md:flex items-center gap-3">
                   <Iconstartbutton text={`Chat With ${otherUserData?.name}`} />
@@ -204,12 +210,15 @@ function Index() {
                     className="px-[32px] py-[16px] bg-primary  bg-opacity-[13%] text-primary rounded-full flex items-center gap-2 font-semibold"
                     style={{ whiteSpace: 'nowrap' }}
                     onClick={() => {
-                      if (otherUserData?.favourite === 0) {
+                      if (authToken && otherUserData?.favourite === 0) {
                         handleAddFavouriteProfile(otherUserData._id)
+                      }
+                      else {
+                        setOpen(true)
                       }
                     }}
                   >
-                    {otherUserData?.favourite === 0 ? (
+                    {otherUserData?.isFavourite === 0 || !authToken ? (
                       <FaRegHeart />
                     ) : (
                       <FaHeart />
@@ -287,6 +296,7 @@ function Index() {
             </div>
           </div>
         </Sidebar>
+        <Join isOpen={open} onClose={handleClose} />
       </section>
     </>
   );

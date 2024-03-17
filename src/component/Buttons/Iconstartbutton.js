@@ -13,6 +13,7 @@ function Iconstartbutton(props) {
   };
 
   const handleClose = () => { setOpen(false) };
+
   return (
     <>
       <button
@@ -34,7 +35,6 @@ function Iconstartbutton(props) {
         </svg>
         {text}{" "}
       </button>
-
       <Join isOpen={open} onClose={handleClose} />
     </>
   );

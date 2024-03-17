@@ -8,6 +8,28 @@ export const post = (url, data, actionType, dispatch) => {
         try {
             dispatch({ type: `${actionType}_INIT` });
 
+            const response = await axios.post(`${baseURL}${url}`, data);
+
+            dispatch({
+                type: `${actionType}_SUCCESS`,
+                payload: response.data,
+            });
+            resolve(response.data);
+        } catch (error) {
+            dispatch({
+                type: `${actionType}_FAIL`,
+                payload: error,
+            });
+            reject(error);
+        }
+    });
+};
+
+export const postAuthToken = (url, data, actionType, dispatch) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            dispatch({ type: `${actionType}_INIT` });
+
             const response = await axios.post(`${baseURL}${url}`, data, { headers: headers.headers });
 
             dispatch({
@@ -21,6 +43,28 @@ export const post = (url, data, actionType, dispatch) => {
                 payload: error,
             });
             reject(error);
+        }
+    });
+};
+
+export const getNoAuth = (url, actionType, dispatch, headers) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            // Dispatch the action with INIT type
+            dispatch({ type: `${actionType}_INIT` });
+            const response = await axios.get(`${baseURL}${url}`);
+            // Dispatch the action with SUCCESS type
+            dispatch({
+                type: `${actionType}_SUCCESS`,
+                payload: response.data,
+            });
+            resolve(response.data);
+        } catch (error) {
+            // Dispatch the action with FAIL type
+            dispatch({
+                type: `${actionType}_FAIL`,
+                payload: error.response,
+            });
         }
     });
 };
