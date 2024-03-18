@@ -76,7 +76,7 @@ function Index({ isPageLoading }) {
                   />
                 </div>
                 <div className=" mx-auto md:px-3">
-                  <div className="flex flex-wrap justify-start">
+                  <div className="grid grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2">
                     {visitor && visitor.length > 0 ? (
                       visitor.map((e, index) => (
                         <>

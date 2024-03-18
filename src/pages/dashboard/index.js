@@ -31,18 +31,10 @@ function Dashboard({ isPageLoading }) {
     language: "",
   })
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      if (localStorage.authToken) {
-        setToken(localStorage.authToken);
-      }
-    }
-  }, []);
+  const handleChangeSearch = (e) => { setSearchValue(e.target.value) }
 
   const handleSearch = (searchValue, values) => {
-    if (token) {
-      get(`/user/getRecentUser?name=${searchValue}&gender=${values?.gender}&ageFrom=${values?.ageFrom}&ageTo=${values?.ageTo}&bodyType=${values?.bodyType}&country=${values?.country}&city=${values?.city}&language=${values?.language}&page=1&limit=3&sort=`, "GET_RECENT_USER", dispatch, HEADERS);
-    }
+    get(`/user/getRecentUser?name=${searchValue || ""}&gender=${values?.gender || ""}&ageFrom=${values?.ageFrom || ""}&ageTo=${values?.ageTo || ""}&bodyType=${values?.bodyType || ""}&country=${values?.country || ""}&city=${values?.city || ""}&language=${values?.language || ""}&page=1&limit=3&sort=-1`, "GET_RECENT_USER", dispatch, HEADERS);
   }
 
   const handleChange = (e) => {
@@ -56,8 +48,6 @@ function Dashboard({ isPageLoading }) {
       [name]: value
     });
   };
-
-  const handleChangeSearch = (e) => { setSearchValue(e.target.value) }
 
   const searchDebounced = debounce((value) => {
     handleSearch(value, values);
@@ -74,7 +64,16 @@ function Dashboard({ isPageLoading }) {
       city: "",
       language: "",
     })
+    handleSearch("", "")
   }
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (localStorage.authToken) {
+        setToken(localStorage.authToken);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     if (token) {
