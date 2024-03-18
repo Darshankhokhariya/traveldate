@@ -11,9 +11,23 @@ import Join from "../../component/Joinmodal";
 
 function Sidebar(props) {
   const { toggleSearch } = props;
+  const [token, setToken] = useState(false);
   const dispatch = useDispatch();
   const userData = useSelector((state) => state?.Auth?.userProfile);
-  let authToken = typeof localStorage !== "undefined" && localStorage.getItem("authToken")
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (localStorage.authToken) {
+        setToken(localStorage.authToken);
+      }
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage?.removeItem("authToken")
+    localStorage?.removeItem("refreshToken")
+    router.push("/")
+  }
 
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -21,18 +35,18 @@ function Sidebar(props) {
 
   const handleClose = () => setOpen(false)
 
-  useEffect(() => {
-    if (authToken) {
-      get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (authToken) {
+  //     get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
+  //   }
+  // }, []);
 
   return (
     <>
       <div className="hidden lg:flex w-full h-screen">
-        <div className="bg-white fixed h-screen  z-10 animate__animated animate__fadeInLeft  top-0 text-white shadow  lg:w-[20%]  px-4">
+        <div className="bg-white fixed h-screen  z-10 animate__animated animate__fadeInLeft  top-0 text-white shadow  lg:w-[20%]  px-4 ">
           <div className="space-y-3 relative h-full">
-            <div className="flex-1">
+            <div className="flex-1 ">
               <ul className="pt-2 pb-4 lg:pl-10 xl:pl-20 space-y-1 text-sm">
                 <li className="rounded-sm  flex justify-center py-8">
                   <img
@@ -61,13 +75,14 @@ function Sidebar(props) {
                             : "text-secondary1 font-medium"
                             }`}
                           onClick={() => {
-                            if (!authToken) {
+                            if (!token) {
                               setOpen(true)
                             }
                             else {
                               router.push(e.path);
                             }
-                          }}
+                          }
+                          }
                         >
                           <div
                             className={`flex items-center space-x-3  hover:border-l-2  border-primary px-3  ${isActive ? "border-l-2  border-primary" : ""
@@ -84,12 +99,39 @@ function Sidebar(props) {
                       </>
                     );
                   })}
+
+                {/* <li
+                  className="rounded-sm cursor-pointer  mt-auto flex justify-start group "
+                  onClick={() => {
+                    router.push(e.path);
+                  }}
+                >
+                  <div className="flex items-center space-x-3 rounded-md">
+                    <div className="text-black group-hover:text-red-500">
+                      <svg
+                        width="23"
+                        height="24"
+                        viewBox="0 0 23 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M4 22C3.44772 22 3 21.5523 3 21V3C3 2.44772 3.44772 2 4 2H18C18.5523 2 19 2.44772 19 3V6H17V4H5V20H17V18H19V21C19 21.5523 18.5523 22 18 22H4ZM17 16V13H10V11H17V8L22 12L17 16Z"
+                          fill="#8C8C92"
+                        />
+                      </svg>
+                    </div>
+                    <span className="text-[12px] text-black group-hover:text-red-500">
+                      Logout
+                    </span>
+                  </div>
+                </li> */}
               </ul>
             </div>
             {
-              authToken && (
+              true && (
                 <>
-                  <div className="text-black pt-2 lg:pl-10 xl:pl-20 space-y-1 text-sm self-end absolute bottom-0 group">
+                  <div onClick={handleLogout} className="text-black pt-2 lg:pl-10 xl:pl-20 space-y-1 text-sm self-end absolute bottom-0 group">
                     <div className={`rounded-sm cursor-pointer py-6 ml-2 flex justify-start  group text-secondary1 font-medium hover:font-semibold`}>
                       <div
                         className={`flex items-center space-x-3 px-3 group-hover:border-l-2  border-primary group-hover:text-primary`}
@@ -136,13 +178,14 @@ function Sidebar(props) {
             aria-current="page"
             class="inline-flex flex-col items-center text-xs font-medium py-3 px-4 text-white flex-grow"
             onClick={() => {
-              if (!authToken) {
+              if (!token) {
                 setOpen(true)
               }
               else {
                 router.push("/dashboard")
               }
-            }}
+            }
+            }
           >
             <svg
               width="24"
@@ -166,13 +209,14 @@ function Sidebar(props) {
           <div
             class="inline-flex flex-col items-center text-xs font-medium text-blue-400 py-3 px-4 flex-grow"
             onClick={() => {
-              // if (!authToken) {
-              //   setOpen(true)
-              // }
-              // else {
-              router.push("/favorite");
-              // }
-            }}
+              if (!token) {
+                setOpen(true)
+              }
+              else {
+                router.push("/favorite");
+              }
+            }
+            }
           >
             <svg
               width="20"
@@ -216,13 +260,14 @@ function Sidebar(props) {
           <div
             class="inline-flex flex-col items-center text-xs font-medium text-blue-400 py-3 px-4 flex-grow"
             onClick={() => {
-              // if (!authToken) {
-              //   setOpen(true)
-              // }
-              // else {
-              router.push("/visitors");
-              // }
-            }}
+              if (!token) {
+                setOpen(true)
+              }
+              else {
+                router.push("/visitors");
+              }
+            }
+            }
           >
             <svg
               width="18"
@@ -248,13 +293,14 @@ function Sidebar(props) {
           <div
             class="inline-flex flex-col items-center text-xs font-medium text-blue-400 py-3 px-4 flex-grow"
             onClick={() => {
-              // if (!authToken) {
-              //   setOpen(true)
-              // }
-              // else {
-              router.push("/myprofile");
-              // }
-            }}
+              if (!token) {
+                setOpen(true)
+              }
+              else {
+                router.push("/myprofile");
+              }
+            }
+            }
           >
             <svg
               width="16"
