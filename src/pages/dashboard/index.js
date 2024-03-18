@@ -19,6 +19,7 @@ function Dashboard({ isPageLoading }) {
   const loading = useSelector((state) => state?.Auth?.loading)
 
   const [moreLessFilter, SetMoreLessFilter] = useState(false)
+  const [token, setToken] = useState(false)
   const [searchValue, setSearchValue] = useState("")
   const [values, setValues] = useState({
     gender: "",
@@ -30,8 +31,18 @@ function Dashboard({ isPageLoading }) {
     language: "",
   })
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (localStorage.authToken) {
+        setToken(localStorage.authToken);
+      }
+    }
+  }, []);
+
   const handleSearch = (searchValue, values) => {
-    get(`/user/getRecentUser?name=${searchValue}&gender=${values?.gender}&ageFrom=${values?.ageFrom}&ageTo=${values?.ageTo}&bodyType=${values?.bodyType}&country=${values?.country}&city=${values?.city}&language=${values?.language}&page=1&limit=3&sort=`, "GET_RECENT_USER", dispatch, HEADERS);
+    if (token) {
+      get(`/user/getRecentUser?name=${searchValue}&gender=${values?.gender}&ageFrom=${values?.ageFrom}&ageTo=${values?.ageTo}&bodyType=${values?.bodyType}&country=${values?.country}&city=${values?.city}&language=${values?.language}&page=1&limit=3&sort=`, "GET_RECENT_USER", dispatch, HEADERS);
+    }
   }
 
   const handleChange = (e) => {
@@ -66,16 +77,20 @@ function Dashboard({ isPageLoading }) {
   }
 
   useEffect(() => {
-    get("/country/getCountry", "GET_COUNTRY", dispatch, HEADERS);
-    get(`/language/getLanguage`, "GET_LANGUAGE", dispatch, HEADERS);
-  }, [])
+    if (token) {
+      get("/country/getCountry", "GET_COUNTRY", dispatch, HEADERS);
+      get(`/language/getLanguage`, "GET_LANGUAGE", dispatch, HEADERS);
+    }
+  }, [token])
 
   useEffect(() => {
-    searchDebounced(searchValue)
-    return () => {
-      searchDebounced.cancel();
-    };
-  }, [searchValue])
+    if (token) {
+      searchDebounced(searchValue)
+      return () => {
+        searchDebounced.cancel();
+      };
+    }
+  }, [searchValue, token])
 
   return (
     <>
