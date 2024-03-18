@@ -2,8 +2,6 @@ import React from "react";
 import Maintext from "../maintext/Maintext";
 import { useRouter } from "next/router";
 import Nav from "../navbar/Nav";
-import Secondarybutton from "../Buttons/Secondarybutton";
-import Primarybutton from "../Buttons/Primarybutton";
 import Iconbutton from "../Buttons/Iconbutton";
 import heart from "../../assets/Heart.png";
 import { Swiper, SwiperSlide } from "swiper/react";

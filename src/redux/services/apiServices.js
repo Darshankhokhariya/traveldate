@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const baseURL = "https://traveldate.onrender.com";
-// const baseURL = "http://localhost:8080"
+// const baseURL = "https://traveldate.onrender.com";
+const baseURL = "http://localhost:8080"
 
 export const post = (url, data, actionType, dispatch) => {
     return new Promise(async (resolve, reject) => {
@@ -25,7 +25,7 @@ export const post = (url, data, actionType, dispatch) => {
     });
 };
 
-export const postAuthToken = (url, data, actionType, dispatch) => {
+export const postAuthToken = (url, data, actionType, dispatch, headers) => {
     return new Promise(async (resolve, reject) => {
         try {
             dispatch({ type: `${actionType}_INIT` });
@@ -37,14 +37,16 @@ export const postAuthToken = (url, data, actionType, dispatch) => {
                 payload: response.data,
             });
             resolve(response.data);
-        } catch (error) {
+        }
+        catch (error) {
             dispatch({
                 type: `${actionType}_FAIL`,
                 payload: error,
             });
             reject(error);
         }
-    });
+    }
+    );
 };
 
 export const getNoAuth = (url, actionType, dispatch, headers) => {

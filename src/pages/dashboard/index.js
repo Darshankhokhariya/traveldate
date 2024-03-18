@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 function Dashboard({ isPageLoading }) {
   const dispatch = useDispatch()
+
   const recentUser = useSelector((state) => state?.Auth?.recentUserDetails);
   const languageData = useSelector((state) => state?.Auth?.languageList);
   const countries = useSelector((state) => state?.Auth?.countryList);
@@ -51,20 +52,6 @@ function Dashboard({ isPageLoading }) {
     handleSearch(value, values);
   }, 2000);
 
-  useEffect(() => {
-    get("/country/getCountry", "GET_COUNTRY", dispatch, HEADERS);
-    get(`/language/getLanguage`, "GET_LANGUAGE", dispatch, HEADERS);
-  }, [])
-
-  useEffect(() => {
-    searchDebounced(searchValue)
-    return () => {
-      searchDebounced.cancel();
-    };
-  }, [searchValue])
-
-
-
   const handleClearFilter = () => {
     setSearchValue("")
     setValues({
@@ -78,7 +65,17 @@ function Dashboard({ isPageLoading }) {
     })
   }
 
+  useEffect(() => {
+    get("/country/getCountry", "GET_COUNTRY", dispatch, HEADERS);
+    get(`/language/getLanguage`, "GET_LANGUAGE", dispatch, HEADERS);
+  }, [])
 
+  useEffect(() => {
+    searchDebounced(searchValue)
+    return () => {
+      searchDebounced.cancel();
+    };
+  }, [searchValue])
 
   return (
     <>
@@ -103,8 +100,7 @@ function Dashboard({ isPageLoading }) {
                   loading ?
                     <div className="-mt-52 ml-[40%]">
                       <div
-                        className="flex justify-center text-center mt-72 items-center w-12 h-12 rounded-full animate-spin
-border-4 border-solid border-red-500 border-t-transparent"
+                        className="flex justify-center text-center mt-72 items-center w-12 h-12 rounded-full animate-spin border-4 border-solid border-red-500 border-t-transparent"
                       ></div>
                     </div>
                     :
@@ -131,8 +127,6 @@ border-4 border-solid border-red-500 border-t-transparent"
       </Sidebar>
     </>
   );
-
 }
-
 
 export default Dashboard;

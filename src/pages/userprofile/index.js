@@ -25,7 +25,7 @@ function Index() {
   const userData = useSelector((state) => state?.Auth?.otherUserDetails);
   let authToken = typeof localStorage !== 'undefined' && localStorage.getItem("authToken")
 
-  console.log('userData', userData)
+  console.log('userData 1111111111111111111111111', authToken, userData)
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -46,7 +46,7 @@ function Index() {
     );
   };
 
-  const getOneProfile = () => { 
+  const getOneProfile = () => {
     getNoAuth(`/user/getOneUser?id=${router.query.id}`, "GET_OTHER_USER_PROFILE", dispatch);
   }
 
@@ -83,7 +83,7 @@ function Index() {
     }
   }, [router.query]);
 
-  
+
   return (
     <>
       <section class="bg-transparent">
