@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const baseURL = "https://traveldate.onrender.com";
-const baseURL = "http://localhost:8080"
+const baseURL = "https://traveldate.onrender.com";
+// const baseURL = "http://localhost:8080"
 
 export const post = (url, data, actionType, dispatch) => {
     return new Promise(async (resolve, reject) => {
@@ -101,7 +101,7 @@ export const put = (url, data, actionType, dispatch, headers) => {
             // Dispatch the action with INIT type
             dispatch({ type: `${actionType}_INIT` });
 
-            const response = await axios.put(`${baseURL}${url}`, data,{ headers: headers.headers } );
+            const response = await axios.put(`${baseURL}${url}`, data, { headers: headers.headers });
 
             // Dispatch the action with SUCCESS type
             dispatch({
@@ -126,7 +126,7 @@ export const deleteapi = (url, data, actionType, dispatch, headers) => {
             // Dispatch the action with INIT type
             dispatch({ type: `${actionType}_INIT` });
 
-            const response = await axios.delete(`${baseURL}${url}`, data,{ headers: headers.headers });
+            const response = await axios.delete(`${baseURL}${url}`, data, { headers: headers.headers });
 
             // Dispatch the action with SUCCESS type
             dispatch({
