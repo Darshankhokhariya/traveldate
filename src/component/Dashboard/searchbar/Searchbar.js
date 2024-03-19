@@ -65,6 +65,8 @@ function Searchbar(props) {
                 )
               }
             </div>
+          </div>
+          <div className="text-end">
             <div onClick={() => handleClearFilter()} className="hidden md:block w-full py-2 cursor-pointer rounded-xl px-4 gap-2 text-secondary bg-secondary1 bg-opacity-[7%] ">
               Clear Filter
             </div>

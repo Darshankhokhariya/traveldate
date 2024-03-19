@@ -4,6 +4,8 @@ import React from "react";
 
 function Filter(props) {
   const { values, handleChange, countries, languageData } = props
+
+  console.log('values', values?.gender)
   return (
     <>
       <div className="px-5">
@@ -18,8 +20,9 @@ function Filter(props) {
                 id="first"
                 type="radio"
                 name="gender"
-                defaultChecked={values.gender === "male"}
-                defaultValue="male"
+                checked={values?.gender === "male" ? true :  false}
+                // defaultChecked={values.gender === "male"}
+                value="male"
                 onChange={handleChange}
                 className="h-4 w-4 border-gray-300 focus:ring-2 focus:ring-blue-300"
               />
@@ -35,9 +38,10 @@ function Filter(props) {
                 id="second"
                 type="radio"
                 name="gender"
-                defaultValue="female"
-                defaultChecked={values.gender === "female"}
-                onChange={handleChange}
+                value="female"
+                checked={values?.gender === "female" || false}
+                // defaultChecked={values.gender === "female"}
+                onClick={handleChange}
                 className="h-4 w-4 border-gray-300 focus:ring-2 focus:ring-blue-300"
               />
               <label

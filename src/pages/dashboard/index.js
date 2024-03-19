@@ -22,7 +22,7 @@ function Dashboard({ isPageLoading }) {
   const [token, setToken] = useState(false)
   const [searchValue, setSearchValue] = useState("")
   const [values, setValues] = useState({
-    gender: "",
+    gender: false,
     ageFrom: "",
     ageTo: "",
     bodyType: "",
@@ -39,6 +39,8 @@ function Dashboard({ isPageLoading }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    console.log('name,target', name,value)
     setValues(prevValues => ({
       ...prevValues,
       [name]: value
@@ -49,14 +51,25 @@ function Dashboard({ isPageLoading }) {
     });
   };
 
+
+
   const searchDebounced = debounce((value) => {
     handleSearch(value, values);
   }, 2000);
 
+  function unCheckMale() {
+    var radio = document.getElementById("first");
+    if (radio) {
+        radio.checked = false;
+        console.log("Radio button unchecked successfully");
+    } else {
+        console.error("Radio button element not found");
+    }
+}
   const handleClearFilter = () => {
     setSearchValue("")
     setValues({
-      gender: "",
+      gender: false,
       ageFrom: "",
       ageTo: "",
       bodyType: "",
@@ -64,7 +77,7 @@ function Dashboard({ isPageLoading }) {
       city: "",
       language: "",
     })
-    handleSearch("", "")
+    // unCheckMale()
   }
 
   useEffect(() => {

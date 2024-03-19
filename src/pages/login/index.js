@@ -100,6 +100,7 @@ function Index() {
 
   return (
     <div>
+
       <section class="bg-transparent">
         {loading && <Loader />}
         <div

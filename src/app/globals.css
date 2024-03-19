@@ -97,7 +97,7 @@ body {
   background-size: 14px;
   /* Adjust the size of the arrow icon */
   background-repeat: no-repeat;
-  background-position: calc(100% - 20px) center;
+  background-position: calc(100% - 10px) center;
   padding-right: 35px !important;
 }
 
