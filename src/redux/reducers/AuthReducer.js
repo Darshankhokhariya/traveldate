@@ -95,7 +95,7 @@ const store = (state = initialState, action) => {
     case actionTypes.GET_RECENT_USER_SUCCESS:
       return {
         ...state,
-        recentUserDetails: action?.payload?.data,
+        recentUserDetails: action?.payload,
         loading: false
       };
     case actionTypes.GET_RECENT_USER_FAIL:

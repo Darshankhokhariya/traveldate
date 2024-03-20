@@ -10,7 +10,7 @@ import { IoLogOutOutline } from "react-icons/io5";
 import Join from "../../component/Joinmodal";
 
 function Sidebar(props) {
-  const { toggleSearch } = props;
+  const { toggleSearch,onScroll } = props;
   const [token, setToken] = useState(false);
   const dispatch = useDispatch();
   const userData = useSelector((state) => state?.Auth?.userProfile);
@@ -43,7 +43,7 @@ function Sidebar(props) {
 
   return (
     <>
-      <div className="hidden lg:flex w-full h-screen">
+      <div className="hidden lg:flex w-full">
         <div className="bg-white fixed h-screen  z-10 animate__animated animate__fadeInLeft  top-0 text-white shadow  lg:w-[20%]  px-4 ">
           <div className="space-y-3 relative h-full">
             <div className="flex-1 ">

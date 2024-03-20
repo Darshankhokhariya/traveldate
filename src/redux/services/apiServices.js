@@ -83,9 +83,9 @@ export const get = (url, actionType, dispatch, headers) => {
                 headers: headers.headers,
             });
             if (response.data.status == 401) {
-                localStorage.removeItem("authToken")
-                localStorage.removeItem("refreshToken")
-                window.location.href = "/"
+                // localStorage.removeItem("authToken")
+                // localStorage.removeItem("refreshToken")
+                // window.location.href = "/"
             }
             else {
                 // Dispatch the action with SUCCESS type

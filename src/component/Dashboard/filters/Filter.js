@@ -1,11 +1,11 @@
 import SelectTwo from "@/component/inputs/SelectTwo";
 import { filterAge, filterBodyType } from "@/constant/gender";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 function Filter(props) {
   const { values, handleChange, countries, languageData } = props
+  
 
-  console.log('values', values?.gender)
   return (
     <>
       <div className="px-5">
@@ -20,7 +20,7 @@ function Filter(props) {
                 id="first"
                 type="radio"
                 name="gender"
-                checked={values?.gender === "male" ? true :  false}
+                checked={gender === "male"}
                 // defaultChecked={values.gender === "male"}
                 value="male"
                 onChange={handleChange}
@@ -39,7 +39,7 @@ function Filter(props) {
                 type="radio"
                 name="gender"
                 value="female"
-                checked={values?.gender === "female" || false}
+                checked={gender === "female"}
                 // defaultChecked={values.gender === "female"}
                 onClick={handleChange}
                 className="h-4 w-4 border-gray-300 focus:ring-2 focus:ring-blue-300"

@@ -25,7 +25,6 @@ function Index() {
   const userData = useSelector((state) => state?.Auth?.otherUserDetails);
   let authToken = typeof localStorage !== 'undefined' && localStorage.getItem("authToken")
 
-  console.log('userData 1111111111111111111111111', authToken, userData)
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
