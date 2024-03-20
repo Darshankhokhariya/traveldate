@@ -4,24 +4,13 @@ import { useRouter } from "next/router";
 import "./sidebar.css";
 import Mobilenav from "../navbar/Mobilenav";
 import { useDispatch, useSelector } from "react-redux";
-import { get } from "@/redux/services/apiServices";
-import { HEADERS } from "@/constant/authorization";
 import { IoLogOutOutline } from "react-icons/io5";
 import Join from "../../component/Joinmodal";
 
 function Sidebar(props) {
-  const { toggleSearch,onScroll } = props;
+  const { toggleSearch } = props;
   const [token, setToken] = useState(false);
-  const dispatch = useDispatch();
   const userData = useSelector((state) => state?.Auth?.userProfile);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      if (localStorage.authToken) {
-        setToken(localStorage.authToken);
-      }
-    }
-  }, []);
 
   const handleLogout = () => {
     localStorage?.removeItem("authToken")
@@ -35,11 +24,13 @@ function Sidebar(props) {
 
   const handleClose = () => setOpen(false)
 
-  // useEffect(() => {
-  //   if (authToken) {
-  //     get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (localStorage.authToken) {
+        setToken(localStorage.authToken);
+      }
+    }
+  }, []);
 
   return (
     <>
