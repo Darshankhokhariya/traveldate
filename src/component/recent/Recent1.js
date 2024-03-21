@@ -3,18 +3,11 @@ import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 function Recent1(props) {
-  const { handleSearch, recentUser, totalPages } = props
+  const { handleSearch, recentUser, totalCount } = props
   const router = useRouter()
   return (
     <>
       <div className="container mx-auto px-2 py-2">
-        <InfiniteScroll
-          dataLength={totalPages || 0}
-          next={handleSearch}
-          hasMore={recentUser?.length <= totalPages ? true : false} // Assuming there's always more data to load
-          loader={<h4>Loading...</h4>}
-          // scrollableTarget="scrollableDiv"
-        >
           {
             recentUser && recentUser.length > 0 ? (
               <section
@@ -68,7 +61,6 @@ function Recent1(props) {
               </div>
             )
           }
-        </InfiniteScroll>
       </div>
     </>
   );
