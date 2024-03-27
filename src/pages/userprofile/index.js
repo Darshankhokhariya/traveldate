@@ -217,7 +217,7 @@ function Index() {
                     className="px-[32px] py-[16px] bg-primary  bg-opacity-[13%] text-primary rounded-full flex items-center gap-2 font-semibold"
                     style={{ whiteSpace: "nowrap" }}
                     onClick={() => {
-                      if (authToken && userData?.favourite === 0) {
+                      if (authToken && userData?.isFavourite === 0) {
                         handleAddFavouriteProfile(userData._id)
                       }
                       else {
@@ -227,7 +227,7 @@ function Index() {
                       }
                     }}
                   >
-                    {userData?.isFavourite === 0 || !authToken ? (
+                    {(userData?.isFavourite == 0 || !authToken) ? (
                       <FaRegHeart />
                     ) : (
                       <FaHeart />

@@ -1,12 +1,10 @@
 import Banner from "@/component/Dashboard/Banner/Banner";
-import Filter from "@/component/Dashboard/filters/Filter";
 import Searchbar from "@/component/Dashboard/searchbar/Searchbar";
 import Loader from "@/component/Loader/Loader";
 import Sidebar from "@/component/sidebar/Sidebar";
 import { HEADERS } from "@/constant/authorization";
 import { get } from "@/redux/services/apiServices";
 import { debounce } from "lodash";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,12 +18,11 @@ function Index({ isPageLoading }) {
   const [moreLessFilter, SetMoreLessFilter] = useState(false)
   const [searchValue, setSearchValue] = useState("")
 
-  const handleSearch = () => {
-    get(`/user/getFavourite?name=${searchValue}&page=1&limit=3&sort=`, "GET_FAVOURITE_PAGE_USER", dispatch, HEADERS);
-  }
+  const handleChangeSearch = (e) => { setSearchValue(e.target.value) }
+  const handleClearFilter = () => { setSearchValue("") }
 
-  const handleChangeSearch = (e) => {
-    setSearchValue(e.target.value)
+  const handleSearch = () => {
+    get(`/user/getFavourite?name=${searchValue}&page=1&limit=3&sort=`, "GET_FAVOURITE_PAGE_USER", dispatch, HEADERS)
   }
 
   const searchDebounced = debounce((value) => {
@@ -33,22 +30,15 @@ function Index({ isPageLoading }) {
   }, 2000);
 
   useEffect(() => {
+    get(`/user/getFavourite?name=${searchValue}&page=1&limit=3&sort=`, "GET_FAVOURITE_PAGE_USER", dispatch, HEADERS);
+  }, [])
+
+  useEffect(() => {
     searchDebounced(searchValue)
     return () => {
       searchDebounced.cancel();
     };
   }, [searchValue])
-
-  useEffect(() => {
-    get(`/user/getFavourite?name=${searchValue}&page=1&limit=3&sort=`, "GET_FAVOURITE_PAGE_USER", dispatch, HEADERS);
-  }, [])
-
-
-  const handleClearFilter = () => {
-    setSearchValue("")
-  }
-
-
 
   return (
     <>
@@ -75,15 +65,15 @@ function Index({ isPageLoading }) {
                 </div>
                 {/* {moreLessFilter && <Filter />} */}
                 <div className="container mx-auto ">
-                  {
-                    favourite && favourite?.favouriteUser?.length > 0 ? (
-                      favourite && favourite?.favouriteUser?.map((e) => {
-                        return (
-                          <>
-                            <section
-                              id="Projects"
-                              class="grid xl:grid-cols-4 md:grid-cols-3 grid-cols-2 justify-items-center justify-center gap-y-10  gap-4  mt-5 md:mt-10 mb-5"
-                            >
+                  <section
+                    id="Projects"
+                    class="grid xl:grid-cols-4 md:grid-cols-3 grid-cols-2 justify-items-center justify-center gap-y-10  gap-4  mt-5 md:mt-10 mb-5"
+                  >
+                    {
+                      favourite && favourite?.favouriteUser?.length > 0 ? (
+                        favourite && favourite?.favouriteUser?.map((e) => {
+                          return (
+                            <>
                               <div class="shadow-md rounded-xl duration-500 bg-whites relative hover:scale-105 hover:shadow-xl">
                                 <div className="cursor-pointer" onClick={() => router.push(`/userprofile?id=${e._id}`)}>
                                   <img
@@ -181,16 +171,16 @@ function Index({ isPageLoading }) {
                                   </svg>
                                 </div>
                               </div>
-                            </section >
-                          </>
-                        );
-                      })
-                    ) : (
-                      <div className="flex h-[400px] justify-center">
-                        <img className="" src="/images1/noData.png" />
-                      </div>
-                    )
-                  }
+                            </>
+                          );
+                        })
+                      ) : (
+                        <div className="flex h-[400px] justify-center">
+                          <img className="" src="/images1/noData.png" />
+                        </div>
+                      )
+                    }
+                  </section >
                 </div>
               </div>
             </>

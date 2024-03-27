@@ -1,5 +1,3 @@
-import Banner from "@/component/Dashboard/Banner/Banner";
-import Filter from "@/component/Dashboard/filters/Filter";
 import Searchbar from "@/component/Dashboard/searchbar/Searchbar";
 import Loader from "@/component/Loader/Loader";
 import Sidebar from "@/component/sidebar/Sidebar";
@@ -16,7 +14,6 @@ function Index({ isPageLoading }) {
   const dispatch = useDispatch();
   const visitor = useSelector((state) => state?.Auth?.visitorDetails);
 
-  const [viewSearch, setViewSearch] = useState(false);
   const [moreLessFilter, SetMoreLessFilter] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
@@ -33,6 +30,10 @@ function Index({ isPageLoading }) {
     setSearchValue(e.target.value);
   };
 
+  const handleClearFilter = () => {
+    setSearchValue("")
+  }
+
   const searchDebounced = debounce((value) => {
     handleSearch(value);
   }, 2000);
@@ -46,13 +47,8 @@ function Index({ isPageLoading }) {
 
   useEffect(() => {
     get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
-    // get(`/user/getVisitors?name=${searchValue}&page=1&limit=3&sort=`, "GET_VISITOR_PAGE_USER", dispatch, HEADERS);
     handleSearch();
   }, []);
-
-  const handleClearFilter = () => {
-    setSearchValue("")
-  }
 
   return (
     <>
