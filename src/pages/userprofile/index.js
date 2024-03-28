@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Iconstartbutton from "@/component/Buttons/Iconstartbutton";
 import Sidebar from "@/component/sidebar/Sidebar";
 import {
+  deleteapi,
   get,
   getNoAuth,
   post,
@@ -22,7 +23,8 @@ function Index() {
   const router = useRouter();
   const dispatch = useDispatch();
   // const userData = useSelector((state) => state?.Auth?.otherUserDetails);
-  const userData = useSelector((state) => state?.Auth?.otherUserDetails);
+  const userDatas = useSelector((state) => state?.Auth?.otherUserDetails);
+  const [userData, setUserData] = useState({})
   let authToken = typeof localStorage !== 'undefined' && localStorage.getItem("authToken")
 
 
@@ -50,12 +52,14 @@ function Index() {
   }
 
   const handleAddFavouriteProfile = (profileId) => {
+    let data = userData;
+    setUserData({ ...data, isFavourite: 1 })
     let body = [{ profile_id: profileId }];
     setLoading(true);
     postAuthToken(
       "/user/addFavourite",
       body,
-      "USER_GOOGLE_LOGIN",
+      "ADD_USER_FAVORITE",
       dispatch,
       HEADERS
     )
@@ -72,6 +76,30 @@ function Index() {
       });
   };
 
+  const handleRemoveFavouriteProfile = (profileId) => {
+    let data = userData;
+    setUserData({ ...data, isFavourite: 0 })
+    setLoading(true);
+    deleteapi(
+      `/user/removeFavourite?profile_id=${profileId}`,
+      "REMOVE_USER_FAVORITE",
+      dispatch,
+      HEADERS
+    )
+      .then((res) => {
+        if (res?.status === 201) {
+          setLoading(false);
+          getSingleProfile();
+          showToast(res?.message, { type: "success" });
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        showToast(err?.response?.data?.message, { type: "error" });
+        setLoading(false);
+      });
+  };
+
   useEffect(() => {
     if (router.query.id && router.query.page !== "Home" && authToken) {
       get(`/user/userProfile`, "GET_SINGLE_PROFILE", dispatch, HEADERS);
@@ -81,6 +109,13 @@ function Index() {
       getOneProfile();
     }
   }, [router.query]);
+
+
+  useEffect(() => {
+    if (userDatas) {
+      setUserData(userDatas)
+    }
+  }, [userDatas])
 
 
   return (
@@ -223,11 +258,13 @@ function Index() {
                       else {
                         if (!authToken) {
                           setOpen(true)
+                        } else {
+                          handleRemoveFavouriteProfile(userData._id)
                         }
                       }
                     }}
                   >
-                    {(userData?.isFavourite == 0 || !authToken) ? (
+                    {userData?.isFavourite === 0 ? (
                       <FaRegHeart />
                     ) : (
                       <FaHeart />
@@ -285,23 +322,25 @@ function Index() {
                 </svg>
                 Contact Rebecca
               </button>
-              <button className=" px-3 md:px-[32px] text-[12px]  py-[16px] bg-primary  bg-opacity-[13%] text-primary rounded-full flex items-center justify-center gap-2 w-full  font-semibold">
-                <svg
-                  width="22"
-                  height="20"
-                  viewBox="0 0 22 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M20.0665 1.90139C22.5554 4.35458 22.6409 8.26292 20.3261 10.812L10.9997 20L1.67348 10.812C-0.641235 8.26292 -0.554711 4.3484 1.93306 1.90139C3.86692 -0.000797093 6.70234 -0.475744 9.08638 0.476541L4.77737 4.71564L6.33298 6.24576L10.9998 1.6554L10.9857 1.64044C10.9908 1.64488 10.9958 1.64934 11.0009 1.65381C13.5847 -0.627532 17.5777 -0.551795 20.0665 1.90139Z"
-                    fill="#F4425A"
-                  />
-                </svg>
+              <button onClick={() => {
+                if (authToken && userData?.isFavourite === 0) {
+                  handleAddFavouriteProfile(userData._id)
+                }
+                else {
+                  if (!authToken) {
+                    setOpen(true)
+                  } else {
+                    handleRemoveFavouriteProfile(userData._id)
+                  }
+                }
+              }} className="px-3 md:px-[32px] text-[12px]  py-[16px] bg-primary  bg-opacity-[13%] text-primary rounded-full flex items-center justify-center gap-2 w-full  font-semibold">
+                {userData?.isFavourite === 0  ? (
+                  <FaRegHeart />
+                ) : (
+                  <FaHeart />
+                )}
                 Favorites
               </button>
-
-              {/* <Upgrademodal isOpen={open} onClose={handleClose} /> */}
             </div>
           </div>
         </Sidebar>

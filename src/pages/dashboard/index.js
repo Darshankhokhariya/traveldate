@@ -14,19 +14,22 @@ function Dashboard({ isPageLoading }) {
   const dispatch = useDispatch()
   const listInnerRef = useRef(null);
   const totalPages = useSelector((state) => state?.Auth?.recentUserDetails?.count)
+  const recentUser = useSelector((state) => state?.Auth?.recentUserDetails)
   const languageData = useSelector((state) => state?.Auth?.languageList);
   const countries = useSelector((state) => state?.Auth?.countryList);
   const loading = useSelector((state) => state?.Auth?.loading)
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [moreLessFilter, SetMoreLessFilter] = useState(false)
+  const [gender, setGender] = useState("");
+  const [moreLessFilter, setMoreLessFilter] = useState(false)
   const [token, setToken] = useState(false)
   const [searchValue, setSearchValue] = useState("")
   const [page, setPage] = useState(1);
-  const [userList, setUserList] = useState([]);
+
+  const toggleFilter = () => {
+    setMoreLessFilter(!moreLessFilter)
+  }
 
   const [values, setValues] = useState({
-    gender: "",
     ageFrom: "",
     ageTo: "",
     bodyType: "",
@@ -37,25 +40,19 @@ function Dashboard({ isPageLoading }) {
 
   const handleChangeSearch = (e) => { setSearchValue(e.target.value) }
 
-  const handleSearch = async (searchValue, values) => {
-    setIsLoading(true);
-    try {
-      const response = await get(`/user/getRecentUser?name=${searchValue || ""}&gender=${values?.gender || ""}&ageFrom=${values?.ageFrom || ""}&ageTo=${values?.ageTo || ""}&bodyType=${values?.bodyType || ""}&country=${values?.country || ""}&city=${values?.city || ""}&language=${values?.language || ""}&page=${page}&limit=6&sort=-1`, "GET_RECENT_USER", dispatch, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          ContentType: 'application/json'
-        }
-      })
-      setUserList((prevList) => [...prevList, ...response.data]);
-      // setPage((prevPage) => prevPage + 1);
 
-    } catch (err) {
-      return err.message
-    }
-    finally {
-      setIsLoading(false);
-    }
+  const handleSearch = (searchValue, values, gender) => {
+    setIsLoading(true);
+    get(`/user/getRecentUser?name=${searchValue || ""}&gender=${gender || ""}&ageFrom=${values?.ageFrom || ""}&ageTo=${values?.ageTo || ""}&bodyType=${values?.bodyType || ""}&country=${values?.country || ""}&city=${values?.city || ""}&language=${values?.language || ""}&page=${page}&limit=8&sort=-1`, "GET_RECENT_USER", dispatch, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        ContentType: 'application/json'
+      }
+    }).then((response) => {
+      setPage((prevPage) => prevPage + 1);
+    })
   }
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -76,7 +73,6 @@ function Dashboard({ isPageLoading }) {
   const handleClearFilter = () => {
     setSearchValue("")
     setValues({
-      gender: false,
       ageFrom: "",
       ageTo: "",
       bodyType: "",
@@ -84,33 +80,10 @@ function Dashboard({ isPageLoading }) {
       city: "",
       language: "",
     })
-    handleSearch(searchValue, values)
+    setGender("");
+    handleSearch(searchValue, values, "")
   }
-
-  const handleScroll = () => {
-    if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
-      setPage(prevPageNumber => prevPageNumber + 1);
-    }
-  };
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      if (localStorage.authToken) {
-        setToken(localStorage.authToken);
-      }
-    }
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (totalPages !== userList.length) {
-      handleSearch()
-    }
-  }, [page])
-
+  
   useEffect(() => {
     if (token) {
       get("/country/getCountry", "GET_COUNTRY", dispatch, HEADERS);
@@ -127,39 +100,60 @@ function Dashboard({ isPageLoading }) {
     }
   }, [searchValue, token])
 
+
+
+
+  function handleClick(event) {
+    if (event.target.value === gender) {
+      setGender("");
+      handleSearch(searchValue, values, event.target.value)
+    } else {
+      setGender(event.target.value);
+      handleSearch(searchValue, values, event.target.value)
+    }
+  }
+
+
+
   return (
     <>
-      <Sidebar>
+      <Sidebar toggleFilter={toggleFilter}
+        moreLessFilter={moreLessFilter}
+        page="dashboard"
+        onChange={handleChangeSearch}
+        searchValue={searchValue}
+        handleClearFilter={handleClearFilter}>
         {
           isPageLoading ?
             <Loader />
             :
             <>
-              <div className="px-5 lg:px-10 xl:px-14 md:pb-0 hidden md:block" style={{ height: 600 }} ref={listInnerRef} /* onScroll={handleScroll}  */>
-                <Banner />
-                <Searchbar
-                  SetMoreLessFilter={SetMoreLessFilter}
-                  moreLessFilter={moreLessFilter}
-                  page="dashboard"
-                  onChange={handleChangeSearch}
-                  searchValue={searchValue}
-                  handleClearFilter={handleClearFilter}
-                />
-                {moreLessFilter && <Filter languageData={languageData} countries={countries} values={values} handleChange={handleChange} />}
-                <Recent1 handleSearch={handleSearch} recentUser={userList} isPageLoading={isPageLoading} totalPages={totalPages} handleScroll={handleScroll} />
+
+              <div className="px-5 lg:px-10 xl:px-14 md:pb-0 hidden md:block"   >
+                <div>
+
+                  <Banner />
+
+                  <Searchbar
+                    toggleFilter={toggleFilter}
+                    moreLessFilter={moreLessFilter}
+                    page="dashboard"
+                    onChange={handleChangeSearch}
+                    searchValue={searchValue}
+                    handleClearFilter={handleClearFilter}
+                  />
+                  {moreLessFilter && <Filter handleClick={handleClick} gender={gender} languageData={languageData} countries={countries} values={values} handleChange={handleChange} />}
+                  <Recent1 handleSearch={handleSearch} recentUser={recentUser} isPageLoading={isPageLoading} />
+                </div>
               </div>
               <div className="md:px-14 pb-20 md:pb-0 block md:hidden">
-                {moreLessFilter && <Filter languageData={languageData} countries={countries} values={values} handleChange={handleChange} />}
-                {
-                  loading ?
-                    <div className="-mt-52 ml-[40%]">
-                      <div
-                        className="flex justify-center text-center mt-72 items-center w-12 h-12 rounded-full animate-spin border-4 border-solid border-red-500 border-t-transparent"
-                      ></div>
-                    </div>
-                    :
-                    <Recent1 handleSearch={handleSearch} recentUser={userList} totalPages={totalPages} />
-                }
+                <div>
+
+                  {/* {viewSearch && <Searchbar SetMoreLessFilter={SetMoreLessFilter} moreLessFilter={moreLessFilter} />} */}
+                  {moreLessFilter && <Filter handleClick={handleClick} gender={gender} languageData={languageData} countries={countries} values={values} handleChange={handleChange} />}
+
+                  <Recent1 handleSearch={handleSearch} recentUser={recentUser} />
+                </div>
               </div>
             </>
         }

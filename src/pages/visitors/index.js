@@ -9,7 +9,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 function Index({ isPageLoading }) {
-  const router = useRouter();
 
   const dispatch = useDispatch();
   const visitor = useSelector((state) => state?.Auth?.visitorDetails);
@@ -52,7 +51,7 @@ function Index({ isPageLoading }) {
 
   return (
     <>
-      <Sidebar>
+      <Sidebar searchValue={searchValue} onChange={handleChangeSearch} handleClearFilter={handleClearFilter} >
         {
           isPageLoading ?
             <Loader />
@@ -71,10 +70,10 @@ function Index({ isPageLoading }) {
                     handleClearFilter={handleClearFilter}
                   />
                 </div>
-                <div className=" mx-auto md:px-3">
-                  <div className="grid grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2">
-                    {visitor && visitor.length > 0 ? (
-                      visitor.map((e, index) => (
+                <div className="mx-auto md:px-3">
+                  {visitor && visitor.length > 0 ?
+                    <div className="grid grid-cols-2 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2">
+                      {visitor.map((e, index) => (
                         <>
                           <section
                             key={index}
@@ -89,7 +88,7 @@ function Index({ isPageLoading }) {
                                     : "/images1/models/model2.png"
                                 }
                                 alt="Product"
-                                className=" aspect-square w-[250px] md:h-[250px]  object-cover rounded-t-2xl"
+                                className="w-[250px] md:h-[250px]  object-cover rounded-t-2xl"
                               />
                               <div className="px-1 sm:px-4 md:px-4 py-3 w-auto">
                                 <div className="flex items-start w-full">
@@ -337,13 +336,13 @@ function Index({ isPageLoading }) {
                             </div>
                           </section>
                         </>
-                      ))
-                    ) : (
-                      <div className="w-full flex h-[400px] justify-center">
-                        <img className="" src="/images1/noData.png" />
-                      </div>
-                    )}
-                  </div>
+                      ))}
+                    </div>
+                    :
+                    <div className="w-full flex h-[400px] justify-center">
+                      <img className="" src="/images1/noData.png" />
+                    </div>
+                  }
                 </div>
               </div>
             </>

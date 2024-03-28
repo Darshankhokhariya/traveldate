@@ -1,10 +1,11 @@
 import SelectTwo from "@/component/inputs/SelectTwo";
 import { filterAge, filterBodyType } from "@/constant/gender";
+import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 function Filter(props) {
-  const { values, handleChange, countries, languageData } = props
-  
+  const { handleClick, values, gender, handleChange, countries, languageData } = props
+
 
   return (
     <>
@@ -14,45 +15,28 @@ function Filter(props) {
             What are you looking for?
           </h1>
 
-          <div className="flex items-center  gap-5 py-8 md:py-10">
-            <div className="flex items-center">
-              <input
-                id="first"
-                type="radio"
-                name="gender"
-                checked={gender === "male"}
-                // defaultChecked={values.gender === "male"}
-                value="male"
-                onChange={handleChange}
-                className="h-4 w-4 border-gray-300 focus:ring-2 focus:ring-blue-300"
-              />
-              <label
-                htmlFor="first"
-                className="text-sm font-medium text-secondary1 ml-2 block"
+          <div className="flex items-center  gap-5 py-8 md:py-10" style={{ display: 'flex' }}>
+            <FormControl component="fieldset" style={{ display: 'flex' }} >
+              <RadioGroup
+                aria-label="gender"
+                name="gender1"
+                value={gender}
+                sx={{ display: 'flex' }}
+                style={{ display: "flex" }}
+                row
               >
-                Male
-              </label>
-            </div>
-            <div className="flex items-center">
-              <input
-                id="second"
-                type="radio"
-                name="gender"
-                value="female"
-                checked={gender === "female"}
-                // defaultChecked={values.gender === "female"}
-                onClick={handleChange}
-                className="h-4 w-4 border-gray-300 focus:ring-2 focus:ring-blue-300"
-              />
-              <label
-                htmlFor="second"
-                className="text-sm font-medium text-secondary1 ml-2 block"
-              >
-                Female
-              </label>
-            </div>
-            
-            
+                <FormControlLabel
+                  value="male"
+                  control={<Radio onClick={handleClick} />}
+                  label="Male"
+                />
+                <FormControlLabel
+                  value="female"
+                  control={<Radio onClick={handleClick} />}
+                  label="Female"
+                />
+              </RadioGroup>
+            </FormControl>
           </div>
 
           <div className="hidden md:block">

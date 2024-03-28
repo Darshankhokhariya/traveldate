@@ -3,8 +3,8 @@ import { gender } from "@/constant/gender";
 import React from "react";
 
 function Searchbar(props) {
-  const { onChange, searchValue, handleClearFilter } = props
-  // const { searchValue } = props.values
+  const { onChange, searchValue, toggleFilter, handleClearFilter, page } = props
+
   return (
     <>
       {" "}
@@ -40,10 +40,10 @@ function Searchbar(props) {
                 />
               </div>
             </div>
-            <div className="hidden md:block">
+            <div className="">
               {
-                props.page === "dashboard" ? (
-                  <button className="flex items-center py-2 rounded-xl px-4 gap-2 text-secondary bg-secondary1 bg-opacity-[7%]" onClick={() => { props?.SetMoreLessFilter(!props?.moreLessFilter) }}>
+                page === "dashboard" ? (
+                  <button className="flex items-center py-2 rounded-xl px-4 gap-2 text-secondary bg-secondary1 bg-opacity-[7%]" onClick={() => toggleFilter()}>
                     <svg
                       width="12"
                       height="10"
@@ -66,9 +66,9 @@ function Searchbar(props) {
               }
             </div>
           </div>
-          <div className="text-end">
-            <div onClick={() => handleClearFilter()} className="hidden md:block w-full py-2 cursor-pointer rounded-xl px-4 gap-2 text-secondary bg-secondary1 bg-opacity-[7%] ">
-              Clear Filter
+          <div className="text-end" >
+            <div onClick={() => handleClearFilter()} className="ml-[10px] w-full py-2 cursor-pointer rounded-xl px-4 gap-2 text-secondary bg-secondary1 bg-opacity-[7%] ">
+              Clear
             </div>
           </div>
           {

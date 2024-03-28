@@ -135,12 +135,12 @@ export const put = (url, data, actionType, dispatch, headers) => {
     });
 };
 
-export const deleteapi = (url, data, actionType, dispatch, headers) => {
+export const deleteapi = (url, actionType, dispatch, headers) => {
     return new Promise(async (resolve, reject) => {
         try {
             // Dispatch the action with INIT type
             dispatch({ type: `${actionType}_INIT` });
-            const response = await axios.delete(`${baseURL}${url}`, data, { headers: headers.headers });
+            const response = await axios.delete(`${baseURL}${url}`,{ headers: headers.headers });
             if (response.data.status == 401) {
                 localStorage.removeItem("authToken")
                 localStorage.removeItem("refreshToken")

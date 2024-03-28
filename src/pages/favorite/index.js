@@ -42,7 +42,7 @@ function Index({ isPageLoading }) {
 
   return (
     <>
-      <Sidebar>
+      <Sidebar searchValue={searchValue} onChange={handleChangeSearch} handleClearFilter={handleClearFilter}  >
         {
           isPageLoading ?
             <Loader />
@@ -65,13 +65,13 @@ function Index({ isPageLoading }) {
                 </div>
                 {/* {moreLessFilter && <Filter />} */}
                 <div className="container mx-auto ">
-                  <section
-                    id="Projects"
-                    class="grid xl:grid-cols-4 md:grid-cols-3 grid-cols-2 justify-items-center justify-center gap-y-10  gap-4  mt-5 md:mt-10 mb-5"
-                  >
-                    {
-                      favourite && favourite?.favouriteUser?.length > 0 ? (
-                        favourite && favourite?.favouriteUser?.map((e) => {
+                  {
+                    favourite && favourite?.favouriteUser?.length > 0 ?
+                      <section
+                        id="Projects"
+                        class="grid xl:grid-cols-4 md:grid-cols-3 grid-cols-2 justify-items-center justify-center gap-y-10  gap-4  mt-5 md:mt-10 mb-5"
+                      >
+                        {favourite && favourite?.favouriteUser?.map((e) => {
                           return (
                             <>
                               <div class="shadow-md rounded-xl duration-500 bg-whites relative hover:scale-105 hover:shadow-xl">
@@ -173,14 +173,15 @@ function Index({ isPageLoading }) {
                               </div>
                             </>
                           );
-                        })
-                      ) : (
+                        })}
+                      </section >
+                      :
+                      <>
                         <div className="flex h-[400px] justify-center">
                           <img className="" src="/images1/noData.png" />
                         </div>
-                      )
-                    }
-                  </section >
+                      </>
+                  }
                 </div>
               </div>
             </>
