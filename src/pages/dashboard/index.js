@@ -29,6 +29,11 @@ function Dashboard({ isPageLoading }) {
     setMoreLessFilter(!moreLessFilter)
   }
 
+  useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+    setToken(authToken)
+  }, []);
+
   const [values, setValues] = useState({
     ageFrom: "",
     ageTo: "",
@@ -98,6 +103,12 @@ function Dashboard({ isPageLoading }) {
       };
     }
   }, [searchValue, token])
+
+
+  useEffect(() => {
+    handleSearch();
+  }, [])
+  
 
 
 
