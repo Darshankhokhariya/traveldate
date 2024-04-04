@@ -42,7 +42,6 @@ function Dashboard({ isPageLoading }) {
 
 
   const handleSearch = (searchValue, values, gender) => {
-    setIsLoading(true);
     get(`/user/getRecentUser?name=${searchValue || ""}&gender=${gender || ""}&ageFrom=${values?.ageFrom || ""}&ageTo=${values?.ageTo || ""}&bodyType=${values?.bodyType || ""}&country=${values?.country || ""}&city=${values?.city || ""}&language=${values?.language || ""}&page=${page}&limit=8&sort=-1`, "GET_RECENT_USER", dispatch, {
       headers: {
         Authorization: `Bearer ${token}`,

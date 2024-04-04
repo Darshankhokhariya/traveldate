@@ -386,7 +386,10 @@ function UserProfile({ userData }) {
                   disablePortal
                   className="block w-full bg-[#ffffff] hover:border-[#e6e6e6] border border-[#e6e6e6] rounded-lg"
                   options={bodyTypes}
-                  onChange={formik.handleChange}
+                  // onChange={formik.handleChange}
+                  onChange={(event, value) =>
+                    formik.setFieldValue("bodyType", value ? value : null)
+                  }
                   value={formik.values.bodyType}
                   sx={{
                     "& .MuiOutlinedInput-root": {
