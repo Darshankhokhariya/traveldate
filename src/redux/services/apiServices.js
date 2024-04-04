@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "https://traveldate.onrender.com";
+const baseURL = "http://3.111.218.252:8080";
 // const baseURL = "http://localhost:8080"
 
 export const post = (url, data, actionType, dispatch) => {
